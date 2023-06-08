@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moody_morning/screens/minutes.dart';
 import 'package:moody_morning/screens/tile.dart';
 
 class SetAlarm extends StatefulWidget {
@@ -20,9 +21,11 @@ class _SetAlarmState extends State<SetAlarm> {
         ),
         body: Center(
           child: ListWheelScrollView.useDelegate(
-            itemExtent: 50,
+            itemExtent: 60,
+            physics: FixedExtentScrollPhysics(),
             childDelegate: ListWheelChildBuilderDelegate(
-                childCount: 10, builder: (context, index) => MyTile()),
+                childCount: 60,
+                builder: (context, index) => MyMinutes(minutes: index)),
           ),
         ));
   }
