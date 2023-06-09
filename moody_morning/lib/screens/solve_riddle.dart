@@ -70,17 +70,17 @@ class _SlidePuzzleBoardState extends State<SolveRiddle> {
         },
       ),
         floatingActionButton: ElevatedButton(
-  style: ElevatedButton.styleFrom(
-    primary: Color(0xFF8F8BBF),
-  ),
-  onPressed: () => print("hej"),
-  child: FloatingActionButton(
-    onPressed: null, // Set this to null since onPressed is handled by ElevatedButton
-    child: Text("Restart"),
-    backgroundColor: Colors.transparent,
-    elevation: 0.0,
-  ),
-),
-    );
-  }
-}
+          style: ElevatedButton.styleFrom(
+            primary: Color(0xFF8F8BBF),
+            ),
+            onPressed: () => print("hej"),
+            child: FloatingActionButton(
+              onPressed: null, // Set this to null since onPressed is handled by ElevatedButton
+              child: Text("Restart"),
+              backgroundColor: Colors.transparent,
+              elevation: 0.0,
+              ),
+            ),
+          );
+         }
+        }
