@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moody_morning/widgets/scroll_wheel.dart';
+import 'package:moody_morning/widgets/logo_app_bar.dart';
 
 class SetAlarm extends StatefulWidget {
   const SetAlarm({super.key});
@@ -18,11 +19,7 @@ class _SetAlarmState extends State<SetAlarm> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.purple.shade700,
-      appBar: AppBar(
-        title: Image.asset('assets/images/logoFull.png'),
-        centerTitle: true,
-        backgroundColor: Colors.purple.shade800,
-      ),
+      appBar: LogoAppBar(),
       body: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         hours,
         const Center(
