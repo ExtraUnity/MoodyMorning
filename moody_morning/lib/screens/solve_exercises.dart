@@ -4,11 +4,11 @@ class solveExercises extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.purple.shade700,
+      backgroundColor: Color(0xFF423E72),
       appBar: AppBar(
         title: Image.asset('assets/images/logoFull.png'),
         centerTitle: true,
-        backgroundColor: Colors.purple.shade800,
+        backgroundColor: Color(0xFF423E72),
       ),
     );
   }
