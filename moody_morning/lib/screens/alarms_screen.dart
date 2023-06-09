@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
-import 'package:provider/provider.dart';
+
 
 class AlarmScreen extends StatelessWidget {
   @override
