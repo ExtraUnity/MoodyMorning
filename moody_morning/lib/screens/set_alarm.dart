@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moody_morning/screens/minutes.dart';
 import 'package:moody_morning/screens/tile.dart';
 import 'package:moody_morning/screens/hours.dart';
+import 'package:moody_morning/widgets/scroll_wheel.dart';
 import 'package:moody_morning/system/scroll_wheel_functions.dart';
 
 class SetAlarm extends StatefulWidget {
@@ -21,32 +22,15 @@ class _SetAlarmState extends State<SetAlarm> {
           centerTitle: true,
           backgroundColor: Colors.purple.shade800,
         ),
-        body: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Container(
-              width: 70,
-              child: ListWheelScrollView.useDelegate(
-                  itemExtent: 50,
-                  perspective: 0.01,
-                  diameterRatio: 2.0,
-                  physics: FixedExtentScrollPhysics(),
-                  childDelegate: ListWheelChildLoopingListDelegate(
-                      children: getScrollWheelHours()))),
-          const Center(
+        body: const Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          ScrollWheel(numberOfElements: 24),
+          Center(
               child: Text(
             ':',
             style: TextStyle(
                 fontSize: 40, color: Colors.white, fontWeight: FontWeight.bold),
           )),
-          Container(
-              width: 70,
-              child: ListWheelScrollView.useDelegate(
-                itemExtent: 50,
-                perspective: 0.01,
-                diameterRatio: 2.0,
-                physics: FixedExtentScrollPhysics(),
-                childDelegate: ListWheelChildLoopingListDelegate(
-                    children: getScrollWheelMinutes()),
-              )),
+          ScrollWheel(numberOfElements: 60),
         ]));
   }
 }
