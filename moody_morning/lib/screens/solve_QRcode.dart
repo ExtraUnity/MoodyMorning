@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class solve_equation extends StatelessWidget {
+class solveQRcode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
