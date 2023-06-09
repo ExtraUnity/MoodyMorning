@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
-
 import '../widgets/logo_app_bar.dart';
 
 class SolveRiddle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      backgroundColor: Color(0xFF423E72),
-      appBar: LogoAppBar(),
       title: 'Slide Puzzle',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
       ),
       home: SlidePuzzleBoard(),
     );
   }
 }
+
 
 class SlidePuzzleBoard extends StatefulWidget {
   @override
@@ -28,8 +26,8 @@ class _SlidePuzzleBoardState extends State<SlidePuzzleBoard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Slide Puzzle'),
+      backgroundColor: Color(0xFF423E72),
+      appBar: LogoAppBar(
       ),
       body: GridView.builder(
         itemCount: tiles.length,
