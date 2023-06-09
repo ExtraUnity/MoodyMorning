@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:moody_morning/system/scroll_wheel_functions.dart';
-import 'package:moody_morning/screens/set_alarm.dart';
 
 class ScrollWheel extends StatefulWidget {
   final int numberOfElements;
