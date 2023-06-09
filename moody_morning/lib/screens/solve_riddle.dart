@@ -6,7 +6,7 @@ class SolveRiddle extends StatefulWidget {
   _SlidePuzzleBoardState createState() => _SlidePuzzleBoardState();
 }
 
-class _SlidePuzzleBoardState extends State<SlidePuzzleBoard> {
+class _SlidePuzzleBoardState extends State<SolveRiddle> {
   final List<int> tiles = List.generate(16, (index) => index); // Create a list of tile numbers
 
   @override
