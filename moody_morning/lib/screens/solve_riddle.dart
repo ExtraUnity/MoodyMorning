@@ -1,19 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/logo_app_bar.dart';
 
-class SolveRiddle extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-      ),
-      home: SlidePuzzleBoard(),
-    );
-  }
-}
-
-
-class SlidePuzzleBoard extends StatefulWidget {
+class SolveRiddle extends StatefulWidget {
   @override
   _SlidePuzzleBoardState createState() => _SlidePuzzleBoardState();
 }
