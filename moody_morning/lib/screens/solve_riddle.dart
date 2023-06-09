@@ -8,6 +8,9 @@ class SolveRiddle extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xFF423E72),
       appBar: LogoAppBar(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => print("hej"),
+      )
     );
   }
 }
