@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
 
-class solveQRcode extends StatelessWidget {
+class SolveQRcode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
