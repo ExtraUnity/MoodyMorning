@@ -23,9 +23,8 @@ class _SlidePuzzleBoardState extends State<SolveRiddle> {
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
-              // Handle tile click
               if (tiles[index] == 15) {
-                // Empty tile was clicked, do nothing
+                // if Empty tile was clicked, do nothing
                 return;
               }
               if (index % 4 != 3 && tiles[index + 1] == 15) {
@@ -70,6 +69,18 @@ class _SlidePuzzleBoardState extends State<SolveRiddle> {
           );
         },
       ),
+        floatingActionButton: ElevatedButton(
+  style: ElevatedButton.styleFrom(
+    primary: Color(0xFF8F8BBF),
+  ),
+  onPressed: () => print("hej"),
+  child: FloatingActionButton(
+    onPressed: null, // Set this to null since onPressed is handled by ElevatedButton
+    child: Text("Restart"),
+    backgroundColor: Colors.transparent,
+    elevation: 0.0,
+  ),
+),
     );
   }
 }
