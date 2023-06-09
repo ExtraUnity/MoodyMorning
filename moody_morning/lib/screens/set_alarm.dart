@@ -10,15 +10,26 @@ class SetAlarm extends StatefulWidget {
 }
 
 class _SetAlarmState extends State<SetAlarm> {
-  ScrollWheel hours = const ScrollWheel(numberOfElements: 24);
-  ScrollWheel minutes = const ScrollWheel(numberOfElements: 60);
   int selectedHour = 0;
-  int selectedMinute = 0;
+  int selectedMinutes = 0;
+  late ScrollWheel hours;
+  late ScrollWheel minutes;
+
+  _SetAlarmState() {
+    hours = ScrollWheel(
+      numberOfElements: 24,
+      onNumberSelected: (hour) => selectedHour = hour,
+    );
+    minutes = ScrollWheel(
+      numberOfElements: 60,
+      onNumberSelected: (minutes) => selectedMinutes = minutes,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.purple.shade700,
+      backgroundColor: Color(0xFF423E72),
       appBar: LogoAppBar(),
       body: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         hours,
@@ -30,6 +41,9 @@ class _SetAlarmState extends State<SetAlarm> {
         )),
         minutes,
       ]),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => print("Alarm set to: $selectedHour:$selectedMinutes"),
+      ),
     );
   }
 }
