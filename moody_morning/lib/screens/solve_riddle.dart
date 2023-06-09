@@ -76,7 +76,7 @@ class _SlidePuzzleBoardState extends State<SolveRiddle> {
             onPressed: () => print("hej"),
             child: FloatingActionButton(
               onPressed: null, // Set this to null since onPressed is handled by ElevatedButton
-              child: Text("Restart"),
+              child: Text("Reset"),
               backgroundColor: Colors.transparent,
               elevation: 0.0,
               ),
