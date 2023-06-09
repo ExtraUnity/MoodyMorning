@@ -38,21 +38,21 @@ List<Widget> numButtonList() {
       onPressed: () {
         print("0");
       },
-      child: Text("0"),
+      child: const Text("0"),
       numValue: 0);
 
   NumButton buttonBack = NumButton(
       onPressed: () {
         print("pressed Back...");
       },
-      child: Text("Back"),
+      child: const Text("Back"),
       numValue: 10);
 
   NumButton buttonEnter = NumButton(
       onPressed: () {
         print("pressed Enter...");
       },
-      child: Text("Enter"),
+      child: const Text("Enter"),
       numValue: 12);
 
   completeButtonList.addAll([buttonBack, button0, buttonEnter]);
