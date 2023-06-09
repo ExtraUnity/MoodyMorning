@@ -70,11 +70,14 @@ class _SlidePuzzleBoardState extends State<SlidePuzzleBoard> {
             },
             child: Container(
               margin: EdgeInsets.all(2),
-              color: tiles[index] != 15 ? Colors.blue : Colors.white, // Set tile color
+              color: tiles[index] != 15 ? Color(0xFF8F8BBF) : Colors.white, // Set tile color
               child: Center(
                 child: Text(
                   tiles[index] != 15 ? tiles[index].toString() : '', // Display tile number
-                  style: TextStyle(fontSize: 24),
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: Colors.white,
+                    ),
                 ),
               ),
             ),
@@ -84,4 +87,3 @@ class _SlidePuzzleBoardState extends State<SlidePuzzleBoard> {
     );
   }
 }
-
