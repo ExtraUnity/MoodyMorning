@@ -5,7 +5,6 @@ class SolveRiddle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Slide Puzzle',
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
@@ -32,7 +31,7 @@ class _SlidePuzzleBoardState extends State<SlidePuzzleBoard> {
       body: GridView.builder(
         itemCount: tiles.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4, // Number of columns
+          crossAxisCount: 4, 
         ),
         itemBuilder: (context, index) {
           return GestureDetector(
