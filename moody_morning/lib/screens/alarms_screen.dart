@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
-import 'package:provider/provider.dart';
+//import 'package:provider/provider.dart';
 
 class AlarmScreen extends StatelessWidget {
   @override
@@ -15,7 +15,7 @@ class AlarmScreen extends StatelessWidget {
       appBar: LogoAppBar(),
       body: ListView(
         children: [
-          for(int i = 0; i < currentAlarms.alarms.length; i++) 
+          for (int i = 0; i < currentAlarms.alarms.length; i++)
             Alarm(alarm: currentAlarms.alarms[i], numb: i),
         ],
       ),
@@ -37,14 +37,20 @@ class Alarm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: Colors.white,
-      child: Row(children: [
-        Padding(
-          padding: const EdgeInsets.all(10),
-          child: Text(alarm.hours.toString() + " : " + alarm.minutes.toString(), textScaleFactor: 2,),
-        ),
-        SizedBox(width: 200,),
-        OnOff(numb: numb),
-      ],
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Text(
+              alarm.hours.toString() + " : " + alarm.minutes.toString(),
+              textScaleFactor: 2,
+            ),
+          ),
+          SizedBox(
+            width: 200,
+          ),
+          OnOff(numb: numb),
+        ],
       ),
     );
   }
@@ -61,12 +67,13 @@ class _MyWidgetState extends State<OnOff> {
   bool light = false;
   @override
   Widget build(BuildContext context) {
-    return Switch(value: light, 
-    onChanged: (bool value) {
-       setState(() {
-          light = value;
+    return Switch(
+        value: light,
+        onChanged: (bool value) {
+          setState(() {
+            light = value;
+          });
+          print(widget.numb);
         });
-        print(widget.numb);
-    });
   }
 }
