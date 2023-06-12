@@ -50,6 +50,7 @@ class _MainScreenState extends State<MainScreen> {
     super.dispose();
   }
 
+class SolveQRcode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if(cameraController.value.isInitialized){

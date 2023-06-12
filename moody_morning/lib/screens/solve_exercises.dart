@@ -5,8 +5,6 @@ import 'package:moody_morning/widgets/logo_app_bar.dart';
 import 'package:moody_morning/system/accelerometer_functions.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 class exerciseAlarm extends StatefulWidget {
-  
-
   @override
   _solveExercises createState() => _solveExercises();
 }
