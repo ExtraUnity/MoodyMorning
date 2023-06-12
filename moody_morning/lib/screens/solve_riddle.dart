@@ -8,7 +8,6 @@ class SolveRiddle extends StatefulWidget {
 
 class _SlidePuzzleBoardState extends State<SolveRiddle> {
   final List<int> tiles = List.generate(16, (index) => index); // Create a list of tile numbers
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
