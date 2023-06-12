@@ -34,9 +34,9 @@ class _SetAlarmState extends State<SetAlarm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF423E72),
+      backgroundColor: const Color(0xFF423E72),
       appBar: LogoAppBar(),
-      bottomNavigationBar: Navigation(),
+      bottomNavigationBar: const Navigation(),
       body: Column(children: [
         const SizedBox(height: 50),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
