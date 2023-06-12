@@ -13,12 +13,16 @@ class exerciseAlarm extends StatefulWidget {
 
 
 class _solveExercises extends State<exerciseAlarm> {
- final Stream<AccelerometerEvent> _stream
-  AccelerometerEvent? _accelerometerValues;
+  UserAccelerometerEvent? eve;
   @override
   void initState(){
+    userAccelerometerEvents.listen((UserAccelerometerEvent event) {
+      setState(() {
+        eve = event;
+      });
+     });
     super.initState();
-    _stream.listen(AccelerometerEvent event)
+    
 
 
 
@@ -37,14 +41,13 @@ Widget build(BuildContext context) {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text('X: '),
-              Text('Y: '),
-              Text('Z: '),
+              Text('X: ${eve?.x.toStringAsFixed(3)} '),
+              Text('Y: ${eve?.y.toStringAsFixed(3)}'),
+              Text('Z: ${eve?.z.toStringAsFixed(3)}'),
             ],
           ),
         ),
       ),
     );
   }
-}
 }
