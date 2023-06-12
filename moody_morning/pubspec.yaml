@@ -7,10 +7,11 @@ environment:
   sdk: '>=3.0.2 <4.0.0'
 
 dependencies:
+  camera: ^0.10.5+2
   flutter:
     sdk: flutter
-  
-  provider: ^6.0.0
+  sensors_plus: ^3.0.2
+  qr_code_scanner: ^1.0.1
 
 dev_dependencies:
   flutter_test:

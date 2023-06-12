@@ -46,6 +46,7 @@ class _SetAlarmState extends State<SetAlarm> {
       ]),
       floatingActionButton: FloatingActionButton(
         onPressed: () => print("Alarm set to: $selectedHour:$selectedMinutes"),
+        backgroundColor: Color(0xFF8F8BBF),
       ),
     );
   }

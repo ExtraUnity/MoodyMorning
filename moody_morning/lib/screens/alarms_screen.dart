@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
+
 import 'package:provider/provider.dart';
 import '../widgets/navigation_bar.dart';
 
@@ -64,10 +65,13 @@ class _MyWidgetState extends State<OnOff> {
   bool light = false;
   @override
   Widget build(BuildContext context) {
-    return Switch(value: light, 
-    onChanged: (bool value) {
-       setState(() {
-          light = value;
+    return Switch(
+        value: light,
+        onChanged: (bool value) {
+          setState(() {
+            light = value;
+          });
+          print(widget.numb);
         });
         print(widget.alarmNumb);
     });
