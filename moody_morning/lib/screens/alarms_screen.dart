@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
 
+import 'package:provider/provider.dart';
+import '../widgets/navigation_bar.dart';
+
 class AlarmScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -12,10 +15,11 @@ class AlarmScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.purple.shade700,
       appBar: LogoAppBar(),
+      bottomNavigationBar: Navigation(),
       body: ListView(
         children: [
-          for (int i = 0; i < currentAlarms.alarms.length; i++)
-            Alarm(alarm: currentAlarms.alarms[i], numb: i),
+          for(int i = 0; i < currentAlarms.alarms.length; i++) 
+            Alarm(alarm: currentAlarms.alarms[i], alarmNumb: i),
         ],
       ),
     );
@@ -26,38 +30,33 @@ class Alarm extends StatelessWidget {
   const Alarm({
     super.key,
     required this.alarm,
-    required this.numb,
+    required this.alarmNumb,
   });
 
   final Timer alarm;
-  final int numb;
+  final int alarmNumb;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       color: Colors.white,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Text(
-              alarm.hours.toString() + " : " + alarm.minutes.toString(),
-              textScaleFactor: 2,
-            ),
-          ),
-          SizedBox(
-            width: 200,
-          ),
-          OnOff(numb: numb),
-        ],
+        Padding(
+          padding: const EdgeInsets.all(10),
+          child: Text("${alarm.hours} : ${alarm.minutes}", textScaleFactor: 2,),
+        ),
+        OnOff(alarmNumb: alarmNumb),
+      ],
       ),
     );
   }
 }
 
 class OnOff extends StatefulWidget {
-  const OnOff({super.key, required this.numb});
-  final int numb;
+  const OnOff({super.key, required this.alarmNumb});
+  final int alarmNumb;
   @override
   State<OnOff> createState() => _MyWidgetState();
 }
@@ -74,5 +73,7 @@ class _MyWidgetState extends State<OnOff> {
           });
           print(widget.numb);
         });
+        print(widget.alarmNumb);
+    });
   }
 }
