@@ -52,7 +52,8 @@ class _SetAlarmState extends State<SetAlarm> {
             ..sort((a, b) => b.id.compareTo(a.id)); //get highest id
 
           final alarmSettings = AlarmSettings(
-            id: sortedAlarms.elementAt(0).id + 1,
+            //create alarm settings
+            id: sortedAlarms.isNotEmpty ? sortedAlarms.elementAt(0).id + 1 : 0,
             dateTime: DateTime.now().add(Duration(
                 hours: hourDifference,
                 minutes: minuteDifference,
