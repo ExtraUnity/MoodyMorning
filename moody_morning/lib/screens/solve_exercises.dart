@@ -4,13 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
 import 'package:moody_morning/system/accelerometer_functions.dart';
 import 'package:sensors_plus/sensors_plus.dart';
-class exerciseAlarm extends StatefulWidget {
+
+
+  
+
+class SolveExercises extends StatefulWidget {
+  const SolveExercises({super.key});
+
   @override
-  _solveExercises createState() => _solveExercises();
+  State<SolveExercises> createState() => _SolveExercisesState();
 }
 
-
-class _solveExercises extends State<exerciseAlarm> {
+class _SolveExercisesState extends State<SolveExercises> {
   UserAccelerometerEvent? eve;
   @override
   void initState(){
@@ -20,14 +25,8 @@ class _solveExercises extends State<exerciseAlarm> {
       });
      });
     super.initState();
-    
-
-
-
     }
   
-
-class SolveExercises extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
