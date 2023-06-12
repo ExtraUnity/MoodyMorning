@@ -4,6 +4,8 @@ import 'package:moody_morning/widgets/logo_app_bar.dart';
 import 'package:moody_morning/system/alarm_callback.dart';
 import 'package:alarm/alarm.dart';
 
+import '../widgets/navigation_bar.dart';
+
 class SetAlarm extends StatefulWidget {
   const SetAlarm({super.key});
 
@@ -33,6 +35,7 @@ class _SetAlarmState extends State<SetAlarm> {
     return Scaffold(
       backgroundColor: Color(0xFF423E72),
       appBar: LogoAppBar(),
+      bottomNavigationBar: Navigation(),
       body: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         hours,
         const Center(
