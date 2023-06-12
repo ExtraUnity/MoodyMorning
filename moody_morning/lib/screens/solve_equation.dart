@@ -9,7 +9,7 @@ class solveEquation extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xFF423E72),
       appBar: LogoAppBar(), //AppBar
-      body: NumPad(),
+      body: const NumPad(),
     );
   }
 }
