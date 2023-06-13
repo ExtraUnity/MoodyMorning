@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'dart:collection';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
+
 class MyHomePageState extends StatelessWidget {
   MobileScannerController cameraController = MobileScannerController();
   bool _screenOpened = false;
