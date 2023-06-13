@@ -14,6 +14,13 @@ void main() async {
       routes: {
         '/': (context) => AlarmScreen(),
         '/setAlarm': (context) => SetAlarm(),
+        '/equationSettings': (context) =>
+            AlarmScreen(), //TODO: Change to equation settings
+        '/exerciseSettings': (context) =>
+            AlarmScreen(), //TODO: Change to exercise settings
+        '/QRSettings': (context) => AlarmScreen(), //TODO: Change to QR settings
+        '/gameSettings': (context) =>
+            AlarmScreen(), //TODO: Change to game settings
       }));
   await Alarm.init();
 }

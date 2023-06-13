@@ -53,10 +53,26 @@ class _SetAlarmState extends State<SetAlarm> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            ChallengeIconButton(icon: const Icon(Icons.calculate)),
-            ChallengeIconButton(icon: const Icon(Icons.fitness_center)),
-            ChallengeIconButton(icon: const Icon(Icons.qr_code_2)),
-            ChallengeIconButton(icon: const Icon(Icons.videogame_asset)),
+            ChallengeIconButton(
+              icon: const Icon(Icons.calculate),
+              path: '/equationSettings',
+              context: context,
+            ),
+            ChallengeIconButton(
+              icon: const Icon(Icons.fitness_center),
+              path: '/exerciseSettings',
+              context: context,
+            ),
+            ChallengeIconButton(
+              icon: const Icon(Icons.qr_code_2),
+              path: '/QRSettings',
+              context: context,
+            ),
+            ChallengeIconButton(
+              icon: const Icon(Icons.videogame_asset),
+              path: '/gameSettings',
+              context: context,
+            ),
           ],
         ),
         const SizedBox(height: 50),
