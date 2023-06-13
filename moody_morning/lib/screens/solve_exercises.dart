@@ -48,11 +48,11 @@ class _SolveExercisesState extends State<SolveExercises> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text("$instruction"),
-              Text("Amount of ${CURRENT_EXERCISE}: $exercisesDone'/'$AMOUNT_EXERCISE " ),
-              Text('X: ${eve?.x.toStringAsFixed(3)} '),
+              Text("Amount of ${CURRENT_EXERCISE}: $exercisesDone/$AMOUNT_EXERCISE " ),
+              //Text('X: ${eve?.x.toStringAsFixed(3)} '),
               Text('Y: ${eve?.y.toStringAsFixed(3)}'),
-              Text('Z: ${eve?.z.toStringAsFixed(3)}'),
-              Text('magnitude: ${accel.toMagnitude(accel.x,accel.y,accel.z)}')
+              //Text('Z: ${eve?.z.toStringAsFixed(3)}'),
+              //Text('magnitude: ${accel.toMagnitude(accel.x,accel.y,accel.z)}')
             ],
           ),
         ),
