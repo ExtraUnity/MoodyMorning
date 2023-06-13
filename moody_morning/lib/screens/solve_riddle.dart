@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moody_morning/widgets/logo_app_bar.dart';
 
 class SolveRiddle extends StatefulWidget {
   @override
@@ -12,19 +13,22 @@ class _SlidePuzzleBoardState extends State<SolveRiddle> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF423E72),
-      appBar: AppBar(
-        title: Text('Puzzle'),
-        centerTitle: true,
-      ),
+      appBar: LogoAppBar(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ElevatedButton(
             onPressed: () {
               // Perform button action
-              print('Button pressed');
+              print('ALARM');
             },
-            child: Text('Button'),
+             style: ElevatedButton.styleFrom(
+              backgroundColor: Color(0xFF8F8BBF), // Change the button color here
+            ),
+            child: const Text(
+              '7:30',
+            style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
+            ),
           ),
           Expanded(
             child: GridView.builder(
