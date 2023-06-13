@@ -10,14 +10,14 @@ import 'package:alarm/alarm.dart';
 void main() async {
   runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
-      //home: AlarmScreen(),
+      //home: SolveExercises(),
       routes: {
         '/': (context) => AlarmScreen(),
         '/setAlarm': (context) => SetAlarm(),
         '/equationSettings': (context) =>
             AlarmScreen(), //TODO: Change to equation settings
         '/exerciseSettings': (context) =>
-            AlarmScreen(), //TODO: Change to exercise settings
+            SolveExercises(), //TODO: Change to exercise settings
         '/QRSettings': (context) => AlarmScreen(), //TODO: Change to QR settings
         '/gameSettings': (context) =>
             AlarmScreen(), //TODO: Change to game settings
