@@ -6,6 +6,8 @@ import 'package:moody_morning/screens/solve_exercises.dart';
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/screens/alarms_screen.dart';
 import 'package:alarm/alarm.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:moody_morning/firebase_options.dart';
 
 void main() async {
   runApp(MaterialApp(
@@ -24,4 +26,7 @@ void main() async {
         '/QRChallenge': (context) => MainScreen(),
       }));
   await Alarm.init();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 }
