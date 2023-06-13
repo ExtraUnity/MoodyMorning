@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:moody_morning/system/accelerometer_functions.dart';
 import 'package:sensors_plus/sensors_plus.dart';
@@ -23,11 +25,16 @@ class _SolveExercisesState extends State<SolveExercises> {
   bool isDown = false;
   String instruction = 'Not supposed to be seen!';
   @override
+    void dispose(){
+      super.dispose();
+    
+    }
+  @override
   void initState(){
     exercisesDone = 0;
     isUp = false;
     isDown = false;
-    instruction = 'Not supposed to be seen!';
+  String instruction = 'Not supposed to be seen!';
     userAccelerometerEvents.listen((UserAccelerometerEvent event) {
       setState(() {
         eve = event;
@@ -39,8 +46,7 @@ class _SolveExercisesState extends State<SolveExercises> {
      });
     super.initState();
     }
-    @override
-  
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -66,7 +72,7 @@ class _SolveExercisesState extends State<SolveExercises> {
   }
   
   void exerciseHandler() {
-    if(exercisesDone > AMOUNT_EXERCISE){
+    if(exercisesDone >= AMOUNT_EXERCISE){
       instruction = 'Finished!';
       //afslut alarm
     }
