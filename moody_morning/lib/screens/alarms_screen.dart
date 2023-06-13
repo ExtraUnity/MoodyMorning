@@ -16,16 +16,16 @@ class AlarmScreen extends StatelessWidget {
       bottomNavigationBar: Navigation(),
       body: ListView(
         children: [
-          for(int i = 0; i < currentAlarms.alarms.length; i++) 
-            Alarm(alarm: currentAlarms.alarms[i], alarmNumb: i),
+          for (int i = 0; i < currentAlarms.alarms.length; i++)
+            AlarmCard(alarm: currentAlarms.alarms[i], alarmNumb: i),
         ],
       ),
     );
   }
 }
 
-class Alarm extends StatelessWidget {
-  const Alarm({
+class AlarmCard extends StatelessWidget {
+  const AlarmCard({
     super.key,
     required this.alarm,
     required this.alarmNumb,
@@ -41,12 +41,15 @@ class Alarm extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-        Padding(
-          padding: const EdgeInsets.all(10),
-          child: Text("${alarm.hours} : ${alarm.minutes}", textScaleFactor: 2,),
-        ),
-        OnOff(alarmNumb: alarmNumb),
-      ],
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Text(
+              "${alarm.hours} : ${alarm.minutes}",
+              textScaleFactor: 2,
+            ),
+          ),
+          OnOff(alarmNumb: alarmNumb),
+        ],
       ),
     );
   }
