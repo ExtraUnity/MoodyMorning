@@ -22,7 +22,7 @@ void main() async {
             AlarmScreen(), //TODO: Change to exercise settings
         '/QRSettings': (context) => AlarmScreen(), //TODO: Change to QR settings
         '/gameSettings': (context) =>
-            SolveRiddle4(), //TODO: Change to game settings
+            SolveRiddle(), //TODO: Change to game settings
       }));
   await Alarm.init();
 }

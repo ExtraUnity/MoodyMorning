@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import '../widgets/logo_app_bar.dart';
-
 
 class SolveRiddle extends StatefulWidget {
   @override
@@ -10,21 +7,35 @@ class SolveRiddle extends StatefulWidget {
 
 class _SlidePuzzleBoardState extends State<SolveRiddle> {
   final List<int> tiles = List.generate(9, (index) => index); // Create a list of tile numbers
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF423E72),
-      appBar: LogoAppBar(
+      appBar: AppBar(
+        title: Text('Puzzle'),
+        centerTitle: true,
       ),
-      body: GridView.builder(
-        itemCount: tiles.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, 
-        ),
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {
-              if (tiles[index] == 8) {
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              // Perform button action
+              print('Button pressed');
+            },
+            child: Text('Button'),
+          ),
+          Expanded(
+            child: GridView.builder(
+              itemCount: tiles.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+              ),
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+ if (tiles[index] == 8) {
                 // if Empty tile was clicked, do nothing
                 return;
               }
@@ -54,45 +65,46 @@ class _SlidePuzzleBoardState extends State<SolveRiddle> {
                 });
               }
             },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                 padding: const EdgeInsets.all(49),
-                  margin: EdgeInsets.all(2),
-                  color: tiles[index] != 8 ? Color(0xFF8F8BBF) : Colors.white, // Set tile color
-                  child: Center(
-                    child: Container(
-                      //height: 126,
-                      child: Text(
-                        tiles[index] != 8 ? tiles[index].toString() : '', // Display tile number
-                        style: const TextStyle(
-                          //height: 4,
-                          fontSize: 24,
-                          color: Colors.white,
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.all(49),
+                    margin: EdgeInsets.all(2),
+                    color: tiles[index] != 8 ? Color(0xFF8F8BBF) : Colors.white, // Set tile color
+                    child: Center(
+                      child: Container(
+                        child: Text(
+                          tiles[index] != 8 ? tiles[index].toString() : '', // Display tile number
+                          style: const TextStyle(
+                            fontSize: 24,
+                            color: Colors.white,
                           ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                );
+              },
             ),
-          );
-        },
+          ),
+        ],
       ),
-        floatingActionButton: Container(
-          alignment: Alignment.bottomCenter,
-          padding: const EdgeInsets.all(50),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF8F8BBF),
-              ),
-              onPressed: () => print("Reset"),
-                child: const Text("Reset", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-              ),  
+      floatingActionButton: Container(
+        alignment: Alignment.bottomCenter,
+        padding: const EdgeInsets.all(50),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF8F8BBF),
+          ),
+          onPressed: () {
+            // Perform reset action
+            print('Reset');
+          },
+          child: const Text(
+            'Reset',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
         ),
-          );
-         }
-        }
+      ),
+    );
+  }
+}
