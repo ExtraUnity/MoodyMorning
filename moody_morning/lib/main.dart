@@ -21,6 +21,7 @@ void main() async {
         '/QRSettings': (context) => AlarmScreen(), //TODO: Change to QR settings
         '/gameSettings': (context) =>
             AlarmScreen(), //TODO: Change to game settings
+        '/QRChallenge': (context) => MainScreen(),
       }));
   await Alarm.init();
 }

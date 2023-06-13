@@ -36,7 +36,9 @@ class _SetAlarmState extends State<SetAlarm> {
     return Scaffold(
       backgroundColor: const Color(0xFF423E72),
       appBar: LogoAppBar(),
-      bottomNavigationBar: const Navigation(),
+      bottomNavigationBar: const Navigation(
+        startingIndex: 1,
+      ),
       body: Column(children: [
         const SizedBox(height: 50),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -81,7 +83,7 @@ class _SetAlarmState extends State<SetAlarm> {
             width: 100,
             child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.pushReplacementNamed(context, '/');
                 },
                 child: const Text("Cancel")),
           ),
@@ -113,16 +115,16 @@ class _SetAlarmState extends State<SetAlarm> {
                   enableNotificationOnKill: true,
                   stopOnNotificationOpen: false,
                 );
-                await Alarm.stop(alarmSettings.id);
+                //await Alarm.stop(alarmSettings.id);
                 await Alarm.set(alarmSettings: alarmSettings);
                 try {
-                  Alarm.ringStream.stream
-                      .listen((activeAlarm) => handleAlarm(activeAlarm));
+                  Alarm.ringStream.stream.listen(
+                      (activeAlarm) => handleAlarm(context, activeAlarm));
                 } catch (_) {
                   print("Already listening");
                 }
                 // ignore: use_build_context_synchronously
-                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context, '/');
               },
               child: const Text("Save"),
             ),
