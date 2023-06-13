@@ -24,6 +24,10 @@ class _SolveExercisesState extends State<SolveExercises> {
   String instruction = 'Not supposed to be seen!';
   @override
   void initState(){
+    exercisesDone = 0;
+    isUp = false;
+    isDown = false;
+    instruction = 'Not supposed to be seen!';
     userAccelerometerEvents.listen((UserAccelerometerEvent event) {
       setState(() {
         eve = event;
@@ -35,6 +39,7 @@ class _SolveExercisesState extends State<SolveExercises> {
      });
     super.initState();
     }
+    @override
   
   @override
   Widget build(BuildContext context) {
@@ -48,7 +53,7 @@ class _SolveExercisesState extends State<SolveExercises> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text("$instruction"),
-              Text("Amount of ${CURRENT_EXERCISE}: $exercisesDone/$AMOUNT_EXERCISE " ),
+              Text("Amount of ${CURRENT_EXERCISE}: ${exercisesDone}/$AMOUNT_EXERCISE " ),
               //Text('X: ${eve?.x.toStringAsFixed(3)} '),
               Text('Y: ${eve?.y.toStringAsFixed(3)}'),
               //Text('Z: ${eve?.z.toStringAsFixed(3)}'),
