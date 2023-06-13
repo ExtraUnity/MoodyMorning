@@ -49,7 +49,7 @@ class _MainScreenState extends State<MainScreen> {
     cameraController.dispose();
     super.dispose();
   }
-
+  
   @override
   Widget build(BuildContext context) {
     if(cameraController.value.isInitialized){
@@ -62,7 +62,10 @@ class _MainScreenState extends State<MainScreen> {
       );
     } else {
       return const SizedBox();
-
+    }
   }
 }
-}
+
+// class SolveQRcode extends StatelessWidget {
+  
+// }

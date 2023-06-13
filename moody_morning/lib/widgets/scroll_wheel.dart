@@ -29,6 +29,7 @@ class _ScrollWheelState extends State<ScrollWheel> {
             itemExtent: 50,
             perspective: 0.01,
             diameterRatio: 2.0,
+            overAndUnderCenterOpacity: 0.5,
             physics: const FixedExtentScrollPhysics(),
             childDelegate: ListWheelChildLoopingListDelegate(
                 children: getScrollWheelNumbers(widget.numberOfElements))));

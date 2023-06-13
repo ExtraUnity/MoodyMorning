@@ -7,6 +7,7 @@ environment:
   sdk: '>=3.0.2 <4.0.0'
 
 dependencies:
+  alarm: ^1.0.5
   camera: ^0.10.5+2
   flutter:
     sdk: flutter
@@ -23,3 +24,4 @@ flutter:
 
   assets:
     - assets/images/logoFull.png
+    - assets/sounds/galaxy_alarm.mp3
