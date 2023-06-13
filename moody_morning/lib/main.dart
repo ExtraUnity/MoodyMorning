@@ -9,10 +9,10 @@ import 'package:moody_morning/screens/solve_QRcode.dart';
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    //home: AlarmScreen(),
-    routes: {
+    home: SolveRiddle(),
+    /*routes: {
       '/': (context) => AlarmScreen(),
       '/setAlarm': (context) => SetAlarm(),
-    }
+    }*/
   ));
 }
