@@ -1,5 +1,3 @@
-import 'package:sensors_plus/sensors_plus.dart';
-import 'dart:async';
 
 class Accelerometer {
   double _x = 0.0;
