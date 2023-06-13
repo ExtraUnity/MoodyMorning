@@ -5,6 +5,7 @@ import 'package:moody_morning/screens/solve_QRcode.dart';
 import 'package:moody_morning/screens/solve_exercises.dart';
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/screens/alarms_screen.dart';
+import 'package:moody_morning/screens/solve_riddle.dart';
 import 'package:alarm/alarm.dart';
 
 void main() async {
@@ -20,7 +21,7 @@ void main() async {
             AlarmScreen(), //TODO: Change to exercise settings
         '/QRSettings': (context) => AlarmScreen(), //TODO: Change to QR settings
         '/gameSettings': (context) =>
-            AlarmScreen(), //TODO: Change to game settings
+            SolveRiddle(), //TODO: Change to game settings
       }));
   await Alarm.init();
 }

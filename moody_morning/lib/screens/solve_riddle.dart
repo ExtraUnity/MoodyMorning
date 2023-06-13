@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import '../widgets/logo_app_bar.dart';
+
 
 class SolveRiddle extends StatefulWidget {
   @override
@@ -16,7 +18,7 @@ class _SlidePuzzleBoardState extends State<SolveRiddle> {
       ),
       body: GridView.builder(
         itemCount: tiles.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3, 
         ),
         itemBuilder: (context, index) {
@@ -26,7 +28,7 @@ class _SlidePuzzleBoardState extends State<SolveRiddle> {
                 // if Empty tile was clicked, do nothing
                 return;
               }
-              if (index % 5 != 4 && tiles[index + 1] == 8) {
+              if (index % 3 != 2 && tiles[index + 1] == 8) {
                 // Clicked tile can slide right
                 setState(() {
                   tiles[index + 1] = tiles[index];
@@ -52,34 +54,57 @@ class _SlidePuzzleBoardState extends State<SolveRiddle> {
                 });
               }
             },
-            child: Container(
-              margin: EdgeInsets.all(2),
-              color: tiles[index] != 8 ? Color(0xFF8F8BBF) : Colors.white, // Set tile color
-              child: Center(
-                child: Text(
-                  tiles[index] != 8 ? tiles[index].toString() : '', // Display tile number
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.white,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Container(
+                  alignment: Alignment.center,
+                 padding: const EdgeInsets.all(49),
+                  margin: EdgeInsets.all(2),
+                  color: tiles[index] != 8 ? Color(0xFF8F8BBF) : Colors.white, // Set tile color
+                  child: Center(
+                    child: Container(
+                      //height: 126,
+                      child: Text(
+                        tiles[index] != 8 ? tiles[index].toString() : '', // Display tile number
+                        style: const TextStyle(
+                          //height: 4,
+                          fontSize: 24,
+                          color: Colors.white,
+                          ),
+                      ),
                     ),
+                  ),
                 ),
-              ),
+              ],
             ),
           );
         },
       ),
-        floatingActionButton: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            primary: Color(0xFF8F8BBF),
-            ),
-            onPressed: () => print("hej"),
-            child: FloatingActionButton(
-              onPressed: null, // Set this to null since onPressed is handled by ElevatedButton
-              child: Text("Reset"),
-              backgroundColor: Colors.transparent,
-              elevation: 0.0,
+        floatingActionButton: Container(
+          alignment: Alignment.bottomCenter,
+          padding: const EdgeInsets.all(50),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF8F8BBF),
               ),
-            ),
+              onPressed: () => print("hej"),
+                child: const Text("Reset", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ),
+        ),
+        floatingActionButton: Container(
+          alignment: Alignment.topCenter,
+          padding: const EdgeInsets.all(50),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF8F8BBF),
+              ),
+              onPressed: () => print("hej"),
+                child: const Text("Reset", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ),
+        ),
           );
          }
         }
