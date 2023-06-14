@@ -19,7 +19,8 @@ class _AlarmScreenState extends State<AlarmScreen> {
   }
 
   void _configureSelectNotificationSubject() {
-    selectNotificationStream.stream.listen((String? payload) async {
+    notificationService.selectNotificationStream.stream
+        .listen((String? payload) async {
       await Navigator.of(context).pushNamed(payload!);
     });
   }
@@ -72,7 +73,7 @@ Future<void> showNotification() async {
           ticker: 'ticker');
   const NotificationDetails notificationDetails =
       NotificationDetails(android: androidNotificationDetails);
-  await flutterLocalNotificationsPlugin.show(
+  await notificationService.flutterLocalNotificationsPlugin.show(
       0, 'plain title', 'plain body', notificationDetails,
       payload: '/QRSettings');
 }
