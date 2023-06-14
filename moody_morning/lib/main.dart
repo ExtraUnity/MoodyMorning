@@ -251,19 +251,6 @@ const String darwinNotificationCategoryText = 'textCategory';
 /// Defines a iOS/MacOS notification category for plain actions.
 const String darwinNotificationCategoryPlain = 'plainCategory';
 
-@pragma('vm:entry-point')
-void notificationTapBackground(NotificationResponse notificationResponse) {
-  // ignore: avoid_print
-  print('notification(${notificationResponse.id}) action tapped: '
-      '${notificationResponse.actionId} with'
-      ' payload: ${notificationResponse.payload}');
-  if (notificationResponse.input?.isNotEmpty ?? false) {
-    // ignore: avoid_print
-    print(
-        'notification action tapped with input: ${notificationResponse.input}');
-  }
-}
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Alarm.init();
@@ -308,58 +295,13 @@ getNotificationInitSettings() {
   const AndroidInitializationSettings initializationSettingsAndroid =
       AndroidInitializationSettings('flutter_logo');
 
-  final List<DarwinNotificationCategory> darwinNotificationCategories =
-      <DarwinNotificationCategory>[
-    DarwinNotificationCategory(
-      darwinNotificationCategoryText,
-      actions: <DarwinNotificationAction>[
-        DarwinNotificationAction.text(
-          'text_1',
-          'Action 1',
-          buttonTitle: 'Send',
-          placeholder: 'Placeholder',
-        ),
-      ],
-    ),
-    DarwinNotificationCategory(
-      darwinNotificationCategoryPlain,
-      actions: <DarwinNotificationAction>[
-        DarwinNotificationAction.plain('id_1', 'Action 1'),
-        DarwinNotificationAction.plain(
-          'id_2',
-          'Action 2 (destructive)',
-          options: <DarwinNotificationActionOption>{
-            DarwinNotificationActionOption.destructive,
-          },
-        ),
-        DarwinNotificationAction.plain(
-          navigationActionId,
-          'Action 3 (foreground)',
-          options: <DarwinNotificationActionOption>{
-            DarwinNotificationActionOption.foreground,
-          },
-        ),
-        DarwinNotificationAction.plain(
-          'id_4',
-          'Action 4 (auth required)',
-          options: <DarwinNotificationActionOption>{
-            DarwinNotificationActionOption.authenticationRequired,
-          },
-        ),
-      ],
-      options: <DarwinNotificationCategoryOption>{
-        DarwinNotificationCategoryOption.hiddenPreviewShowTitle,
-      },
-    )
-  ];
-
   /// Note: permissions aren't requested here just to demonstrate that can be
   /// done later
   final DarwinInitializationSettings initializationSettingsDarwin =
       DarwinInitializationSettings(
-    requestAlertPermission: false,
-    requestBadgePermission: false,
-    requestSoundPermission: false,
+    requestAlertPermission: true,
+    requestBadgePermission: true,
+    requestSoundPermission: true,
     onDidReceiveLocalNotification:
         (int id, String? title, String? body, String? payload) async {
       didReceiveLocalNotificationStream.add(
@@ -371,7 +313,6 @@ getNotificationInitSettings() {
         ),
       );
     },
-    notificationCategories: darwinNotificationCategories,
   );
   final LinuxInitializationSettings initializationSettingsLinux =
       LinuxInitializationSettings(
