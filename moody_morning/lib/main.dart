@@ -5,13 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:moody_morning/screens/alarms_screen.dart';
 import 'package:moody_morning/screens/set_alarm.dart';
 import 'package:moody_morning/screens/solve_QRcode.dart';
+import 'package:moody_morning/screens/solve_equation.dart';
+import 'package:moody_morning/screens/solve_exercises.dart';
+import 'package:moody_morning/screens/solve_riddle.dart';
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/system/notification_service.dart';
 import 'package:provider/provider.dart';
 
 //Handle listening to notifications
 NotificationService notificationService = NotificationService();
-
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Alarm.init();
@@ -22,18 +25,19 @@ Future<void> main() async {
       create: (context) => AllAlarms(),
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
+          navigatorKey: navigatorKey,
           //home: AlarmScreen(),
           routes: {
             '/': (context) => AlarmScreen(),
             '/setAlarm': (context) => SetAlarm(),
             '/equationSettings': (context) =>
-                AlarmScreen(), //TODO: Change to equation settings
+                SolveEquation(), //TODO: Change to equation settings
             '/exerciseSettings': (context) =>
-                AlarmScreen(), //TODO: Change to exercise settings
+                SolveExercises(), //TODO: Change to exercise settings
             '/QRSettings': (context) =>
                 MainScreen(), //TODO: Change to QR settings
             '/gameSettings': (context) =>
-                AlarmScreen(), //TODO: Change to game settings
+                SolveRiddle(), //TODO: Change to game settings
           }),
     ),
   );

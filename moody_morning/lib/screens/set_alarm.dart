@@ -19,7 +19,7 @@ class SetAlarm extends StatefulWidget {
 class _SetAlarmState extends State<SetAlarm> {
   int selectedHour = 0;
   int selectedMinute = 0;
-  String selectedChallenge = "/QRChallenge";
+  String selectedChallenge = "/QRSettings";
   late ScrollWheel hours;
   late ScrollWheel minutes;
 
@@ -63,25 +63,37 @@ class _SetAlarmState extends State<SetAlarm> {
               icon: const Icon(Icons.calculate),
               path: '/equationSettings',
               context: context,
-              buttonPressed: (path) => selectedChallenge = path,
+              buttonPressed: (path) {
+                selectedChallenge = path;
+                print("Selected path $path");
+              },
             ),
             ChallengeIconButton(
               icon: const Icon(Icons.fitness_center),
               path: '/exerciseSettings',
               context: context,
-              buttonPressed: (path) => selectedChallenge = path,
+              buttonPressed: (path) {
+                selectedChallenge = path;
+                print("Selected path $path");
+              },
             ),
             ChallengeIconButton(
               icon: const Icon(Icons.qr_code_2),
               path: '/QRSettings',
               context: context,
-              buttonPressed: (path) => selectedChallenge = path,
+              buttonPressed: (path) {
+                selectedChallenge = path;
+                print("Selected path $path");
+              },
             ),
             ChallengeIconButton(
               icon: const Icon(Icons.videogame_asset),
               path: '/gameSettings',
               context: context,
-              buttonPressed: (path) => selectedChallenge = path,
+              buttonPressed: (path) {
+                selectedChallenge = path;
+                print("Selected path $path");
+              },
             ),
           ],
         ),
@@ -104,13 +116,14 @@ class _SetAlarmState extends State<SetAlarm> {
                 int minuteDifference =
                     (selectedMinute - DateTime.now().minute) % 60;
 
-                var sortedAlarms = Alarm.getAlarms()
-                  ..sort((a, b) => b.id.compareTo(a.id)); //get highest id
+                var sortedAlarms = AllAlarms.alarms
+                  ..sort((a, b) => b.alarmsetting.id
+                      .compareTo(a.alarmsetting.id)); //get highest id
 
                 final alarmSettings = AlarmSettings(
                   //create alarm settings
                   id: sortedAlarms.isNotEmpty
-                      ? sortedAlarms.elementAt(0).id + 1
+                      ? sortedAlarms.elementAt(0).alarmsetting.id + 1
                       : 0,
                   dateTime: DateTime.now().add(Duration(
                       hours: hourDifference,
@@ -129,7 +142,7 @@ class _SetAlarmState extends State<SetAlarm> {
                   alarmSettings,
                   payload: selectedChallenge,
                 ));
-
+                print("Created alarm with payload $selectedChallenge");
                 try {
                   Alarm.ringStream.stream.listen(
                       (activeAlarm) => handleAlarm(context, activeAlarm));

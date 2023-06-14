@@ -14,7 +14,7 @@ class ChallengeIconButton extends ElevatedButton {
   }) : super(
           onPressed: () {
             buttonPressed(path);
-            Navigator.pushNamed(context, path);
+            //Navigator.pushNamed(context, path);
           },
           style: ButtonStyle(
             shape: MaterialStateProperty.all(const CircleBorder()),

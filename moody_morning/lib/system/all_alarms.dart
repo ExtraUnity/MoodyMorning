@@ -19,7 +19,7 @@ class AlarmData {
 }
 
 class AllAlarms extends ChangeNotifier {
-  List<AlarmData> alarms = <AlarmData>[];
+  static List<AlarmData> alarms = <AlarmData>[];
 
   void addAlarm(AlarmData alarm) {
     int num = 0;

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
-import 'package:provider/provider.dart';
 import '../widgets/navigation_bar.dart';
 import 'package:moody_morning/main.dart';
 
@@ -21,7 +20,10 @@ class _AlarmScreenState extends State<AlarmScreen> {
   void _configureSelectNotificationSubject() {
     notificationService.selectNotificationStream.stream
         .listen((String? payload) async {
-      await Navigator.of(context).pushNamed(payload!);
+      if (navigatorKey.currentState!.canPop()) {
+        navigatorKey.currentState!.pop();
+      }
+      await navigatorKey.currentState!.pushReplacementNamed(payload!);
     });
   }
 
@@ -32,8 +34,6 @@ class _AlarmScreenState extends State<AlarmScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var allAlarms = context.watch<AllAlarms>();
-
     return Scaffold(
       backgroundColor: Colors.purple.shade700,
       appBar: LogoAppBar(),
@@ -42,7 +42,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
       ),
       body: ListView(
         children: [
-          for (AlarmData alarms in allAlarms.alarms)
+          for (AlarmData alarms in AllAlarms.alarms)
             AlarmCard(
               alarm: alarms,
             ),
@@ -52,7 +52,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
   }
 }
 
-Future<void> showNotification() async {
+Future<void> showNotification(String payload) async {
   const AndroidNotificationDetails androidNotificationDetails =
       AndroidNotificationDetails('your channel id', 'your channel name',
           channelDescription: 'your channel description',
@@ -63,8 +63,12 @@ Future<void> showNotification() async {
   const NotificationDetails notificationDetails =
       NotificationDetails(android: androidNotificationDetails);
   await notificationService.flutterLocalNotificationsPlugin.show(
-      0, 'plain title', 'plain body', notificationDetails,
-      payload: '/QRSettings');
+    0,
+    'Time to wake up!',
+    'Click here to get your challenge',
+    notificationDetails,
+    payload: payload,
+  );
 }
 
 class AlarmCard extends StatelessWidget {
