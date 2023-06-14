@@ -40,22 +40,11 @@ class _AlarmScreenState extends State<AlarmScreen> {
       bottomNavigationBar: Navigation(
         startingIndex: 0,
       ),
-      body: Column(
+      body: ListView(
         children: [
-          ElevatedButton(
-            onPressed: () async {
-              await showNotification();
-            },
-            child: Text("Click for notification"),
-          ),
-          if (allAlarms.alarms.isNotEmpty)
-            ListView(
-              children: [
-                for (AlarmData alarms in allAlarms.alarms)
-                  AlarmCard(
-                    alarm: alarms,
-                  ),
-              ],
+          for (AlarmData alarms in allAlarms.alarms)
+            AlarmCard(
+              alarm: alarms,
             ),
         ],
       ),

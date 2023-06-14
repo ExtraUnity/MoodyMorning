@@ -119,8 +119,8 @@ class _SetAlarmState extends State<SetAlarm> {
                   stopOnNotificationOpen: false,
                 );
                 //await Alarm.stop(alarmSettings.id);
-                await Alarm.set(alarmSettings: alarmSettings);
-                //allAlarms.addAlarm(AlarmData(alarmSettings));
+                //await Alarm.set(alarmSettings: alarmSettings);
+                allAlarms.addAlarm(AlarmData(alarmSettings));
 
                 try {
                   Alarm.ringStream.stream.listen(
