@@ -19,6 +19,7 @@ class SetAlarm extends StatefulWidget {
 class _SetAlarmState extends State<SetAlarm> {
   int selectedHour = 0;
   int selectedMinute = 0;
+  String selectedChallenge = "/QRChallenge";
   late ScrollWheel hours;
   late ScrollWheel minutes;
 
@@ -62,21 +63,25 @@ class _SetAlarmState extends State<SetAlarm> {
               icon: const Icon(Icons.calculate),
               path: '/equationSettings',
               context: context,
+              buttonPressed: (path) => selectedChallenge = path,
             ),
             ChallengeIconButton(
               icon: const Icon(Icons.fitness_center),
               path: '/exerciseSettings',
               context: context,
+              buttonPressed: (path) => selectedChallenge = path,
             ),
             ChallengeIconButton(
               icon: const Icon(Icons.qr_code_2),
               path: '/QRSettings',
               context: context,
+              buttonPressed: (path) => selectedChallenge = path,
             ),
             ChallengeIconButton(
               icon: const Icon(Icons.videogame_asset),
               path: '/gameSettings',
               context: context,
+              buttonPressed: (path) => selectedChallenge = path,
             ),
           ],
         ),
@@ -120,7 +125,10 @@ class _SetAlarmState extends State<SetAlarm> {
                 );
                 //await Alarm.stop(alarmSettings.id);
                 //await Alarm.set(alarmSettings: alarmSettings);
-                allAlarms.addAlarm(AlarmData(alarmSettings));
+                allAlarms.addAlarm(AlarmData(
+                  alarmSettings,
+                  payload: selectedChallenge,
+                ));
 
                 try {
                   Alarm.ringStream.stream.listen(
