@@ -6,8 +6,8 @@ import 'package:moody_morning/system/alarm_callback.dart';
 import 'package:alarm/alarm.dart';
 import 'package:provider/provider.dart';
 
-import '../system/all_alarms.dart';
-import '../widgets/navigation_bar.dart';
+import 'package:moody_morning/system/all_alarms.dart';
+import 'package:moody_morning/widgets/navigation_bar.dart';
 
 class SetAlarm extends StatefulWidget {
   const SetAlarm({super.key});
@@ -119,8 +119,8 @@ class _SetAlarmState extends State<SetAlarm> {
                   stopOnNotificationOpen: false,
                 );
                 //await Alarm.stop(alarmSettings.id);
-                //await Alarm.set(alarmSettings: alarmSettings);
-                allAlarms.addAlarm(AlarmData(alarmSettings));
+                await Alarm.set(alarmSettings: alarmSettings);
+                //allAlarms.addAlarm(AlarmData(alarmSettings));
 
                 try {
                   Alarm.ringStream.stream.listen(

@@ -11,11 +11,11 @@ import 'package:moody_morning/system/notification_service.dart';
 
 void handleAlarm(BuildContext context, AlarmSettings activeAlarm) async {
   print("ALARM IS RINGING AND THIS FUNCTION HAS JUST BEEN CALLED");
-
-  await service.showNotification(
-      title: 'THIS IS A LOCAL NOTIFICATION!!',
-      body: 'Press here to get your challenge!',
-      payload: '/QRChallenge');
+  await showNotification();
+  // await showNotification(
+  //     title: 'THIS IS A LOCAL NOTIFICATION!!',
+  //     body: 'Press here to get your challenge!',
+  //     payload: '/QRSettings');
 
   // FirebaseMessaging messaging = FirebaseMessaging.instance;
 
@@ -33,5 +33,4 @@ void handleAlarm(BuildContext context, AlarmSettings activeAlarm) async {
   //TODO:
   //Handle different selection of challenges
   //Redirect to correct page
-
 }
