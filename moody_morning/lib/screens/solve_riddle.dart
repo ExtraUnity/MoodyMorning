@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
+import 'dart:math';
 
 class SolveRiddle extends StatefulWidget {
   @override
@@ -7,7 +8,26 @@ class SolveRiddle extends StatefulWidget {
 }
 
 class _SlidePuzzleBoardState extends State<SolveRiddle> {
-  final List<int> tiles = List.generate(9, (index) => index); // Create a list of tile numbers
+  List<int> tiles = List.generate(9, (index) => index); // Create a list of tile numbers
+
+  @override
+  void initState() {
+    super.initState();
+    shuffleBoard();
+  }
+
+  void shuffleBoard() {
+    tiles.shuffle();
+  }
+
+  bool alarmOff() {
+    for (int i = 0; i < tiles.length; i++) {
+      if (tiles[i] != i) {
+        return false;
+      }
+    }
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,21 +38,21 @@ class _SlidePuzzleBoardState extends State<SolveRiddle> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-          padding: EdgeInsets.all(40.0),
-          child: ElevatedButton(
-            onPressed: () {
-              // Perform button action
-              print('ALARM');
-            },
+            padding: EdgeInsets.all(40.0),
+            child: ElevatedButton(
+              onPressed: () {
+                
+              },
               style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xFF8F8BBF), // Change the button color here
-          ),
+                backgroundColor: Color(0xFF8F8BBF), // Change the button color here
+              ),
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
                     Icons.access_alarm,
-                    size: 48,), // Add the desired icon here
+                    size: 48,
+                  ), // Add the desired icon here
                   SizedBox(width: 15.0), // Add some spacing between the icon and the text
                   Text(
                     '7:30',
@@ -51,36 +71,108 @@ class _SlidePuzzleBoardState extends State<SolveRiddle> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
- if (tiles[index] == 8) {
-                // if Empty tile was clicked, do nothing
-                return;
-              }
-              if (index % 3 != 2 && tiles[index + 1] == 8) {
-                // Clicked tile can slide right
-                setState(() {
-                  tiles[index + 1] = tiles[index];
-                  tiles[index] = 8;
-                });
-              } else if (index % 3 != 0 && tiles[index - 1] == 8) {
-                // Clicked tile can slide left
-                setState(() {
-                  tiles[index - 1] = tiles[index];
-                  tiles[index] = 8;
-                });
-              } else if (index < 6 && tiles[index + 3] == 8) {
-                // Clicked tile can slide down
-                setState(() {
-                  tiles[index + 3] = tiles[index];
-                  tiles[index] = 8;
-                });
-              } else if (index >= 3 && tiles[index - 3] == 8) {
-                // Clicked tile can slide up
-                setState(() {
-                  tiles[index - 3] = tiles[index];
-                  tiles[index] = 8;
-                });
-              }
-            },
+                    if (tiles[index] == 8) {
+                      // if Empty tile was clicked, do nothing
+                      return;
+                    }
+                    if (index % 3 != 2 && tiles[index + 1] == 8) {
+                      // Clicked tile can slide right
+                      setState(() {
+                        tiles[index + 1] = tiles[index];
+                        tiles[index] = 8;
+                        if (alarmOff()) {
+                          // If the board is in the right order, show a dialog indicating the win
+                          showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                              title: Text('Alarm Off'),
+                              content: Text('Puzzle solved'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('OK'),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                      });
+                    } else if (index % 3 != 0 && tiles[index - 1] == 8) {
+                      // Clicked tile can slide left
+                      setState(() {
+                        tiles[index - 1] = tiles[index];
+                        tiles[index] = 8;
+                        if (alarmOff()) {
+                          // If the board is in the right order, show a dialog indicating the win
+                          showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                              title: Text('Alarm Off'),
+                              content: Text('Puzzle solved'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('OK'),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                      });
+                    } else if (index < 6 && tiles[index + 3] == 8) {
+                      // Clicked tile can slide down
+                      setState(() {
+                        tiles[index + 3] = tiles[index];
+                        tiles[index] = 8;
+                        if (alarmOff()) {
+                          // If the board is in the right order, show a dialog indicating the win
+                          showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                              title: Text('Alarm Off'),
+                              content: Text('Puzzle solved'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('OK'),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                      });
+                    } else if (index >= 3 && tiles[index - 3] == 8) {
+                      // Clicked tile can slide up
+                      setState(() {
+                        tiles[index - 3] = tiles[index];
+                        tiles[index] = 8;
+                        if (alarmOff()) {
+                          // If the board is in the right order, show a dialog indicating the win
+                          showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                              title: Text('Alarm Off'),
+                              content: Text('Puzzle solved'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('OK'),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                      });
+                    }
+                  },
                   child: Container(
                     alignment: Alignment.center,
                     padding: const EdgeInsets.all(49),
@@ -113,7 +205,9 @@ class _SlidePuzzleBoardState extends State<SolveRiddle> {
           ),
           onPressed: () {
             // Perform reset action
-            print('Reset');
+            setState(() {
+              shuffleBoard();
+            });
           },
           child: const Text(
             'Reset',
