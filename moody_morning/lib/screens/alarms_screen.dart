@@ -3,7 +3,6 @@ import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
 import 'package:provider/provider.dart';
 import '../widgets/navigation_bar.dart';
-import 'package:alarm/alarm.dart';
 
 class AlarmScreen extends StatelessWidget {
   @override

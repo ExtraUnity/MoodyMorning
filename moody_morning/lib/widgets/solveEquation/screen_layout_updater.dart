@@ -34,10 +34,11 @@ class _EquationScreenLayoutState extends State<EquationScreenLayout> {
   // Displays any number pressed from 0-9 in Answer Box (limited to max 5 digits)
   void displayPressedNumber(int value) {
     if (inputAnswer.length < 5) {
-          inputAnswer += value.toString();
-        } else {
-          throw Exception("Max digits in Answer Box is 5. Please press the clear button");
-        }
+      inputAnswer += value.toString();
+    } else {
+      throw Exception(
+          "Max digits is 5. Please press the clear button");
+    }
   }
 
   // Compare input answer with the actual compute-evaluated answer of equation:
@@ -58,7 +59,8 @@ class _EquationScreenLayoutState extends State<EquationScreenLayout> {
             answer: inputAnswer), // Pass the equation and answer
         const SizedBox(height: 5),
         NumPad(
-            numpadPressedButton: numpadPressedButton), // Pass the evaluateAnswer method
+            numpadPressedButton:
+                numpadPressedButton), // Pass the evaluateAnswer method
       ],
     );
   }
