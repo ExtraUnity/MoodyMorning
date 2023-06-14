@@ -1,16 +1,9 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:moody_morning/screens/set_alarm.dart';
-import 'package:moody_morning/screens/solve_QRcode.dart';
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
 import 'package:provider/provider.dart';
-import '../system/notification_service.dart';
 import '../widgets/navigation_bar.dart';
-import 'package:alarm/alarm.dart';
 import 'package:moody_morning/main.dart';
 
 class AlarmScreen extends StatefulWidget {
@@ -22,39 +15,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
   @override
   void initState() {
     super.initState();
-    _configureDidReceiveLocalNotificationSubject();
     _configureSelectNotificationSubject();
-  }
-
-  void _configureDidReceiveLocalNotificationSubject() {
-    didReceiveLocalNotificationStream.stream
-        .listen((ReceivedNotification receivedNotification) async {
-      await showDialog(
-        context: context,
-        builder: (BuildContext context) => CupertinoAlertDialog(
-          title: receivedNotification.title != null
-              ? Text(receivedNotification.title!)
-              : null,
-          content: receivedNotification.body != null
-              ? Text(receivedNotification.body!)
-              : null,
-          actions: <Widget>[
-            CupertinoDialogAction(
-              isDefaultAction: true,
-              onPressed: () async {
-                Navigator.of(context, rootNavigator: true).pop();
-                await Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (BuildContext context) => SetAlarm(),
-                  ),
-                );
-              },
-              child: const Text('Ok'),
-            )
-          ],
-        ),
-      );
-    });
   }
 
   void _configureSelectNotificationSubject() {
@@ -65,8 +26,6 @@ class _AlarmScreenState extends State<AlarmScreen> {
 
   @override
   void dispose() {
-    //didReceiveLocalNotificationStream.close();
-    //selectNotificationStream.close();
     super.dispose();
   }
 
@@ -114,7 +73,7 @@ Future<void> showNotification() async {
   const NotificationDetails notificationDetails =
       NotificationDetails(android: androidNotificationDetails);
   await flutterLocalNotificationsPlugin.show(
-      id++, 'plain title', 'plain body', notificationDetails,
+      0, 'plain title', 'plain body', notificationDetails,
       payload: '/QRSettings');
 }
 

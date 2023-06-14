@@ -198,14 +198,9 @@
 //   );
 // }
 import 'dart:async';
-import 'dart:io';
-// ignore: unnecessary_import
 
 import 'package:alarm/alarm.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:moody_morning/screens/alarms_screen.dart';
 import 'package:moody_morning/screens/set_alarm.dart';
@@ -213,16 +208,14 @@ import 'package:moody_morning/screens/solve_QRcode.dart';
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:provider/provider.dart';
 
-int id = 0;
-
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
-/// Streams are created so that app can respond to notification-related events
-/// since the plugin is initialised in the `main` function
+//This should handle notifications on iOS
 final StreamController<ReceivedNotification> didReceiveLocalNotificationStream =
     StreamController<ReceivedNotification>.broadcast();
 
+//create listener to subscribe to user interaction with notification
 final StreamController<String?> selectNotificationStream =
     StreamController<String?>.broadcast();
 
@@ -239,17 +232,6 @@ class ReceivedNotification {
   final String? body;
   final String? payload;
 }
-
-String? selectedNotificationPayload;
-
-/// A notification action which triggers a App navigation event
-const String navigationActionId = 'id_3';
-
-/// Defines a iOS/MacOS notification category for text input actions.
-const String darwinNotificationCategoryText = 'textCategory';
-
-/// Defines a iOS/MacOS notification category for plain actions.
-const String darwinNotificationCategoryPlain = 'plainCategory';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -295,8 +277,6 @@ getNotificationInitSettings() {
   const AndroidInitializationSettings initializationSettingsAndroid =
       AndroidInitializationSettings('flutter_logo');
 
-  /// Note: permissions aren't requested here just to demonstrate that can be
-  /// done later
   final DarwinInitializationSettings initializationSettingsDarwin =
       DarwinInitializationSettings(
     requestAlertPermission: true,
@@ -314,6 +294,7 @@ getNotificationInitSettings() {
       );
     },
   );
+
   final LinuxInitializationSettings initializationSettingsLinux =
       LinuxInitializationSettings(
     defaultActionName: 'Open notification',
