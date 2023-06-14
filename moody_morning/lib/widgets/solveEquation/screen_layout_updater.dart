@@ -15,6 +15,7 @@ class EquationScreenLayout extends StatefulWidget {
 class _EquationScreenLayoutState extends State<EquationScreenLayout> {
   String equation = "24 x 4";
   String inputAnswer = "";
+  int solution = -999;
 
   // Method for specific button functions: "Clear" and "Evaluate (Right-Arrow)":
   void numpadPressedButton(int value) {
@@ -23,12 +24,24 @@ class _EquationScreenLayoutState extends State<EquationScreenLayout> {
         // Clear answer when pressed
         inputAnswer = "";
       } else if (value == 10) {
+        fetchSolution();
+
         // Perform evaluation when (Right-Arrow) is pressed
-        inputAnswer = compareAnswer(equation, inputAnswer);
+        if (inputAnswer as int == solution) {
+          inputAnswer = checkAnswer(equation, inputAnswer);
+          print("correct");
+        } else {
+          print("wrong");
+        }
       } else {
         displayPressedNumber(value);
       }
     });
+  }
+
+  int fetchSolution() {
+ 
+    return 0;
   }
 
   // Displays any number pressed from 0-9 in Answer Box (limited to max 5 digits)
@@ -36,13 +49,12 @@ class _EquationScreenLayoutState extends State<EquationScreenLayout> {
     if (inputAnswer.length < 5) {
       inputAnswer += value.toString();
     } else {
-      throw Exception(
-          "Max digits is 5. Please press the clear button");
+      throw Exception("Max digits is 5. Please press the clear button");
     }
   }
 
-  // Compare input answer with the actual compute-evaluated answer of equation:
-  String compareAnswer(String equation, String inputAnswer) {
+  // Compare input answer with the evaluated True answer of equation:
+  String checkAnswer(String equation, String inputAnswer) {
     return inputAnswer;
   }
 
@@ -60,7 +72,7 @@ class _EquationScreenLayoutState extends State<EquationScreenLayout> {
         const SizedBox(height: 5),
         NumPad(
             numpadPressedButton:
-                numpadPressedButton), // Pass the evaluateAnswer method
+                numpadPressedButton) // Pass the evaluateAnswer method
       ],
     );
   }
