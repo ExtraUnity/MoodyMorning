@@ -6,8 +6,8 @@ void handleAlarm(AlarmSettings activeAlarm) {
   //TODO:
   //Handle different selection of challenges
   //Redirect to correct page
-  runApp(MaterialApp(
+ /* runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: AlarmScreen(),
-  ));
+  )); */
 }
