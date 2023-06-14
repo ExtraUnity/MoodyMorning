@@ -265,20 +265,46 @@ void notificationTapBackground(NotificationResponse notificationResponse) {
 }
 
 Future<void> main() async {
-  // needed if you intend to initialize in the `main` function
   WidgetsFlutterBinding.ensureInitialized();
   await Alarm.init();
-  final NotificationAppLaunchDetails? notificationAppLaunchDetails = !kIsWeb &&
-          Platform.isLinux
-      ? null
-      : await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
-  String initialRoute = '/';
-  // if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
-  //   selectedNotificationPayload =
-  //       notificationAppLaunchDetails!.notificationResponse?.payload;
-  //   initialRoute = SecondPage.routeName;
-  // }
 
+  final InitializationSettings initializationSettings =
+      getNotificationInitSettings();
+  await flutterLocalNotificationsPlugin.initialize(
+    initializationSettings,
+    onDidReceiveNotificationResponse:
+        (NotificationResponse notificationResponse) {
+      // print("Hello there");
+      if (notificationResponse.notificationResponseType ==
+          NotificationResponseType.selectedNotification) {
+        selectNotificationStream.add(notificationResponse.payload);
+      }
+    },
+  );
+
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => AllAlarms(),
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          //home: AlarmScreen(),
+          routes: {
+            '/': (context) => AlarmScreen(),
+            '/setAlarm': (context) => SetAlarm(),
+            '/equationSettings': (context) =>
+                AlarmScreen(), //TODO: Change to equation settings
+            '/exerciseSettings': (context) =>
+                AlarmScreen(), //TODO: Change to exercise settings
+            '/QRSettings': (context) =>
+                MainScreen(), //TODO: Change to QR settings
+            '/gameSettings': (context) =>
+                AlarmScreen(), //TODO: Change to game settings
+          }),
+    ),
+  );
+}
+
+getNotificationInitSettings() {
   const AndroidInitializationSettings initializationSettingsAndroid =
       AndroidInitializationSettings('flutter_logo');
 
@@ -352,43 +378,10 @@ Future<void> main() async {
     defaultActionName: 'Open notification',
     defaultIcon: AssetsLinuxIcon('icons/flutter_logo.png'),
   );
-  final InitializationSettings initializationSettings = InitializationSettings(
+  return InitializationSettings(
     android: initializationSettingsAndroid,
     iOS: initializationSettingsDarwin,
     macOS: initializationSettingsDarwin,
     linux: initializationSettingsLinux,
-  );
-  await flutterLocalNotificationsPlugin.initialize(
-    initializationSettings,
-    onDidReceiveNotificationResponse:
-        (NotificationResponse notificationResponse) {
-      print("Hello there");
-      if (notificationResponse.notificationResponseType ==
-          NotificationResponseType.selectedNotification) {
-        selectNotificationStream.add(notificationResponse.payload);
-      }
-    },
-  );
-
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => AllAlarms(),
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          initialRoute: initialRoute,
-          //home: AlarmScreen(),
-          routes: {
-            '/': (_) => AlarmScreen(),
-            '/setAlarm': (context) => SetAlarm(),
-            '/equationSettings': (context) =>
-                AlarmScreen(), //TODO: Change to equation settings
-            '/exerciseSettings': (context) =>
-                AlarmScreen(), //TODO: Change to exercise settings
-            '/QRSettings': (context) =>
-                MainScreen(), //TODO: Change to QR settings
-            '/gameSettings': (context) =>
-                AlarmScreen(), //TODO: Change to game settings
-          }),
-    ),
   );
 }
