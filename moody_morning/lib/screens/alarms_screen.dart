@@ -14,7 +14,9 @@ class AlarmScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.purple.shade700,
       appBar: LogoAppBar(),
-      bottomNavigationBar: Navigation(),
+      bottomNavigationBar: Navigation(
+        startingIndex: 0,
+      ),
       body: ListView(
         children: [
           for (AlarmData alarms in allAlarms.alarms)
