@@ -110,8 +110,8 @@ class _SetAlarmState extends State<SetAlarm> {
                       seconds: -DateTime.now().second)),
                   assetAudioPath: 'assets/sounds/galaxy_alarm.mp3',
                   vibrate: true,
-                  notificationTitle: 'Time to wake up!',
-                  notificationBody: 'Press here to get your challenge!',
+                  // notificationTitle: 'Time to wake up!',
+                  // notificationBody: 'Press here to get your challenge!',
                   enableNotificationOnKill: true,
                   stopOnNotificationOpen: false,
                 );
