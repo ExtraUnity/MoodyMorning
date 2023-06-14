@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "692482995764",
+    "project_id": "moodymorning-568d7",
+    "storage_bucket": "moodymorning-568d7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:692482995764:android:32ead7150037e3036a3c61",
+        "android_client_info": {
+          "package_name": "com.example.moody_morning"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "692482995764-co4ijtitmrl6r2nnsga4dprcim0em3ml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSFq_wRDfHJPkyKkUAjWtd6xtw0_alecM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "692482995764-co4ijtitmrl6r2nnsga4dprcim0em3ml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "692482995764-2ijhrm78ktj0h6qiulk1h3dmgjm57olk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.moodyMorning"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
