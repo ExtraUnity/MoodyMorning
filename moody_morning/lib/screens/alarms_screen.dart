@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
+import 'package:provider/provider.dart';
 import '../widgets/navigation_bar.dart';
+import 'package:alarm/alarm.dart';
 
 class AlarmScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var currentAlarms = AllAlarms();
-    currentAlarms.addAlarm(2, 24);
-    currentAlarms.addAlarm(2, 24);
+
+    var allAlarms = context.watch<AllAlarms>();
 
     return Scaffold(
       backgroundColor: Colors.purple.shade700,
@@ -18,8 +19,8 @@ class AlarmScreen extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          for (int i = 0; i < currentAlarms.alarms.length; i++)
-            AlarmCard(alarm: currentAlarms.alarms[i], alarmNumb: i),
+          for (AlarmData alarms in allAlarms.alarms)
+            AlarmCard(alarm: alarms,),
         ],
       ),
     );
@@ -30,11 +31,9 @@ class AlarmCard extends StatelessWidget {
   const AlarmCard({
     super.key,
     required this.alarm,
-    required this.alarmNumb,
   });
 
-  final Timer alarm;
-  final int alarmNumb;
+  final AlarmData alarm;
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +45,11 @@ class AlarmCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10),
             child: Text(
-              "${alarm.hours} : ${alarm.minutes}",
+              "${alarm.alarmsetting.dateTime.hour.toString().padLeft(2,"0")} : ${alarm.alarmsetting.dateTime.minute.toString().padLeft(2,"0")}" ,
               textScaleFactor: 2,
             ),
           ),
-          OnOff(alarmNumb: alarmNumb),
+          OnOff(alarm : alarm),
         ],
       ),
     );
@@ -58,22 +57,21 @@ class AlarmCard extends StatelessWidget {
 }
 
 class OnOff extends StatefulWidget {
-  const OnOff({super.key, required this.alarmNumb});
-  final int alarmNumb;
+  const OnOff({super.key, required this.alarm});
+  final AlarmData alarm;
   @override
   State<OnOff> createState() => _MyWidgetState();
 }
 
 class _MyWidgetState extends State<OnOff> {
-  bool light = false;
   @override
   Widget build(BuildContext context) {
     return Switch(
-        value: light,
-        onChanged: (bool value) {
-          setState(() {
-            light = value;
-          });
+      value: widget.alarm.active,
+      onChanged: (bool value) {
+        setState(() {
+          widget.alarm.stopStartAlarm();
         });
+      });
   }
 }

@@ -8,6 +8,7 @@ import 'package:moody_morning/screens/set_alarm.dart';
 import 'package:moody_morning/screens/solve_QRcode.dart';
 import 'package:moody_morning/screens/alarms_screen.dart';
 import 'package:alarm/alarm.dart';
+import 'package:provider/provider.dart';
 
 import 'package:moody_morning/system/notification_service.dart';
 
@@ -49,23 +50,24 @@ Future<void> main() async {
   if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
     initialRoute = 'QRChallenge';
   }
-
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    //home: AlarmScreen(),
-    initialRoute: initialRoute,
-    routes: {
-      '/': (context) => AlarmScreen(),
-      '/setAlarm': (context) => SetAlarm(),
-      '/equationSettings': (context) =>
-          AlarmScreen(), //TODO: Change to equation settings
-      '/exerciseSettings': (context) =>
-          AlarmScreen(), //TODO: Change to exercise settings
-      '/QRSettings': (context) => AlarmScreen(), //TODO: Change to QR settings
-      '/gameSettings': (context) =>
-          AlarmScreen(), //TODO: Change to game settings
-      '/QRChallenge': (context) => MainScreen(),
-    },
-  ));
+  runApp(ChangeNotifierProvider(
+    create: (context) => AllAlarms(),
+    child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: initialRoute,
+        //home: AlarmScreen(),
+        routes: {
+          '/': (context) => AlarmScreen(),
+          '/setAlarm': (context) => SetAlarm(),
+          '/equationSettings': (context) =>
+              AlarmScreen(), //TODO: Change to equation settings
+          '/exerciseSettings': (context) =>
+              AlarmScreen(), //TODO: Change to exercise settings
+          '/QRSettings': (context) => AlarmScreen(), //TODO: Change to QR settings
+          '/gameSettings': (context) =>
+              AlarmScreen(), //TODO: Change to game settings
+       }),
+     ),
+  );
   await Alarm.init();
 }

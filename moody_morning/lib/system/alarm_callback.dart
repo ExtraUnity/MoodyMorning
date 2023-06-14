@@ -33,4 +33,5 @@ void handleAlarm(BuildContext context, AlarmSettings activeAlarm) async {
   //TODO:
   //Handle different selection of challenges
   //Redirect to correct page
+
 }

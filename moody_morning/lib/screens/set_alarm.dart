@@ -4,7 +4,9 @@ import 'package:moody_morning/widgets/scroll_wheel.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
 import 'package:moody_morning/system/alarm_callback.dart';
 import 'package:alarm/alarm.dart';
+import 'package:provider/provider.dart';
 
+import '../system/all_alarms.dart';
 import '../widgets/navigation_bar.dart';
 
 class SetAlarm extends StatefulWidget {
@@ -33,6 +35,7 @@ class _SetAlarmState extends State<SetAlarm> {
 
   @override
   Widget build(BuildContext context) {
+    var allAlarms = context.watch<AllAlarms>();
     return Scaffold(
       backgroundColor: const Color(0xFF423E72),
       appBar: LogoAppBar(),
@@ -116,7 +119,9 @@ class _SetAlarmState extends State<SetAlarm> {
                   stopOnNotificationOpen: false,
                 );
                 //await Alarm.stop(alarmSettings.id);
-                await Alarm.set(alarmSettings: alarmSettings);
+                //await Alarm.set(alarmSettings: alarmSettings);
+                allAlarms.addAlarm(AlarmData(alarmSettings));
+
                 try {
                   Alarm.ringStream.stream.listen(
                       (activeAlarm) => handleAlarm(context, activeAlarm));
