@@ -1,9 +1,11 @@
+import 'dart:math';
 
 class Accelerometer {
-  double _x = 0.0;
-  double _y = 0.0;
-  double _z = 0.0;
-
+  num _x = 0.0;
+  num _y = 0.0;
+  num _z = 0.0;
+  double velocity = 0.0;
+  double magnitude = 0.0;
 
   /* void startListening() {
     _streamSubscription = accelerometerEvents.listen((AccelerometerEvent event) {
@@ -17,10 +19,14 @@ class Accelerometer {
     _streamSubscription?.cancel();
     _streamSubscription = null;
   } */
-  set x(double val) => _x = val;
-  set y(double val) => _y = val;
-  set z(double val) => _z = val;
-  double get x => _x;
-  double get y => _y;
-  double get z => _z;
+  set x(num val) => _x = val;
+  set y(num val) => _y = val;
+  set z(num val) => _z = val;
+  num get x => _x;
+  num get y => _y;
+  num get z => _z;
+  double toMagnitude(num x, num y, num z) {
+    magnitude = sqrt(x *  x + y * y + z * z);
+    return magnitude;
+  }
 }
