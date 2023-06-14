@@ -17,17 +17,29 @@ class _SlidePuzzleBoardState extends State<SolveRiddle> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ElevatedButton(
+          Padding(
+          padding: EdgeInsets.all(40.0),
+          child: ElevatedButton(
             onPressed: () {
               // Perform button action
               print('ALARM');
             },
-             style: ElevatedButton.styleFrom(
-              backgroundColor: Color(0xFF8F8BBF), // Change the button color here
-            ),
-            child: const Text(
-              '7:30',
-            style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
+              style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0xFF8F8BBF), // Change the button color here
+          ),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.access_alarm,
+                    size: 48,), // Add the desired icon here
+                  SizedBox(width: 15.0), // Add some spacing between the icon and the text
+                  Text(
+                    '7:30',
+                    style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
             ),
           ),
           Expanded(
