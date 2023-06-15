@@ -5,7 +5,7 @@ class ChallengeIconButton extends ElevatedButton {
   final String path;
   final BuildContext context;
   final Function(String) buttonPressed;
-  final double width;
+  final double borderWidth;
   final double size;
   ChallengeIconButton({
     super.key,
@@ -13,7 +13,7 @@ class ChallengeIconButton extends ElevatedButton {
     required this.path,
     required this.context,
     required this.buttonPressed,
-    required this.width,
+    required this.borderWidth,
     required this.size,
   }) : super(
           onPressed: () {
@@ -22,7 +22,7 @@ class ChallengeIconButton extends ElevatedButton {
           },
           style: ButtonStyle(
             shape: MaterialStateProperty.all(CircleBorder(
-                side: BorderSide(color: Colors.white, width: width))),
+                side: BorderSide(color: Colors.white, width: borderWidth))),
             backgroundColor:
                 MaterialStateProperty.all(Colors.deepPurple.shade300),
             padding: MaterialStateProperty.all(EdgeInsets.all(size)),
