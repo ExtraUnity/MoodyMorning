@@ -34,6 +34,9 @@ class NumPad extends StatelessWidget {
         },
         value: i,
         child: Text("$i", style: const TextStyle(fontSize: 30)),
+         style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF8F8BBF)), 
+         ),
       );
       buttonList.add(button);
     }
@@ -44,6 +47,9 @@ class NumPad extends StatelessWidget {
       },
       value: 0,
       child: const Text("0", style: TextStyle(fontSize: 30)),
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF8F8BBF)), 
+         ),
     );
 
     NumButton buttonBack = NumButton(
@@ -52,6 +58,9 @@ class NumPad extends StatelessWidget {
       },
       value: -1,
       child: const Text("Clear", style: TextStyle(fontSize: 25)),
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF8F8BBF)), 
+         ),
     );
 
     NumButton buttonEnter = NumButton(
@@ -59,6 +68,9 @@ class NumPad extends StatelessWidget {
         numpadPressedButton(10);
       },
       value: 10,
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF8F8BBF)), 
+         ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -89,8 +101,6 @@ class NumButton extends ElevatedButton {
           key: key,
           onPressed: onPressed,
           child: child,
-          style: style ?? ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF8F8BBF)),
-          ),
+          style: style,
         );
 }
