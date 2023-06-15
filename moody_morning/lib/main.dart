@@ -28,16 +28,16 @@ Future<void> main() async {
           navigatorKey: navigatorKey,
           //home: AlarmScreen(),
           routes: {
-            '/': (context) => AlarmScreen(),
-            '/setAlarm': (context) => SetAlarm(),
+            '/': (context) => const AlarmScreen(),
+            '/setAlarm': (context) => const SetAlarm(),
             '/equationSettings': (context) =>
-                SolveEquation(), //TODO: Change to equation settings
+                const SolveEquation(), //TODO: Change to equation settings
             '/exerciseSettings': (context) =>
-                SolveExercises(), //TODO: Change to exercise settings
+                const SolveExercises(), //TODO: Change to exercise settings
             '/QRSettings': (context) =>
                 SolveQRCode(), //TODO: Change to QR settings
             '/gameSettings': (context) =>
-                SolveRiddle(), //TODO: Change to game settings
+                const SolveRiddle(), //TODO: Change to game settings
           }),
     ),
   );

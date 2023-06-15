@@ -5,7 +5,6 @@ import 'package:sensors_plus/sensors_plus.dart';
 import 'package:moody_morning/system/defines_exercise.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
 import 'dart:async';
-import 'dart:math';
 
 class SolveExercises extends StatefulWidget {
   const SolveExercises({super.key});
