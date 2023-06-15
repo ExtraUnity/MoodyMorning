@@ -19,11 +19,28 @@ class _AlarmScreenState extends State<AlarmScreen> {
 
   void _configureSelectNotificationSubject() {
     notificationService.selectNotificationStream.stream
-        .listen((String? payload) async {
-      if (navigatorKey.currentState!.canPop()) {
+        .listen((String? input) async {
+      //Ensure that there is no current screen
+      while (navigatorKey.currentState!.canPop()) {
         navigatorKey.currentState!.pop();
       }
-      await navigatorKey.currentState!.pushReplacementNamed(payload!);
+      List<String> inputs = input!.split(' ');
+      String payload = inputs[0];
+      int alarmID = int.parse(inputs[1]);
+      //Push to relevant challenge screen using navigatorKey
+      await navigatorKey.currentState
+          ?.pushNamed(
+        payload,
+        arguments: alarmID,
+      )
+          .then((value) {
+        if (value != null) {
+          print("I DONT KNOW WHAT THIS IS ${value.toString()}");
+          navigatorKey.currentState?.pushReplacement(
+            value as Route<Object>,
+          );
+        }
+      });
     });
   }
 

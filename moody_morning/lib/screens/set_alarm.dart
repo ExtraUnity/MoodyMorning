@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/widgets/navigation_bar.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class SetAlarm extends StatefulWidget {
   const SetAlarm({super.key});
@@ -138,11 +139,27 @@ class _SetAlarmState extends State<SetAlarm> {
                 );
                 //await Alarm.stop(alarmSettings.id);
                 //await Alarm.set(alarmSettings: alarmSettings);
-                allAlarms.addAlarm(AlarmData(
-                  alarmSettings,
-                  payload: selectedChallenge,
-                ));
-                print("Created alarm with payload $selectedChallenge");
+                if (await Permission.scheduleExactAlarm.isDenied) {
+                  print("Permission to schedule alarm is denied");
+                }
+                PermissionStatus status =
+                    await Permission.scheduleExactAlarm.request();
+                while (status.isDenied) {
+                  status = await Permission.scheduleExactAlarm.request();
+                }
+
+                if (status.isPermanentlyDenied) {
+                  //Open app settings to allow user to grant permission
+                  await openAppSettings();
+                }
+                if (await Permission.scheduleExactAlarm.isGranted) {
+                  print("Created alarm with payload $selectedChallenge");
+                  allAlarms.addAlarm(AlarmData(
+                    alarmSettings,
+                    payload: selectedChallenge,
+                  ));
+                }
+
                 try {
                   Alarm.ringStream.stream.listen(
                       (activeAlarm) => handleAlarm(context, activeAlarm));
