@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/widgets/navigation_bar.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class SetAlarm extends StatefulWidget {
   const SetAlarm({super.key});
@@ -35,7 +36,6 @@ class _SetAlarmState extends State<SetAlarm> {
 
   @override
   Widget build(BuildContext context) {
-    var allAlarms = context.watch<AllAlarms>();
     return Scaffold(
       backgroundColor: const Color(0xFF423E72),
       appBar: LogoAppBar(),
@@ -118,37 +118,23 @@ class _SetAlarmState extends State<SetAlarm> {
             width: 100,
             child: ElevatedButton(
               onPressed: () async {
-                int hourDifference = (selectedHour - DateTime.now().hour) % 24;
-                int minuteDifference =
-                    (selectedMinute - DateTime.now().minute) % 60;
+                AlarmData alarm = AlarmData.createAlarmData(selectedHour, selectedMinute, selectedChallenge);
+                if (await Permission.scheduleExactAlarm.isDenied) {
+                  print("Permission to schedule alarm is denied");
+                }
+                PermissionStatus status =
+                    await Permission.scheduleExactAlarm.request();
+                while (status.isDenied) {
+                  status = await Permission.scheduleExactAlarm.request();
+                }
 
-                var sortedAlarms = AllAlarms.alarms
-                  ..sort((a, b) => b.alarmsetting.id
-                      .compareTo(a.alarmsetting.id)); //get highest id
-
-                final alarmSettings = AlarmSettings(
-                  //create alarm settings
-                  id: sortedAlarms.isNotEmpty
-                      ? sortedAlarms.elementAt(0).alarmsetting.id + 1
-                      : 0,
-                  dateTime: DateTime.now().add(Duration(
-                      hours: hourDifference,
-                      minutes: minuteDifference,
-                      seconds: -DateTime.now().second)),
-                  assetAudioPath: 'assets/sounds/galaxy_alarm.mp3',
-                  vibrate: true,
-                  // notificationTitle: 'Time to wake up!',
-                  // notificationBody: 'Press here to get your challenge!',
-                  enableNotificationOnKill: true,
-                  stopOnNotificationOpen: false,
-                );
-                //await Alarm.stop(alarmSettings.id);
-                //await Alarm.set(alarmSettings: alarmSettings);
-                allAlarms.addAlarm(AlarmData(
-                  alarmSettings,
-                  payload: selectedChallenge,
-                ));
-                print("Created alarm with payload $selectedChallenge");
+                if (status.isPermanentlyDenied) {
+                  //Open app settings to allow user to grant permission
+                  await openAppSettings();
+                }
+                if (await Permission.scheduleExactAlarm.isGranted) {
+                  AllAlarms.addAlarm(alarm);
+                }
                 try {
                   Alarm.ringStream.stream.listen(
                       (activeAlarm) => handleAlarm(context, activeAlarm));

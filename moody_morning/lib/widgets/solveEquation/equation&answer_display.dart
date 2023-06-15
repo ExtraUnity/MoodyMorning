@@ -2,6 +2,11 @@
 
 import 'package:flutter/material.dart';
 
+TextStyle textStyle = TextStyle(
+                fontSize: 27,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+  );
 class EquationDisplay extends StatelessWidget {
   final String equation;
   final String answer;
@@ -16,7 +21,7 @@ class EquationDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 100,
-      width: 380,
+      width: 360,
       child: Card(
         color: Colors.blue,
         child: Row(
@@ -25,16 +30,11 @@ class EquationDisplay extends StatelessWidget {
             Icon(
               Icons.calculate,
               color: Colors.white,
-              size: 60,
+              size: 50,
             ),
-            SizedBox(width: 5),
             Text(
               " $equation = ",
-              style: const TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+              style: textStyle,
               textAlign: TextAlign.center,
             ),
             SizedBox(width: 5),
@@ -49,7 +49,8 @@ class EquationDisplay extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(answer, style: const TextStyle(fontSize: 30)),
+                    Text(answer, style: textStyle,
+              textAlign: TextAlign.center,),
                   ],
                 ),
               ),

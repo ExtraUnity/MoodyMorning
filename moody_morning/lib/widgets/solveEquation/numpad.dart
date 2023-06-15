@@ -13,7 +13,7 @@ class NumPad extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 550,
+      height: 520,
       child: GridView.count(
         padding: const EdgeInsets.all(30),
         crossAxisSpacing: 10,
@@ -78,7 +78,7 @@ class NumPad extends StatelessWidget {
 class NumButton extends ElevatedButton {
   final int value;
 
-  NumButton({
+  const NumButton({
     Key? key,
     required VoidCallback? onPressed,
     required Widget? child,

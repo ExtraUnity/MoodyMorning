@@ -2,9 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:moody_morning/system/accelerometer_functions.dart';
+import 'package:moody_morning/system/all_alarms.dart';
 import 'package:sensors_plus/sensors_plus.dart';
-import 'dart:math';
 import 'package:moody_morning/system/defines_exercise.dart';
+import 'package:moody_morning/widgets/logo_app_bar.dart';
+import 'dart:async';
+import 'package:moody_morning/widgets/solveEquation/alarm_display.dart';
 
 class SolveExercises extends StatefulWidget {
   const SolveExercises({super.key});
@@ -16,13 +19,20 @@ class SolveExercises extends StatefulWidget {
 class _SolveExercisesState extends State<SolveExercises> {
   UserAccelerometerEvent? eve;
   Accelerometer accel = Accelerometer();
+  final _streamSubscriptions = <StreamSubscription<dynamic>>[];
   int exercisesDone = 0;
   bool isUp = false;
   bool isDown = false;
   String instruction = 'Not supposed to be seen!';
+  bool isFinished = false;
+  String notDone = 'Not Done!';
+  String Done = 'Stop Alarm!';
   @override
   void dispose() {
     super.dispose();
+    for (final subscription in _streamSubscriptions) {
+      subscription.cancel();
+    }
   }
 
   @override
@@ -30,8 +40,9 @@ class _SolveExercisesState extends State<SolveExercises> {
     exercisesDone = 0;
     isUp = false;
     isDown = false;
-    String instruction = 'Not supposed to be seen!';
-    userAccelerometerEvents.listen((UserAccelerometerEvent event) {
+    isFinished = false;
+    _streamSubscriptions
+        .add(userAccelerometerEvents.listen((UserAccelerometerEvent event) {
       setState(() {
         eve = event;
         accel.x = event.x;
@@ -39,33 +50,46 @@ class _SolveExercisesState extends State<SolveExercises> {
         accel.z = event.z;
         exerciseHandler();
       });
-    });
+    }));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    //TODO:
-    //wrap in WillPopScope
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Accelerometer Example'),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text("$instruction"),
-              Text(
-                  "Amount of ${CURRENT_EXERCISE}: ${exercisesDone}/$AMOUNT_EXERCISE "),
-              //Text('X: ${eve?.x.toStringAsFixed(3)} '),
-              Text('Y: ${eve?.y.toStringAsFixed(3)}'),
-              //Text('Z: ${eve?.z.toStringAsFixed(3)}'),
-              //Text('magnitude: ${accel.toMagnitude(accel.x,accel.y,accel.z)}')
-            ],
+    return WillPopScope (
+      onWillPop:() async => false,
+      child: Scaffold(
+          appBar: LogoAppBar(),
+          backgroundColor: Color(0xFF423E72),
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                AlarmDisplay(),
+                Text("$instruction", style: TextStyle(fontSize: 40, color: Colors.white)),
+                Text(
+                    "Amount of ${CURRENT_EXERCISE}: ${(exercisesDone / 2).floor()}/${(AMOUNT_EXERCISE / 2).floor()} ", style: TextStyle(color: Colors.white)),
+                //Text('X: ${eve?.x.toStringAsFixed(3)} '),
+                //Text('Y: ${eve?.y.toStringAsFixed(3)}'),
+                //Text('Z: ${eve?.z.toStringAsFixed(3)}'),
+                //Text('magnitude: ${accel.toMagnitude(accel.x,accel.y,accel.z)}')
+                Container(
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF8F8BBF),
+                        textStyle: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () => {
+                            //stop alarm
+                            if (isFinished) {
+                            challengeSolved(context),
+                            dispose()}
+                          },
+                      child: Text('${isFinished ? Done : notDone}'),),
+                )
+              ],
+            ),
           ),
-        ),
       ),
     );
   }
@@ -73,7 +97,7 @@ class _SolveExercisesState extends State<SolveExercises> {
   void exerciseHandler() {
     if (exercisesDone >= AMOUNT_EXERCISE) {
       instruction = 'Finished!';
-      //afslut alarm
+      isFinished = true;
     } else if (exercisesDone % 2 == 0) {
       instruction = 'Down!';
     } else {
