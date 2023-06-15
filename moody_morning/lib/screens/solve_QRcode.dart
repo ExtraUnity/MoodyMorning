@@ -26,18 +26,24 @@ class SolveQRCode extends StatelessWidget {
             child: Column(children: [
               const Expanded(
                   child: SizedBox(
-                    width: 380,
-                    height: 75,
-                    child: Card(
-                       color: Color(0xFF8F8BBF),
-                      child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
+                width: 380,
+                height: 75,
+                child: Card(
+                  color: Color(0xFF8F8BBF),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.qr_code_2, color: Colors.white70, size: 40,),
-                          SizedBox(width: 10,),
+                          Icon(
+                            Icons.qr_code_2,
+                            color: Colors.white70,
+                            size: 40,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
                           Text(
                             'Find a QR code and scan it',
                             style: TextStyle(
@@ -59,10 +65,10 @@ class SolveQRCode extends StatelessWidget {
                           color: Colors.white60,
                         ),
                       ),
-                                    ],
-                                  ),
-                    ),
-                  )),
+                    ],
+                  ),
+                ),
+              )),
               Expanded(
                 flex: 4,
                 child: Center(
