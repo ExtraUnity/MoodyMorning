@@ -28,7 +28,7 @@ class SolveQRCode extends StatelessWidget {
                     width: 380,
                     height: 75,
                     child: Card(
-                      color: Colors.blue,
+                       color: Color(0xFF8F8BBF),
                       child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -70,7 +70,7 @@ class SolveQRCode extends StatelessWidget {
                   width: 320,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    border: Border.all(color: Colors.blue, width: 10),
+                    border: Border.all(color: Color(0xFF8F8BBF), width: 10),
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
