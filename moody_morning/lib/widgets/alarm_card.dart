@@ -26,7 +26,7 @@ class AlarmCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              DeleteBotton(
+              DeleteButton(
                   id: alarm.alarmsetting.id, show: show, callBack: callBack),
               Padding(
                 padding: const EdgeInsets.all(10),

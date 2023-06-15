@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:moody_morning/system/all_alarms.dart';
 
-class DeleteBotton extends StatefulWidget {
-  const DeleteBotton(
+class DeleteButton extends StatefulWidget {
+  const DeleteButton(
       {super.key,
       required this.id,
       required this.show,
@@ -12,10 +12,10 @@ class DeleteBotton extends StatefulWidget {
   final Function() callBack;
 
   @override
-  State<DeleteBotton> createState() => _DeleteBottonState();
+  State<DeleteButton> createState() => _DeleteButtonState();
 }
 
-class _DeleteBottonState extends State<DeleteBotton> {
+class _DeleteButtonState extends State<DeleteButton> {
   @override
   Widget build(BuildContext context) {
     return Visibility(
