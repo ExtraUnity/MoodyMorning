@@ -1,5 +1,3 @@
-
-
 import 'dart:math';
 
 String randomEquationGenerator() {
@@ -7,23 +5,13 @@ String randomEquationGenerator() {
   String o = "";
   String o2 = "";
 
-  int a = rn.nextInt(100);
-  int b = rn.nextInt(99);
-  int c = rn.nextInt(10);
+  int a = rn.nextInt(90)+10; // range 10-100
+  int b = rn.nextInt(19)+1; // range: 1-20
+  int c = rn.nextInt(9)+1;  // range: 1-10
 
   int r = rn.nextInt(4);
-  if (r == 1) {
-    o = "+";
-    o2 = "x";
-  } else if (r == 2) {
-    o = "x";
-    o2 = "+";
-  } else if (r == 3) {
-    o = "x";
-    o2 = "x";
-  } else {
-    o = "+";
-    o2 = "+";
-  }
+  o = rn.nextInt(1) > 0.5 ? "+" : "x";
+  o2 = rn.nextInt(1) > 0.5 ? "+" : "x";
+
   return "$a $o $b $o2 $c";
 }
