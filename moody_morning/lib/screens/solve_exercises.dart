@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moody_morning/system/accelerometer_functions.dart';
+import 'package:moody_morning/system/all_alarms.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:moody_morning/system/defines_exercise.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
@@ -76,7 +77,9 @@ class _SolveExercisesState extends State<SolveExercises> {
                     ),
                     onPressed: () => {
                           //stop alarm
-                          if (isFinished) {dispose()}
+                          if (isFinished) {
+                          challengeSolved(context),
+                          dispose()}
                         },
                     child: Text('${isFinished ? Done : notDone}'),),
               )
