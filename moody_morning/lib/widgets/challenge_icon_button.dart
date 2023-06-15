@@ -4,14 +4,17 @@ class ChallengeIconButton extends ElevatedButton {
   final Icon icon;
   final String path;
   final BuildContext context;
-  ChallengeIconButton(
-      {super.key,
-      required this.icon,
-      required this.path,
-      required this.context})
-      : super(
+  final Function(String) buttonPressed;
+  ChallengeIconButton({
+    super.key,
+    required this.icon,
+    required this.path,
+    required this.context,
+    required this.buttonPressed,
+  }) : super(
           onPressed: () {
-            Navigator.pushNamed(context, path);
+            buttonPressed(path);
+            //Navigator.pushNamed(context, path);
           },
           style: ButtonStyle(
             shape: MaterialStateProperty.all(const CircleBorder()),
