@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
-import 'dart:math';
 
 class SolveRiddle extends StatefulWidget {
+  const SolveRiddle({super.key});
+
   @override
   _SlidePuzzleBoardState createState() => _SlidePuzzleBoardState();
 }
@@ -193,8 +194,8 @@ class _SlidePuzzleBoardState extends State<SolveRiddle> {
      tiles[index - 1] = tiles[index];
     tiles[index] = 8;
     if (alarmOff()) {
-      // If the board is in the right order, show a dialog indicating the win
       challengeSolved(context);
+
     }
   }
 }

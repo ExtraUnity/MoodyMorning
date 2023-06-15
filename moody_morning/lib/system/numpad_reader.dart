@@ -5,6 +5,7 @@ import 'package:moody_morning/system/random_equation_generator.dart';
 import '../widgets/solveEquation/alarm_display.dart';
 import '../widgets/solveEquation/equation&answer_display.dart';
 import '../widgets/solveEquation/numpad.dart';
+import 'all_alarms.dart';
 
 class EquationScreenLayout extends StatefulWidget {
   const EquationScreenLayout({super.key});
@@ -56,18 +57,21 @@ class _EquationScreenLayoutState extends State<EquationScreenLayout> {
 
   // Compares user input answer with true solution
   void compareAnswerWithSolution() {
+    print(inputAnswer);
+    print(solution);
+
     if (int.parse(inputAnswer) == solution) {
-      print("correct");
+      challengeSolved(context);
     } else {
-      print("wrong");
+      throw Exception("User's answer to equation was not correct");
     }
   }
 
   // Makes sure it follows math Precedence under calculation:
   void calculateSolution(List<String> splitEquation, List<int> numbers) {
-    if (splitEquation[3] == "x") {
+    if (splitEquation[3] == "x" && splitEquation[1] == "+") {
       solution = numbers[0] + (numbers[1] * numbers[2]);
-    } else if (splitEquation[1] == "x") {
+    } else if (splitEquation[1] == "x" && splitEquation[3] == "+") {
       solution = (numbers[0] * numbers[1] + numbers[2]);
     } else if (!splitEquation.contains("x")) {
       solution = numbers[0] + numbers[1] + numbers[2];

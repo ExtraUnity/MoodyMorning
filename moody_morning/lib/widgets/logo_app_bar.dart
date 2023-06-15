@@ -5,5 +5,5 @@ class LogoAppBar extends AppBar {
       : super(
             title: Image.asset('assets/images/logoFull.png'),
             centerTitle: true,
-            backgroundColor: Color(0xFF423E72));
+            backgroundColor: const Color(0xFF423E72));
 }

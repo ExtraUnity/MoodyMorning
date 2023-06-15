@@ -79,7 +79,7 @@ class NumPad extends StatelessWidget {
 class NumButton extends ElevatedButton {
   final int value;
 
-  NumButton({
+  const NumButton({
     Key? key,
     required VoidCallback? onPressed,
     required Widget? child,
