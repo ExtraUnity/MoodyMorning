@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:moody_morning/system/all_alarms.dart';
+import 'package:moody_morning/widgets/logo_app_bar.dart';
 
 const bgColor = Color(0xFF423E72);
 
@@ -11,54 +12,54 @@ class SolveQRCode extends StatelessWidget {
   // Flashlight
   @override
   Widget build(BuildContext context) {
-    final alarmID = ModalRoute.of(context)!.settings.arguments as int;
-    AlarmData alarm = AllAlarms.alarms
-        .firstWhere((alarm) => alarm.alarmsetting.id == alarmID);
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
           backgroundColor: bgColor,
-          appBar: AppBar(
-            centerTitle: true,
-            automaticallyImplyLeading: false,
-            title: const Text(
-              "QR Scanner",
-              style: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 1,
-              ),
-            ),
-          ),
+          appBar: LogoAppBar(),
           body: Container(
             width: double.infinity,
             padding: const EdgeInsets.all(16),
             child: Column(children: [
               const Expanded(
-                  child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Place the QR code in the area',
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1,
+                  child: SizedBox(
+                    width: 380,
+                    height: 75,
+                    child: Card(
+                      color: Colors.blue,
+                      child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.qr_code_2, color: Colors.white70, size: 40,),
+                          SizedBox(width: 10,),
+                          Text(
+                            'Find a QR code and scan it',
+                            style: TextStyle(
+                              color: Colors.white70,
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'Scanning will be started automatically',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white60,
+                        ),
+                      ),
+                                    ],
+                                  ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'Scanning will be started automatically',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white60,
-                    ),
-                  ),
-                ],
-              )),
+                  )),
               Expanded(
                 flex: 4,
                 child: Center(
@@ -83,7 +84,7 @@ class SolveQRCode extends StatelessWidget {
                               for (final barcode in barcodes) {
                                 debugPrint(
                                     'Barcode found! ${barcode.rawValue}');
-                                _foundBarcode(barcode, context, alarm);
+                                _foundBarcode(barcode, context);
                               }
                             },
                           ),
@@ -110,16 +111,14 @@ class SolveQRCode extends StatelessWidget {
     );
   }
 
-  void _foundBarcode(
-      Barcode barcode, BuildContext context, AlarmData alarm) async {
+  void _foundBarcode(Barcode barcode, BuildContext context) async {
     ///open screen
     if (!_screenOpened) {
       final String code = barcode.rawValue ?? "---";
       debugPrint('Barcode found! $code');
       _screenOpened = true;
       cameraController.stop();
-      alarm.stopStartAlarm();
-      if (context.mounted) Navigator.pushReplacementNamed(context, '/');
+      challengeSolved(context);
     }
   }
 
