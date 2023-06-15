@@ -5,6 +5,7 @@ import 'package:moody_morning/system/random_equation_generator.dart';
 import '../widgets/solveEquation/alarm_display.dart';
 import '../widgets/solveEquation/equation&answer_display.dart';
 import '../widgets/solveEquation/numpad.dart';
+import 'all_alarms.dart';
 
 class EquationScreenLayout extends StatefulWidget {
   const EquationScreenLayout({super.key});
@@ -33,7 +34,6 @@ class _EquationScreenLayoutState extends State<EquationScreenLayout> {
         inputAnswer = "";
       } else if (value == 10) {
         //TURN OFF ALARM:
-        
         fetchSolution();
         compareAnswerWithSolution();
       } else {
@@ -59,9 +59,9 @@ class _EquationScreenLayoutState extends State<EquationScreenLayout> {
   // Compares user input answer with true solution
   void compareAnswerWithSolution() {
     if (int.parse(inputAnswer) == solution) {
-      print("correct");
+      challengeSolved();
     } else {
-      print("wrong");
+      throw Exception("User's answer to equation was not correct");
     }
   }
 
