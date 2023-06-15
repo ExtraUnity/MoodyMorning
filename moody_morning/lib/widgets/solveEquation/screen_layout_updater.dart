@@ -33,8 +33,8 @@ class _EquationScreenLayoutState extends State<EquationScreenLayout> {
     String o2 = "";
 
     int a = rn.nextInt(100);
-    int b = rn.nextInt(20);
-    int c = rn.nextInt(20);
+    int b = rn.nextInt(99);
+    int c = rn.nextInt(10);
 
     int r = rn.nextInt(4);
     if (r == 1) {
@@ -48,7 +48,7 @@ class _EquationScreenLayoutState extends State<EquationScreenLayout> {
       o2 = "x";
     } else {
       o = "+";
-      o = "+";
+      o2 = "+";
     }
     equation = "$a $o $b $o2 $c";
   }
