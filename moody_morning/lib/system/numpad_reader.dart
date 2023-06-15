@@ -32,6 +32,8 @@ class _EquationScreenLayoutState extends State<EquationScreenLayout> {
         // Clear answer when "Clear" is pressed
         inputAnswer = "";
       } else if (value == 10) {
+        //TURN OFF ALARM:
+        
         fetchSolution();
         compareAnswerWithSolution();
       } else {
