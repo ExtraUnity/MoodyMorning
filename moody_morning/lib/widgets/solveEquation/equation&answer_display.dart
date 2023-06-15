@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 TextStyle textStyle = TextStyle(
-                fontSize: 30,
+                fontSize: 25,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
   );
@@ -30,9 +30,9 @@ class EquationDisplay extends StatelessWidget {
             Icon(
               Icons.calculate,
               color: Colors.white,
-              size: 60,
+              size: 50,
             ),
-            SizedBox(width: 5),
+            SizedBox(width: 1),
             Text(
               " $equation = ",
               style: textStyle,
