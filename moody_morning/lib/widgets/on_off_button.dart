@@ -11,12 +11,18 @@ class OnOff extends StatefulWidget {
 class _MyWidgetState extends State<OnOff> {
   @override
   Widget build(BuildContext context) {
-    return Switch(
-        value: widget.alarm.active,
-        onChanged: (bool value) {
-          setState(() {
-            widget.alarm.stopStartAlarm();
-          });
-        });
+    return Transform.scale(
+      scale: 1.5,
+      child: Switch(
+          activeColor: const Color(0xFF8F8BBF),
+          activeTrackColor: Colors.white60,
+          inactiveThumbColor: const Color(0xFF8F8BBF),
+          value: widget.alarm.active,
+          onChanged: (bool value) {
+            setState(() {
+              widget.alarm.stopStartAlarm();
+            });
+          }),
+    );
   }
 }

@@ -17,7 +17,10 @@ class AlarmCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20))),
+      elevation: 3,
+      color: const Color(0xFF8F8BBF),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -29,12 +32,15 @@ class AlarmCard extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 child: Text(
                   "${alarm.alarmsetting.dateTime.hour.toString().padLeft(2, "0")} : ${alarm.alarmsetting.dateTime.minute.toString().padLeft(2, "0")}",
-                  textScaleFactor: 2,
+                  textScaleFactor: 3,
+                  style: const TextStyle(color: Colors.white),
                 ),
               ),
             ],
           ),
-          OnOff(alarm: alarm),
+          Container(
+              margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+              child: OnOff(alarm: alarm)),
         ],
       ),
     );

@@ -72,21 +72,37 @@ class _AlarmScreenState extends State<AlarmScreen> {
       bottomNavigationBar: const Navigation(
         startingIndex: 0,
       ),
-      body: ListView(
-        children: [
-          Container(
-            alignment: Alignment.topLeft,
-            margin: const EdgeInsets.symmetric(vertical: 5.0),
-            child: ChallengeIconButton(
-              icon: const Icon(Icons.edit),
-              buttonPressed: (_) => showDelete(),
-              borderWidth: 1.0,
-              size: 10,
+      body: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 10),
+        child: ListView(
+          children: [
+            Container(
+              alignment: Alignment.topLeft,
+              margin: const EdgeInsets.symmetric(vertical: 10.0),
+              child: ChallengeIconButton(
+                icon: const Icon(Icons.edit),
+                buttonPressed: (_) => showDelete(),
+                borderWidth: 1.0,
+                size: 15,
+              ),
             ),
-          ),
-          for (AlarmData alarms in AllAlarms.alarms)
-            AlarmCard(alarm: alarms, show: show, callBack: updateScreen),
-        ],
+            for (AlarmData alarms in AllAlarms.alarms)
+              Column(
+                children: [
+                  SizedBox(
+                      height: 100,
+                      child: AlarmCard(
+                        alarm: alarms,
+                        show: show,
+                        callBack: updateScreen,
+                      )),
+                  const Divider(
+                    height: 10,
+                  )
+                ],
+              ),
+          ],
+        ),
       ),
     );
   }
