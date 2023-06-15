@@ -12,8 +12,9 @@ dependencies:
   camera: ^0.10.5+2
   flutter:
     sdk: flutter
-  sensors_plus: ^3.0.2
+  mobile_scanner: ^3.2.0
   qr_code_scanner: ^1.0.1
+  sensors_plus: ^3.0.2
   provider: ^6.0.0
   firebase_core: ^2.13.1
   flutter_local_notifications: ^14.1.1
