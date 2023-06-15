@@ -6,6 +6,8 @@ import '../widgets/navigation_bar.dart';
 import 'package:moody_morning/main.dart';
 
 class AlarmScreen extends StatefulWidget {
+  const AlarmScreen({super.key});
+
   @override
   State<AlarmScreen> createState() => _AlarmScreenState();
 }
@@ -19,11 +21,28 @@ class _AlarmScreenState extends State<AlarmScreen> {
 
   void _configureSelectNotificationSubject() {
     notificationService.selectNotificationStream.stream
-        .listen((String? payload) async {
-      if (navigatorKey.currentState!.canPop()) {
+        .listen((String? input) async {
+      //Ensure that there is no current screen
+      while (navigatorKey.currentState!.canPop()) {
         navigatorKey.currentState!.pop();
       }
-      await navigatorKey.currentState!.pushReplacementNamed(payload!);
+      List<String> inputs = input!.split(' ');
+      String payload = inputs[0];
+      int alarmID = int.parse(inputs[1]);
+      //Push to relevant challenge screen using navigatorKey
+      await navigatorKey.currentState
+          ?.pushNamed(
+        payload,
+        arguments: alarmID,
+      )
+          .then((value) {
+        if (value != null) {
+          print("I DONT KNOW WHAT THIS IS ${value.toString()}");
+          navigatorKey.currentState?.pushReplacement(
+            value as Route<Object>,
+          );
+        }
+      });
     });
   }
 
@@ -46,9 +65,9 @@ class _AlarmScreenState extends State<AlarmScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: Colors.purple.shade700,
+      backgroundColor: Color(0xFF423E72),
       appBar: LogoAppBar(),
-      bottomNavigationBar: Navigation(
+      bottomNavigationBar: const Navigation(
         startingIndex: 0,
       ),
       body: ListView(

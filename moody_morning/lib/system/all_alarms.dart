@@ -96,3 +96,16 @@ class TimeDifference {
   int minutes;
   TimeDifference(this.hours, this.minutes);
 }
+
+
+void challengeSolved(BuildContext context) {
+  AlarmData alarm = getRingingAlarm(context);
+  alarm.stopStartAlarm();
+  if (context.mounted) Navigator.pushReplacementNamed(context, '/');
+}
+
+AlarmData getRingingAlarm(BuildContext context) {
+  final alarmID = ModalRoute.of(context)!.settings.arguments as int;
+  return AllAlarms.alarms
+      .firstWhere((alarm) => alarm.alarmsetting.id == alarmID);
+}
