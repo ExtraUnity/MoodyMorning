@@ -10,7 +10,7 @@ class AlarmDisplay extends StatelessWidget {
 
     return SizedBox(
       height: 85,
-      width: 380,
+      width: 360,
       child: Card(
           color: Colors.blue,
           child: Row(

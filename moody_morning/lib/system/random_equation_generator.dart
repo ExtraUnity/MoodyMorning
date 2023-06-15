@@ -5,11 +5,10 @@ String randomEquationGenerator() {
   String o = "";
   String o2 = "";
 
-  int a = rn.nextInt(90)+10; // range 10-100
+  int a = rn.nextInt(90)+9; // range 9-99
   int b = rn.nextInt(19)+1; // range: 1-20
   int c = rn.nextInt(9)+1;  // range: 1-10
 
-  int r = rn.nextInt(4);
   o = rn.nextInt(1) > 0.5 ? "+" : "x";
   o2 = rn.nextInt(1) > 0.5 ? "+" : "x";
 

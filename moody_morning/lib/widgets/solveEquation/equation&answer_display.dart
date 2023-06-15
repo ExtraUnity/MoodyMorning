@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 TextStyle textStyle = TextStyle(
-                fontSize: 25,
+                fontSize: 27,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
   );
@@ -21,7 +21,7 @@ class EquationDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 100,
-      width: 380,
+      width: 360,
       child: Card(
         color: Colors.blue,
         child: Row(
@@ -32,7 +32,6 @@ class EquationDisplay extends StatelessWidget {
               color: Colors.white,
               size: 50,
             ),
-            SizedBox(width: 1),
             Text(
               " $equation = ",
               style: textStyle,
