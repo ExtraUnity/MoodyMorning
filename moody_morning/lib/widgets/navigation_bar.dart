@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Navigation extends StatefulWidget {
-  const Navigation ({super.key});
+  final int startingIndex;
+  const Navigation({super.key, required this.startingIndex});
 
   @override
   State<Navigation> createState() => _NavigationState();
@@ -10,34 +11,41 @@ class Navigation extends StatefulWidget {
 class _NavigationState extends State<Navigation> {
   var _currentIndex = 0;
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    _currentIndex = widget.startingIndex;
+    super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return BottomNavigationBar(
       currentIndex: _currentIndex,
       onTap: (index) async {
+        if (index == _currentIndex) {
+          return;
+        }
         setState(() {
           _currentIndex = index;
         });
 
         switch (index) {
           case 0:
-            await Navigator.pushNamed(context,'/');
+            await Navigator.pushReplacementNamed(context, '/');
             break;
           case 1:
-            await Navigator.pushNamed(context,'/setAlarm');
+            await Navigator.pushReplacementNamed(context, '/setAlarm');
         }
       },
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Oversigt',
-        ), 
-
+        ),
         BottomNavigationBarItem(
           icon: Icon(Icons.alarm),
           label: 'Alarm',
         ),
-
-      ],);
+      ],
+    );
   }
 }
