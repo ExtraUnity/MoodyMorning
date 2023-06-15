@@ -10,15 +10,48 @@ import 'numpad.dart';
 class EquationScreenLayout extends StatefulWidget {
   const EquationScreenLayout({super.key});
 
-
   @override
   _EquationScreenLayoutState createState() => _EquationScreenLayoutState();
 }
 
 class _EquationScreenLayoutState extends State<EquationScreenLayout> {
-  String equation = "2 + 2 + 2";
+  String equation = "";
   String inputAnswer = "";
-  int solution = -999;
+  int solution = -99;
+  
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialization tasks here:
+    randomEquationGenerator();
+  }
+
+  void randomEquationGenerator() {
+    var rn = Random();
+    String o = "";
+    String o2 = "";
+
+    int a = rn.nextInt(100);
+    int b = rn.nextInt(20);
+    int c = rn.nextInt(20);
+
+    int r = rn.nextInt(4);
+    if (r == 1) {
+      o = "+";
+      o2 = "x";
+    } else if (r == 2) {
+      o = "x";
+      o2 = "+";
+    } else if (r == 3) {
+      o = "x";
+      o2 = "x";
+    } else {
+      o = "+";
+      o = "+";
+    }
+    equation = "$a $o $b $o2 $c";
+  }
 
   // Method for specific button functions: "Clear" and "Evaluate (Right-Arrow)":
   void numpadPressedButton(int value) {
