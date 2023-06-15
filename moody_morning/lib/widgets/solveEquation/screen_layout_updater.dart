@@ -13,7 +13,7 @@ class EquationScreenLayout extends StatefulWidget {
 }
 
 class _EquationScreenLayoutState extends State<EquationScreenLayout> {
-  String equation = "24 x 4";
+  String equation = "2 + 6 x 10";
   String inputAnswer = "";
   int solution = -999;
 
@@ -21,27 +21,31 @@ class _EquationScreenLayoutState extends State<EquationScreenLayout> {
   void numpadPressedButton(int value) {
     setState(() {
       if (value == -1) {
-        // Clear answer when pressed
+        // Clear answer when "Clear" is pressed
         inputAnswer = "";
       } else if (value == 10) {
+        // Perform evaluation and checks answer when (Right-Arrow) is pressed
         fetchSolution();
-
-        // Perform evaluation when (Right-Arrow) is pressed
-        if (inputAnswer as int == solution) {
-          inputAnswer = checkAnswer(equation, inputAnswer);
+        if (int.parse(inputAnswer) == solution) {
           print("correct");
         } else {
           print("wrong");
         }
+
+        print(inputAnswer);
+        print(solution);
       } else {
         displayPressedNumber(value);
       }
     });
   }
 
-  int fetchSolution() {
- 
-    return 0;
+  void fetchSolution() {
+    //equation parser... TO DO:
+    equation.split('');
+    
+
+    solution = 96;
   }
 
   // Displays any number pressed from 0-9 in Answer Box (limited to max 5 digits)
@@ -51,11 +55,6 @@ class _EquationScreenLayoutState extends State<EquationScreenLayout> {
     } else {
       throw Exception("Max digits is 5. Please press the clear button");
     }
-  }
-
-  // Compare input answer with the evaluated True answer of equation:
-  String checkAnswer(String equation, String inputAnswer) {
-    return inputAnswer;
   }
 
   @override
