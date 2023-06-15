@@ -16,10 +16,7 @@ dependencies:
   qr_code_scanner: ^1.0.1
   sensors_plus: ^3.0.2
   provider: ^6.0.0
-  firebase_core: ^2.13.1
   flutter_local_notifications: ^14.1.1
-  firebase_messaging: ^14.6.2
-  firebase_analytics: ^10.4.3
   permission_handler: ^10.3.0
   intl: ^0.17.0
 
