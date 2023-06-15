@@ -1,6 +1,9 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
-import '../widgets/numpad.dart';
+
+import '../widgets/solveEquation/screen_layout_updater.dart';
 
 class SolveEquation extends StatelessWidget {
   @override
@@ -8,7 +11,7 @@ class SolveEquation extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xFF423E72),
       appBar: LogoAppBar(), //AppBar
-      body: const NumPad(),
+      body: EquationScreenLayout(),
     );
   }
 }

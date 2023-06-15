@@ -1,9 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
-import 'package:provider/provider.dart';
 import '../widgets/navigation_bar.dart';
-import 'package:alarm/alarm.dart';
+import 'package:moody_morning/main.dart';
+
+class AlarmScreen extends StatefulWidget {
+  @override
+  State<AlarmScreen> createState() => _AlarmScreenState();
+}
+
+class _AlarmScreenState extends State<AlarmScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _configureSelectNotificationSubject();
+  }
+
+  void _configureSelectNotificationSubject() {
+    notificationService.selectNotificationStream.stream
+        .listen((String? payload) async {
+      if (navigatorKey.currentState!.canPop()) {
+        navigatorKey.currentState!.pop();
+      }
+      await navigatorKey.currentState!.pushReplacementNamed(payload!);
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
 class AlarmScreen extends StatefulWidget {
   @override
@@ -26,7 +53,9 @@ class _AlarmScreenState extends State<AlarmScreen> {
     return Scaffold(
       backgroundColor: Colors.purple.shade700,
       appBar: LogoAppBar(),
-      bottomNavigationBar: Navigation(),
+      bottomNavigationBar: Navigation(
+        startingIndex: 0,
+      ),
       body: ListView(
         children: [
           FloatingActionButton(onPressed: () {
@@ -38,6 +67,25 @@ class _AlarmScreenState extends State<AlarmScreen> {
       ),
     );
   }
+}
+
+Future<void> showNotification(String payload) async {
+  const AndroidNotificationDetails androidNotificationDetails =
+      AndroidNotificationDetails('your channel id', 'your channel name',
+          channelDescription: 'your channel description',
+          importance: Importance.max,
+          priority: Priority.high,
+          fullScreenIntent: true,
+          ticker: 'ticker');
+  const NotificationDetails notificationDetails =
+      NotificationDetails(android: androidNotificationDetails);
+  await notificationService.flutterLocalNotificationsPlugin.show(
+    0,
+    'Time to wake up!',
+    'Click here to get your challenge',
+    notificationDetails,
+    payload: payload,
+  );
 }
 
 class AlarmCard extends StatelessWidget {
@@ -58,7 +106,7 @@ class AlarmCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10),
             child: Text(
-              "${alarm.alarmsetting.dateTime.hour.toString().padLeft(2,"0")} : ${alarm.alarmsetting.dateTime.minute.toString().padLeft(2,"0")}" ,
+              "${alarm.alarmsetting.dateTime.hour.toString().padLeft(2, "0")} : ${alarm.alarmsetting.dateTime.minute.toString().padLeft(2, "0")}",
               textScaleFactor: 2,
             ),
           ),
@@ -85,12 +133,12 @@ class _MyWidgetState extends State<OnOff> {
   @override
   Widget build(BuildContext context) {
     return Switch(
-      value: widget.alarm.active,
-      onChanged: (bool value) {
-        setState(() {
-          widget.alarm.stopStartAlarm();
+        value: widget.alarm.active,
+        onChanged: (bool value) {
+          setState(() {
+            widget.alarm.stopStartAlarm();
+          });
         });
-      });
   }
 }
 
