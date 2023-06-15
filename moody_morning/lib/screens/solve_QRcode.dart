@@ -12,9 +12,6 @@ class SolveQRCode extends StatelessWidget {
   // Flashlight
   @override
   Widget build(BuildContext context) {
-    final alarmID = ModalRoute.of(context)!.settings.arguments as int;
-    AlarmData alarm = AllAlarms.alarms
-        .firstWhere((alarm) => alarm.alarmsetting.id == alarmID);
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -87,7 +84,7 @@ class SolveQRCode extends StatelessWidget {
                               for (final barcode in barcodes) {
                                 debugPrint(
                                     'Barcode found! ${barcode.rawValue}');
-                                _foundBarcode(barcode, context, alarm);
+                                _foundBarcode(barcode, context);
                               }
                             },
                           ),
@@ -114,16 +111,14 @@ class SolveQRCode extends StatelessWidget {
     );
   }
 
-  void _foundBarcode(
-      Barcode barcode, BuildContext context, AlarmData alarm) async {
+  void _foundBarcode(Barcode barcode, BuildContext context) async {
     ///open screen
     if (!_screenOpened) {
       final String code = barcode.rawValue ?? "---";
       debugPrint('Barcode found! $code');
       _screenOpened = true;
       cameraController.stop();
-      alarm.stopStartAlarm();
-      if (context.mounted) Navigator.pushReplacementNamed(context, '/');
+      challengeSolved(context);
     }
   }
 
