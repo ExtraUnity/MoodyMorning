@@ -3,14 +3,19 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
 
-
 const bgColor = Color(0xFF423E72);
 
-class SolveQRCode extends StatelessWidget {
-  final MobileScannerController cameraController = MobileScannerController();
-  bool _screenOpened = false;
+class SolveQRCode extends StatefulWidget {
+  const SolveQRCode({super.key});
 
-  SolveQRCode({super.key});
+  @override
+  State<SolveQRCode> createState() => _SolveQRCodeState();
+}
+
+class _SolveQRCodeState extends State<SolveQRCode> {
+  final MobileScannerController cameraController = MobileScannerController();
+
+  bool _screenOpened = false;
 
   // Flashlight
   @override
@@ -77,7 +82,8 @@ class SolveQRCode extends StatelessWidget {
                   width: 320,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    border: Border.all(color: Color(0xFF8F8BBF), width: 10),
+                    border:
+                        Border.all(color: const Color(0xFF8F8BBF), width: 10),
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
@@ -129,10 +135,6 @@ class SolveQRCode extends StatelessWidget {
       cameraController.stop();
       challengeSolved(context);
     }
-  }
-
-  void _screenWasClosed() {
-    _screenOpened = false;
   }
 }
 

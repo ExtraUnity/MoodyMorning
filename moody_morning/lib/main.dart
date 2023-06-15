@@ -30,14 +30,10 @@ Future<void> main() async {
           routes: {
             '/': (context) => const AlarmScreen(),
             '/setAlarm': (context) => const SetAlarm(),
-            '/equationSettings': (context) =>
-                const SolveEquation(), //TODO: Change to equation settings
-            '/exerciseSettings': (context) =>
-                const SolveExercises(), //TODO: Change to exercise settings
-            '/QRSettings': (context) =>
-                SolveQRCode(), //TODO: Change to QR settings
-            '/gameSettings': (context) =>
-                const SolveRiddle(), //TODO: Change to game settings
+            '/equationSettings': (context) => const SolveEquation(),
+            '/exerciseSettings': (context) => const SolveExercises(),
+            '/QRSettings': (context) => const SolveQRCode(),
+            '/gameSettings': (context) => const SolveRiddle(),
           }),
     ),
   );

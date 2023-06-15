@@ -26,8 +26,8 @@ class AlarmData implements Comparable {
 
   void setAlarm() {
     alarmsetting = determineAlarmSettings();
-    print(
-        "Alarm set at: ${hours}:${minutes}, the timedate is ${alarmsetting.dateTime}");
+    debugPrint(
+        "Alarm set at: $hours:$minutes, the timedate is ${alarmsetting.dateTime}");
     Alarm.set(alarmSettings: alarmsetting);
   }
 
@@ -84,7 +84,7 @@ class AllAlarms extends ChangeNotifier {
   static void addAlarm(AlarmData alarm) {
     alarms.add(alarm);
     alarms.sort();
-    print(
+    debugPrint(
         "Alarm set at: ${alarm.hours}:${alarm.minutes}, the timedate is ${alarm.alarmsetting.dateTime}");
     alarm.setAlarm();
     // Alarm.set(alarmSettings: alarm.alarmsetting);

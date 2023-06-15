@@ -4,7 +4,6 @@ import 'package:moody_morning/widgets/scroll_wheel.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
 import 'package:moody_morning/system/alarm_callback.dart';
 import 'package:alarm/alarm.dart';
-import 'package:provider/provider.dart';
 
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/widgets/navigation_bar.dart';
@@ -81,8 +80,7 @@ class _SetAlarmState extends State<SetAlarm> {
               path: '/QRSettings',
               context: context,
               buttonPressed: (path) => setState(() => selectedChallenge = path),
-              borderWidth:
-                  1.0 + (selectedChallenge == "/QRSettings" ? 2 : 0),
+              borderWidth: 1.0 + (selectedChallenge == "/QRSettings" ? 2 : 0),
               size: 20.0 + (selectedChallenge == '/QRSettings' ? 5.0 : 0),
             ),
             ChallengeIconButton(
@@ -90,8 +88,7 @@ class _SetAlarmState extends State<SetAlarm> {
               path: '/gameSettings',
               context: context,
               buttonPressed: (path) => setState(() => selectedChallenge = path),
-              borderWidth:
-                  1.0 + (selectedChallenge == "/gameSettings" ? 2 : 0),
+              borderWidth: 1.0 + (selectedChallenge == "/gameSettings" ? 2 : 0),
               size: 20.0 + (selectedChallenge == '/gameSettings' ? 5.0 : 0),
             ),
           ],
@@ -137,7 +134,7 @@ class _SetAlarmState extends State<SetAlarm> {
     try {
       Alarm.ringStream.stream.listen((activeAlarm) => handleAlarm(activeAlarm));
     } catch (_) {
-      print("Already listening");
+      debugPrint("Already listening");
     }
 
     if (context.mounted) Navigator.pushReplacementNamed(context, '/');
@@ -145,7 +142,7 @@ class _SetAlarmState extends State<SetAlarm> {
 
   Future<void> checkPermission() async {
     if (await Permission.scheduleExactAlarm.isDenied) {
-      print("Permission to schedule alarm is denied");
+      debugPrint("Permission to schedule alarm is denied");
     }
     PermissionStatus status = await Permission.scheduleExactAlarm.request();
     while (status.isDenied) {

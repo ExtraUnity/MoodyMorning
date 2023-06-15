@@ -1,12 +1,5 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 
-TextStyle textStyle = TextStyle(
-                fontSize: 27,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-  );
 class EquationDisplay extends StatelessWidget {
   final String equation;
   final String answer;
@@ -19,6 +12,11 @@ class EquationDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle textStyle = const TextStyle(
+      fontSize: 27,
+      fontWeight: FontWeight.bold,
+      color: Colors.white,
+    );
     return SizedBox(
       height: 100,
       width: 360,
@@ -27,7 +25,7 @@ class EquationDisplay extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
+            const Icon(
               Icons.calculate,
               color: Colors.white,
               size: 50,
@@ -37,20 +35,23 @@ class EquationDisplay extends StatelessWidget {
               style: textStyle,
               textAlign: TextAlign.center,
             ),
-            SizedBox(width: 5),
+            const SizedBox(width: 5),
             SizedBox(
               width: 100,
               height: 45,
               child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(width: 1, color: Colors.white),
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(answer, style: textStyle,
-              textAlign: TextAlign.center,),
+                    Text(
+                      answer,
+                      style: textStyle,
+                      textAlign: TextAlign.center,
+                    ),
                   ],
                 ),
               ),
