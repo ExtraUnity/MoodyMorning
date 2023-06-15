@@ -36,12 +36,14 @@ class AlarmData implements Comparable {
     return AlarmSettings(
       id: id,
       dateTime: DateTime.now().add(Duration(
-          days: timeDifference.hours < 0 ||
-                  (timeDifference.hours == 0 && timeDifference.minutes <= 0)
-              ? 1
-              : 0,
-          hours: timeDifference.hours,
-          minutes: timeDifference.minutes)),
+        days: timeDifference.hours < 0 ||
+                (timeDifference.hours == 0 && timeDifference.minutes <= 0)
+            ? 1
+            : 0,
+        hours: timeDifference.hours,
+        minutes: timeDifference.minutes,
+        seconds: -DateTime.now().second,
+      )),
       assetAudioPath: 'assets/sounds/galaxy_alarm.mp3',
       vibrate: true,
       enableNotificationOnKill: true,
