@@ -103,6 +103,9 @@ class _SetAlarmState extends State<SetAlarm> {
           SizedBox(
             width: 100,
             child: ElevatedButton(
+              style: ButtonStyle(
+                 backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF8F8BBF)), // Change color here
+                ),
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, '/');
                 },
@@ -112,6 +115,9 @@ class _SetAlarmState extends State<SetAlarm> {
           SizedBox(
             width: 100,
             child: ElevatedButton(
+              style: ButtonStyle(
+               backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF8F8BBF)), // Change color here
+              ),
               onPressed: () async {
                 int hourDifference = (selectedHour - DateTime.now().hour) % 24;
                 int minuteDifference =

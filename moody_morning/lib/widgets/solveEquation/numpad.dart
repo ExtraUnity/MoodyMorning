@@ -15,6 +15,7 @@ class NumPad extends StatelessWidget {
     return SizedBox(
       height: 550,
       child: GridView.count(
+
         padding: const EdgeInsets.all(30),
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
@@ -88,6 +89,8 @@ class NumButton extends ElevatedButton {
           key: key,
           onPressed: onPressed,
           child: child,
-          style: style,
+          style: style ?? ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF8F8BBF)),
+          ),
         );
 }

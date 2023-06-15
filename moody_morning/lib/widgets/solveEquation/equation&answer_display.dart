@@ -23,7 +23,7 @@ class EquationDisplay extends StatelessWidget {
       height: 100,
       width: 380,
       child: Card(
-        color: Colors.blue,
+        color: Color(0xFF8F8BBF),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
