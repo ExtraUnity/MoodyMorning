@@ -102,26 +102,7 @@ class _SlidePuzzleBoardState extends State<SolveRiddle> {
                     } else if (index % 3 != 0 && tiles[index - 1] == 8) {
                       // Clicked tile can slide left
                       setState(() {
-                        tiles[index - 1] = tiles[index];
-                        tiles[index] = 8;
-                        if (alarmOff()) {
-                          // If the board is in the right order, show a dialog indicating the win
-                          showDialog(
-                            context: context,
-                            builder: (_) => AlertDialog(
-                              title: Text('Alarm Off'),
-                              content: Text('Puzzle solved'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text('OK'),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
+                        checkSlide(index, context);
                       });
                     } else if (index < 6 && tiles[index + 3] == 8) {
                       // Clicked tile can slide down
@@ -210,11 +191,34 @@ class _SlidePuzzleBoardState extends State<SolveRiddle> {
             });
           },
           child: const Text(
-            'Reset',
+            'Randomize',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
       ),
     );
+  }
+
+  void checkSlide(int index, BuildContext context) {
+     tiles[index - 1] = tiles[index];
+    tiles[index] = 8;
+    if (alarmOff()) {
+      // If the board is in the right order, show a dialog indicating the win
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text('Alarm Off'),
+          content: Text('Puzzle solved'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
   }
 }
