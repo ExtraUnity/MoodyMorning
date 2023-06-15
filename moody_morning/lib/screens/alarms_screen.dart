@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:moody_morning/system/all_alarms.dart';
+import 'package:moody_morning/widgets/alarm_card.dart';
+import 'package:moody_morning/widgets/challenge_icon_button.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
 import 'package:moody_morning/widgets/navigation_bar.dart';
 import 'package:moody_morning/main.dart';
@@ -72,9 +74,16 @@ class _AlarmScreenState extends State<AlarmScreen> {
       ),
       body: ListView(
         children: [
-          FloatingActionButton(onPressed: () {
-            showDelete();
-          }),
+          Container(
+            alignment: Alignment.topLeft,
+            margin: const EdgeInsets.symmetric(vertical: 5.0),
+            child: ChallengeIconButton(
+              icon: const Icon(Icons.edit),
+              buttonPressed: (_) => showDelete(),
+              borderWidth: 1.0,
+              size: 10,
+            ),
+          ),
           for (AlarmData alarms in AllAlarms.alarms)
             AlarmCard(alarm: alarms, show: show, callBack: updateScreen),
         ],
@@ -100,96 +109,4 @@ Future<void> showNotification(String payload) async {
     notificationDetails,
     payload: payload,
   );
-}
-
-class AlarmCard extends StatelessWidget {
-  const AlarmCard({
-    super.key,
-    required this.alarm,
-    required this.show,
-    required this.callBack,
-  });
-  final bool show;
-  final AlarmData alarm;
-  final Function() callBack;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: Colors.white,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Text(
-              "${alarm.alarmsetting.dateTime.hour.toString().padLeft(2, "0")} : ${alarm.alarmsetting.dateTime.minute.toString().padLeft(2, "0")}",
-              textScaleFactor: 2,
-            ),
-          ),
-          Row(
-            children: [
-              OnOff(alarm: alarm),
-              DeleteBotton(
-                  id: alarm.alarmsetting.id, show: show, callBack: callBack),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class OnOff extends StatefulWidget {
-  const OnOff({super.key, required this.alarm});
-  final AlarmData alarm;
-  @override
-  State<OnOff> createState() => _MyWidgetState();
-}
-
-class _MyWidgetState extends State<OnOff> {
-  @override
-  Widget build(BuildContext context) {
-    return Switch(
-        value: widget.alarm.active,
-        onChanged: (bool value) {
-          setState(() {
-            widget.alarm.stopStartAlarm();
-          });
-        });
-  }
-}
-
-class DeleteBotton extends StatefulWidget {
-  const DeleteBotton(
-      {super.key,
-      required this.id,
-      required this.show,
-      required this.callBack});
-  final int id;
-  final bool show;
-  final Function() callBack;
-
-  @override
-  State<DeleteBotton> createState() => _DeleteBottonState();
-}
-
-class _DeleteBottonState extends State<DeleteBotton> {
-  @override
-  Widget build(BuildContext context) {
-    return Visibility(
-      visible: widget.show,
-      child: IconButton(
-          onPressed: () {
-            setState(() {
-              AllAlarms.deleteAlarm(widget.id);
-              widget.callBack();
-            });
-          },
-          icon: const Icon(
-            Icons.remove_circle_outline,
-            color: Colors.red,
-          )),
-    );
-  }
 }
