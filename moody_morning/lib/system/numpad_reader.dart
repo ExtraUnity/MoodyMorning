@@ -100,7 +100,6 @@ class _EquationScreenLayoutState extends State<EquationScreenLayout> {
         EquationDisplay(
             equation: equation,
             answer: inputAnswer), // Pass the equation and answer
-        const SizedBox(height: 5),
         NumPad(
             numpadPressedButton:
                 numpadPressedButton) // Pass the evaluateAnswer method
