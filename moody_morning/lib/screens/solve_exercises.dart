@@ -4,7 +4,6 @@ import 'package:sensors_plus/sensors_plus.dart';
 import 'package:moody_morning/system/defines_exercise.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
 import 'dart:async';
-import 'dart:math';
 
 class SolveExercises extends StatefulWidget {
   const SolveExercises({super.key});
@@ -56,14 +55,14 @@ class _SolveExercisesState extends State<SolveExercises> {
     return MaterialApp(
       home: Scaffold(
         appBar: LogoAppBar(),
-        backgroundColor: Color(0xFF423E72),
+        backgroundColor: const Color(0xFF423E72),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("$instruction", style: TextStyle(fontSize: 40, color: Colors.white)),
+              Text(instruction, style: const TextStyle(fontSize: 40, color: Colors.white)),
               Text(
-                  "Amount of ${CURRENT_EXERCISE}: ${(exercisesDone / 2).floor()}/${(AMOUNT_EXERCISE / 2).floor()} ", style: TextStyle(color: Colors.white)),
+                  "Amount of $CURRENT_EXERCISE: ${(exercisesDone / 2).floor()}/${(AMOUNT_EXERCISE / 2).floor()} ", style: const TextStyle(color: Colors.white)),
               //Text('X: ${eve?.x.toStringAsFixed(3)} '),
               //Text('Y: ${eve?.y.toStringAsFixed(3)}'),
               //Text('Z: ${eve?.z.toStringAsFixed(3)}'),
@@ -72,13 +71,13 @@ class _SolveExercisesState extends State<SolveExercises> {
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF8F8BBF),
-                      textStyle: TextStyle(color: Colors.white),
+                      textStyle: const TextStyle(color: Colors.white),
                     ),
                     onPressed: () => {
                           //stop alarm
                           if (isFinished) {dispose()}
                         },
-                    child: Text('${isFinished ? Done : notDone}'),),
+                    child: Text(isFinished ? Done : notDone),),
               )
             ],
           ),

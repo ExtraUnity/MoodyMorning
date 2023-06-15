@@ -6,6 +6,8 @@ import '../widgets/navigation_bar.dart';
 import 'package:moody_morning/main.dart';
 
 class AlarmScreen extends StatefulWidget {
+  const AlarmScreen({super.key});
+
   @override
   State<AlarmScreen> createState() => _AlarmScreenState();
 }
@@ -54,7 +56,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
     return Scaffold(
       backgroundColor: Colors.purple.shade700,
       appBar: LogoAppBar(),
-      bottomNavigationBar: Navigation(
+      bottomNavigationBar: const Navigation(
         startingIndex: 0,
       ),
       body: ListView(

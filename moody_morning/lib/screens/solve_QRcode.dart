@@ -9,6 +9,8 @@ class SolveQRCode extends StatelessWidget {
   final MobileScannerController cameraController = MobileScannerController();
   bool _screenOpened = false;
 
+  SolveQRCode({super.key});
+
   // Flashlight
   @override
   Widget build(BuildContext context) {
