@@ -8,5 +8,5 @@ void handleAlarm(BuildContext context, AlarmSettings activeAlarm) async {
   AlarmData alarmData = AllAlarms.alarms
       .firstWhere((alarm) => alarm.alarmsetting.id == activeAlarm.id);
   print("Alarm going off - Expected challenge: ${alarmData.payload}");
-  await showNotification(alarmData.payload);
+  await showNotification('${alarmData.payload} ${activeAlarm.id}');
 }

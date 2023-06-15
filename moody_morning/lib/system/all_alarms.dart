@@ -30,6 +30,7 @@ class AllAlarms extends ChangeNotifier {
       num++;
     }
     alarms.insert(num, alarm);
+    print("Setting alarm");
     Alarm.set(alarmSettings: alarm.alarmsetting);
     notifyListeners();
   }

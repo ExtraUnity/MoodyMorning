@@ -141,24 +141,25 @@ class _SetAlarmState extends State<SetAlarm> {
                 //await Alarm.set(alarmSettings: alarmSettings);
                 if (await Permission.scheduleExactAlarm.isDenied) {
                   print("Permission to schedule alarm is denied");
-                  
                 }
-                PermissionStatus status = await Permission.scheduleExactAlarm.request();
-                while(status.isDenied) {
-                   status = await Permission.scheduleExactAlarm.request();
+                PermissionStatus status =
+                    await Permission.scheduleExactAlarm.request();
+                while (status.isDenied) {
+                  status = await Permission.scheduleExactAlarm.request();
                 }
-                  
-                if(status.isPermanentlyDenied) {
+
+                if (status.isPermanentlyDenied) {
                   //Open app settings to allow user to grant permission
                   await openAppSettings();
-                  }
-                if(await Permission.scheduleExactAlarm.isGranted) {
+                }
+                if (await Permission.scheduleExactAlarm.isGranted) {
+                  print("Created alarm with payload $selectedChallenge");
                   allAlarms.addAlarm(AlarmData(
                     alarmSettings,
                     payload: selectedChallenge,
                   ));
                 }
-                print("Created alarm with payload $selectedChallenge");
+
                 try {
                   Alarm.ringStream.stream.listen(
                       (activeAlarm) => handleAlarm(context, activeAlarm));
