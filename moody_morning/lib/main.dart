@@ -4,9 +4,7 @@ import 'package:alarm/alarm.dart';
 import 'package:flutter/material.dart';
 import 'package:moody_morning/screens/alarms_screen.dart';
 import 'package:moody_morning/screens/set_alarm.dart';
-import 'package:moody_morning/screens/solve_QRcode.dart';
-import 'package:moody_morning/screens/solve_v1.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:moody_morning/screens/solve_qrcode.dart';
 import 'package:moody_morning/screens/solve_equation.dart';
 import 'package:moody_morning/screens/solve_exercises.dart';
 import 'package:moody_morning/screens/solve_riddle.dart';
@@ -37,7 +35,7 @@ Future<void> main() async {
             '/exerciseSettings': (context) =>
                 SolveExercises(), //TODO: Change to exercise settings
             '/QRSettings': (context) =>
-                MyHomePageState1(), //TODO: Change to QR settings
+                SolveQRCode(), //TODO: Change to QR settings
             '/gameSettings': (context) =>
                 SolveRiddle(), //TODO: Change to game settings
           }),
