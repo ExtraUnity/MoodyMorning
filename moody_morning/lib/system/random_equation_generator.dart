@@ -13,5 +13,5 @@ String randomEquationGenerator() {
   o = rn.nextInt(1) > 0.5 ? "+" : "x";
   o2 = rn.nextInt(1) > 0.5 ? "+" : "x";
 
-  return "$a x $b x $c";
+  return "$a $o $b $o2 $c";
 }
