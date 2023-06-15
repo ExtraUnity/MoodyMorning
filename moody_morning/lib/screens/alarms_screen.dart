@@ -1,71 +1,121 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
+import '../widgets/navigation_bar.dart';
+import 'package:moody_morning/main.dart';
 
-class AlarmScreen extends StatelessWidget {
+class AlarmScreen extends StatefulWidget {
+  @override
+  State<AlarmScreen> createState() => _AlarmScreenState();
+}
+
+class _AlarmScreenState extends State<AlarmScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _configureSelectNotificationSubject();
+  }
+
+  void _configureSelectNotificationSubject() {
+    notificationService.selectNotificationStream.stream
+        .listen((String? payload) async {
+      if (navigatorKey.currentState!.canPop()) {
+        navigatorKey.currentState!.pop();
+      }
+      await navigatorKey.currentState!.pushReplacementNamed(payload!);
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    var currentAlarms = AllAlarms();
-    currentAlarms.addAlarm(2, 24);
-    currentAlarms.addAlarm(2, 24);
-
     return Scaffold(
       backgroundColor: Colors.purple.shade700,
       appBar: LogoAppBar(),
+      bottomNavigationBar: Navigation(
+        startingIndex: 0,
+      ),
       body: ListView(
         children: [
-          for(int i = 0; i < currentAlarms.alarms.length; i++) 
-            Alarm(alarm: currentAlarms.alarms[i], numb: i),
+          for (AlarmData alarms in AllAlarms.alarms)
+            AlarmCard(
+              alarm: alarms,
+            ),
         ],
       ),
     );
   }
 }
 
-class Alarm extends StatelessWidget {
-  const Alarm({
+Future<void> showNotification(String payload) async {
+  const AndroidNotificationDetails androidNotificationDetails =
+      AndroidNotificationDetails('your channel id', 'your channel name',
+          channelDescription: 'your channel description',
+          importance: Importance.max,
+          priority: Priority.high,
+          fullScreenIntent: true,
+          ticker: 'ticker');
+  const NotificationDetails notificationDetails =
+      NotificationDetails(android: androidNotificationDetails);
+  await notificationService.flutterLocalNotificationsPlugin.show(
+    0,
+    'Time to wake up!',
+    'Click here to get your challenge',
+    notificationDetails,
+    payload: payload,
+  );
+}
+
+class AlarmCard extends StatelessWidget {
+  const AlarmCard({
     super.key,
     required this.alarm,
-    required this.numb,
   });
 
-  final Timer alarm;
-  final int numb;
+  final AlarmData alarm;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       color: Colors.white,
-      child: Row(children: [
-        Padding(
-          padding: const EdgeInsets.all(10),
-          child: Text(alarm.hours.toString() + " : " + alarm.minutes.toString(), textScaleFactor: 2,),
-        ),
-        SizedBox(width: 200,),
-        OnOff(numb: numb),
-      ],
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Text(
+              "${alarm.alarmsetting.dateTime.hour.toString().padLeft(2, "0")} : ${alarm.alarmsetting.dateTime.minute.toString().padLeft(2, "0")}",
+              textScaleFactor: 2,
+            ),
+          ),
+          OnOff(alarm: alarm),
+        ],
       ),
     );
   }
 }
 
 class OnOff extends StatefulWidget {
-  const OnOff({super.key, required this.numb});
-  final int numb;
+  const OnOff({super.key, required this.alarm});
+  final AlarmData alarm;
   @override
   State<OnOff> createState() => _MyWidgetState();
 }
 
 class _MyWidgetState extends State<OnOff> {
-  bool light = false;
   @override
   Widget build(BuildContext context) {
-    return Switch(value: light, 
-    onChanged: (bool value) {
-       setState(() {
-          light = value;
+    return Switch(
+        value: widget.alarm.active,
+        onChanged: (bool value) {
+          setState(() {
+            widget.alarm.stopStartAlarm();
+          });
         });
-        print(widget.numb);
-    });
   }
 }

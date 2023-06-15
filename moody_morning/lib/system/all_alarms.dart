@@ -1,16 +1,49 @@
+import 'package:alarm/alarm.dart';
 import 'package:flutter/material.dart';
 
-class AllAlarms extends ChangeNotifier{
-  var alarms = <Timer>[];
+class AlarmData {
+  bool active = true;
+  AlarmSettings alarmsetting;
+  String payload;
+  AlarmData(this.alarmsetting, {required this.payload});
 
-  void addAlarm (int hours, int minutes) {
-    alarms.add(Timer(hours, minutes));
-    notifyListeners();
+  void stopStartAlarm() {
+    if (active) {
+      Alarm.stop(alarmsetting.id);
+      active = !active;
+    } else {
+      Alarm.set(alarmSettings: alarmsetting);
+      active = !active;
+    }
   }
 }
 
-class Timer {
-  int hours;
-  int minutes;
-  Timer(this.hours, this.minutes);
+class AllAlarms extends ChangeNotifier {
+  static List<AlarmData> alarms = <AlarmData>[];
+
+  void addAlarm(AlarmData alarm) {
+    int num = 0;
+    for (var current in alarms) {
+      if (compare(current, alarm)) {
+        break;
+      }
+      num++;
+    }
+    alarms.insert(num, alarm);
+    Alarm.set(alarmSettings: alarm.alarmsetting);
+    notifyListeners();
+  }
+
+  void deleteAlarm(AlarmData alarm) {}
+
+  bool compare(AlarmData current, AlarmData alarm) {
+    if (current.alarmsetting.dateTime.hour > alarm.alarmsetting.dateTime.hour) {
+      return true;
+    } else if (current.alarmsetting.dateTime.hour ==
+        alarm.alarmsetting.dateTime.hour) {
+      return current.alarmsetting.dateTime.minute >=
+          alarm.alarmsetting.dateTime.minute;
+    }
+    return false;
+  }
 }
