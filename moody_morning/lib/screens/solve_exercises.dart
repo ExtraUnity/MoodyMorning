@@ -5,6 +5,7 @@ import 'package:sensors_plus/sensors_plus.dart';
 import 'package:moody_morning/system/defines_exercise.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
 import 'dart:async';
+import 'package:moody_morning/widgets/solveEquation/alarm_display.dart';
 
 class SolveExercises extends StatefulWidget {
   const SolveExercises({super.key});
@@ -62,6 +63,7 @@ class _SolveExercisesState extends State<SolveExercises> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                AlarmDisplay(),
                 Text("$instruction", style: TextStyle(fontSize: 40, color: Colors.white)),
                 Text(
                     "Amount of ${CURRENT_EXERCISE}: ${(exercisesDone / 2).floor()}/${(AMOUNT_EXERCISE / 2).floor()} ", style: TextStyle(color: Colors.white)),
