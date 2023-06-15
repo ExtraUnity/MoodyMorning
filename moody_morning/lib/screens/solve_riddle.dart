@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
 import 'dart:math';
 
@@ -204,21 +205,7 @@ class _SlidePuzzleBoardState extends State<SolveRiddle> {
     tiles[index] = 8;
     if (alarmOff()) {
       // If the board is in the right order, show a dialog indicating the win
-      showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: Text('Alarm Off'),
-          content: Text('Puzzle solved'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text('OK'),
-            ),
-          ],
-        ),
-      );
+      challengeSolved(context);
     }
   }
 }
