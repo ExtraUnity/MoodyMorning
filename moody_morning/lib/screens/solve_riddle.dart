@@ -136,21 +136,7 @@ class _SlidePuzzleBoardState extends State<SolveRiddle> {
                         tiles[index] = 8;
                         if (alarmOff()) {
                           // If the board is in the right order, show a dialog indicating the win
-                          showDialog(
-                            context: context,
-                            builder: (_) => AlertDialog(
-                              title: Text('Alarm Off'),
-                              content: Text('Puzzle solved'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text('OK'),
-                                ),
-                              ],
-                            ),
-                          );
+                         challengeSolved(context);
                         }
                       });
                     }
