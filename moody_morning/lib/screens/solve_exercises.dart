@@ -1,10 +1,7 @@
 
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:moody_morning/system/accelerometer_functions.dart';
 import 'package:sensors_plus/sensors_plus.dart';
-import 'dart:math';
 import 'package:moody_morning/system/defines_exercise.dart';
 
 
@@ -34,7 +31,6 @@ class _SolveExercisesState extends State<SolveExercises> {
     exercisesDone = 0;
     isUp = false;
     isDown = false;
-  String instruction = 'Not supposed to be seen!';
     userAccelerometerEvents.listen((UserAccelerometerEvent event) {
       setState(() {
         eve = event;

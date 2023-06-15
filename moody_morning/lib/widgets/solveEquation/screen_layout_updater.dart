@@ -13,36 +13,48 @@ class EquationScreenLayout extends StatefulWidget {
 }
 
 class _EquationScreenLayoutState extends State<EquationScreenLayout> {
-  String equation = "24 x 4";
+  String equation = "2 + 6 x 10";
   String inputAnswer = "";
+  int solution = -999;
 
   // Method for specific button functions: "Clear" and "Evaluate (Right-Arrow)":
   void numpadPressedButton(int value) {
     setState(() {
       if (value == -1) {
-        // Clear answer when pressed
+        // Clear answer when "Clear" is pressed
         inputAnswer = "";
       } else if (value == 10) {
-        // Perform evaluation when (Right-Arrow) is pressed
-        inputAnswer = compareAnswer(equation, inputAnswer);
+        // Perform evaluation and checks answer when (Right-Arrow) is pressed
+        fetchSolution();
+        if (int.parse(inputAnswer) == solution) {
+          print("correct");
+        } else {
+          print("wrong");
+        }
+
+        print(inputAnswer);
+        print(solution);
       } else {
         displayPressedNumber(value);
       }
     });
   }
 
+  void fetchSolution() {
+    //equation parser... TO DO:
+    equation.split('');
+    
+
+    solution = 96;
+  }
+
   // Displays any number pressed from 0-9 in Answer Box (limited to max 5 digits)
   void displayPressedNumber(int value) {
     if (inputAnswer.length < 5) {
-          inputAnswer += value.toString();
-        } else {
-          throw Exception("Max digits in Answer Box is 5. Please press the clear button");
-        }
-  }
-
-  // Compare input answer with the actual compute-evaluated answer of equation:
-  String compareAnswer(String equation, String inputAnswer) {
-    return inputAnswer;
+      inputAnswer += value.toString();
+    } else {
+      throw Exception("Max digits is 5. Please press the clear button");
+    }
   }
 
   @override
@@ -58,7 +70,8 @@ class _EquationScreenLayoutState extends State<EquationScreenLayout> {
             answer: inputAnswer), // Pass the equation and answer
         const SizedBox(height: 5),
         NumPad(
-            numpadPressedButton: numpadPressedButton), // Pass the evaluateAnswer method
+            numpadPressedButton:
+                numpadPressedButton) // Pass the evaluateAnswer method
       ],
     );
   }
