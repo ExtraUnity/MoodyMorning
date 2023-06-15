@@ -101,7 +101,7 @@ class AlarmCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
+      color: Color(0xFF8F8BBF),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
