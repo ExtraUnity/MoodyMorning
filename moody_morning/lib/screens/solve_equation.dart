@@ -8,6 +8,8 @@ import '../widgets/solveEquation/screen_layout_updater.dart';
 class SolveEquation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+  //TODO:
+  //wrap in WillPopScope
     return Scaffold(
       backgroundColor: Color(0xFF423E72),
       appBar: LogoAppBar(), //AppBar

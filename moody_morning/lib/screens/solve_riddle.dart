@@ -7,17 +7,19 @@ class SolveRiddle extends StatefulWidget {
 }
 
 class _SlidePuzzleBoardState extends State<SolveRiddle> {
-  final List<int> tiles = List.generate(16, (index) => index); // Create a list of tile numbers
+  final List<int> tiles =
+      List.generate(16, (index) => index); // Create a list of tile numbers
   @override
   Widget build(BuildContext context) {
+    //TODO:
+    //wrap in WillPopScope
     return Scaffold(
       backgroundColor: Color(0xFF423E72),
-      appBar: LogoAppBar(
-      ),
+      appBar: LogoAppBar(),
       body: GridView.builder(
         itemCount: tiles.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4, 
+          crossAxisCount: 4,
         ),
         itemBuilder: (context, index) {
           return GestureDetector(
@@ -54,32 +56,37 @@ class _SlidePuzzleBoardState extends State<SolveRiddle> {
             },
             child: Container(
               margin: EdgeInsets.all(2),
-              color: tiles[index] != 15 ? Color(0xFF8F8BBF) : Colors.white, // Set tile color
+              color: tiles[index] != 15
+                  ? Color(0xFF8F8BBF)
+                  : Colors.white, // Set tile color
               child: Center(
                 child: Text(
-                  tiles[index] != 15 ? tiles[index].toString() : '', // Display tile number
+                  tiles[index] != 15
+                      ? tiles[index].toString()
+                      : '', // Display tile number
                   style: TextStyle(
                     fontSize: 24,
                     color: Colors.white,
-                    ),
+                  ),
                 ),
               ),
             ),
           );
         },
       ),
-        floatingActionButton: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            primary: Color(0xFF8F8BBF),
-            ),
-            onPressed: () => print("hej"),
-            child: FloatingActionButton(
-              onPressed: null, // Set this to null since onPressed is handled by ElevatedButton
-              child: Text("Reset"),
-              backgroundColor: Colors.transparent,
-              elevation: 0.0,
-              ),
-            ),
-          );
-         }
-        }
+      floatingActionButton: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: Color(0xFF8F8BBF),
+        ),
+        onPressed: () => print("hej"),
+        child: FloatingActionButton(
+          onPressed:
+              null, // Set this to null since onPressed is handled by ElevatedButton
+          child: Text("Reset"),
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+        ),
+      ),
+    );
+  }
+}
