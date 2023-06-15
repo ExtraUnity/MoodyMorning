@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moody_morning/system/accelerometer_functions.dart';
+import 'package:moody_morning/system/all_alarms.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:moody_morning/system/defines_exercise.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
@@ -52,36 +53,39 @@ class _SolveExercisesState extends State<SolveExercises> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: LogoAppBar(),
-        backgroundColor: const Color(0xFF423E72),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(instruction, style: const TextStyle(fontSize: 40, color: Colors.white)),
-              Text(
-                  "Amount of $CURRENT_EXERCISE: ${(exercisesDone / 2).floor()}/${(AMOUNT_EXERCISE / 2).floor()} ", style: const TextStyle(color: Colors.white)),
-              //Text('X: ${eve?.x.toStringAsFixed(3)} '),
-              //Text('Y: ${eve?.y.toStringAsFixed(3)}'),
-              //Text('Z: ${eve?.z.toStringAsFixed(3)}'),
-              //Text('magnitude: ${accel.toMagnitude(accel.x,accel.y,accel.z)}')
-              Container(
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF8F8BBF),
-                      textStyle: const TextStyle(color: Colors.white),
-                    ),
-                    onPressed: () => {
-                          //stop alarm
-                          if (isFinished) {dispose()}
-                        },
-                    child: Text(isFinished ? Done : notDone),),
-              )
-            ],
+    return WillPopScope (
+      onWillPop:() async => false,
+      child: Scaffold(
+          appBar: LogoAppBar(),
+          backgroundColor: Color(0xFF423E72),
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text("$instruction", style: TextStyle(fontSize: 40, color: Colors.white)),
+                Text(
+                    "Amount of ${CURRENT_EXERCISE}: ${(exercisesDone / 2).floor()}/${(AMOUNT_EXERCISE / 2).floor()} ", style: TextStyle(color: Colors.white)),
+                //Text('X: ${eve?.x.toStringAsFixed(3)} '),
+                //Text('Y: ${eve?.y.toStringAsFixed(3)}'),
+                //Text('Z: ${eve?.z.toStringAsFixed(3)}'),
+                //Text('magnitude: ${accel.toMagnitude(accel.x,accel.y,accel.z)}')
+                Container(
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF8F8BBF),
+                        textStyle: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () => {
+                            //stop alarm
+                            if (isFinished) {
+                            challengeSolved(context),
+                            dispose()}
+                          },
+                      child: Text('${isFinished ? Done : notDone}'),),
+                )
+              ],
+            ),
           ),
-        ),
       ),
     );
   }
