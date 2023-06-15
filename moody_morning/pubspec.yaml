@@ -20,6 +20,7 @@ dependencies:
   flutter_local_notifications: ^14.1.1
   firebase_messaging: ^14.6.2
   firebase_analytics: ^10.4.3
+  permission_handler: ^10.3.0
 
 dev_dependencies:
   flutter_test:

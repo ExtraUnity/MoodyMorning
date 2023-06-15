@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/widgets/navigation_bar.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class SetAlarm extends StatefulWidget {
   const SetAlarm({super.key});
@@ -138,6 +139,9 @@ class _SetAlarmState extends State<SetAlarm> {
                 );
                 //await Alarm.stop(alarmSettings.id);
                 //await Alarm.set(alarmSettings: alarmSettings);
+                if (await Permission.scheduleExactAlarm.isDenied) {
+                  await Permission.scheduleExactAlarm.request();
+                }
                 allAlarms.addAlarm(AlarmData(
                   alarmSettings,
                   payload: selectedChallenge,
