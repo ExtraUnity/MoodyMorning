@@ -1,7 +1,7 @@
 import 'package:alarm/alarm.dart';
 import 'package:flutter/material.dart';
 
-class AlarmData {
+class AlarmData implements Comparable{
   bool active = true;
   AlarmSettings alarmsetting;
   String payload;
@@ -10,33 +10,48 @@ class AlarmData {
   void stopStartAlarm() {
     if (active) {
       Alarm.stop(alarmsetting.id);
-      active = !active;
+      active = false;
     } else {
       Alarm.set(alarmSettings: alarmsetting);
-      active = !active;
+      active = true;
     }
+  }
+  
+  @override
+  int compareTo(other) {
+    
+        if (alarmsetting.dateTime.hour > other.alarmsetting.dateTime.hour) {
+      return 1;
+    } else if (alarmsetting.dateTime.hour ==
+        other.alarmsetting.dateTime.hour) {
+      return (alarmsetting.dateTime.minute - other.alarmsetting.dateTime.minute) as int;
+    }
+    return -1;
   }
 }
 
 class AllAlarms extends ChangeNotifier {
   static List<AlarmData> alarms = <AlarmData>[];
+  static void addAlarm(AlarmData alarm) {
+    
+    alarms.add(alarm);
+    alarms.sort();
+    Alarm.set(alarmSettings: alarm.alarmsetting);
+  }
 
-  void addAlarm(AlarmData alarm) {
+  static void deleteAlarm(int id) {
     int num = 0;
-    for (var current in alarms) {
-      if (compare(current, alarm)) {
+    for(var current in alarms) {
+      if (current.alarmsetting.id == id) {
+        alarms.removeAt(num);
+        Alarm.stop(id);
         break;
       }
       num++;
     }
-    alarms.insert(num, alarm);
-    Alarm.set(alarmSettings: alarm.alarmsetting);
-    notifyListeners();
   }
 
-  void deleteAlarm(AlarmData alarm) {}
-
-  bool compare(AlarmData current, AlarmData alarm) {
+  static bool compare(AlarmData current, AlarmData alarm) {
     if (current.alarmsetting.dateTime.hour > alarm.alarmsetting.dateTime.hour) {
       return true;
     } else if (current.alarmsetting.dateTime.hour ==

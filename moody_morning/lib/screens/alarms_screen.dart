@@ -32,23 +32,18 @@ class _AlarmScreenState extends State<AlarmScreen> {
     super.dispose();
   }
 
-class AlarmScreen extends StatefulWidget {
-  @override
-  State<AlarmScreen> createState() => _AlarmScreenState();
-}
-
-class _AlarmScreenState extends State<AlarmScreen> {
   bool show = false;
-
   void showDelete() {
       setState(() {
         show = !show;
       });
-    }
+  }
+  void updateScreen() {
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
-    var allAlarms = context.watch<AllAlarms>();
 
     return Scaffold(
       backgroundColor: Colors.purple.shade700,
@@ -61,8 +56,8 @@ class _AlarmScreenState extends State<AlarmScreen> {
           FloatingActionButton(onPressed: () {
               showDelete();
             }),
-          for (AlarmData alarms in allAlarms.alarms)
-            AlarmCard(alarm: alarms, show: show),
+          for (AlarmData alarms in AllAlarms.alarms)
+            AlarmCard(alarm: alarms, show: show, callBack: updateScreen),
         ],
       ),
     );
@@ -91,10 +86,11 @@ Future<void> showNotification(String payload) async {
 class AlarmCard extends StatelessWidget {
   const AlarmCard({
     super.key,
-    required this.alarm, required this.show,
+    required this.alarm, required this.show, required this.callBack,
   });
   final bool show;
   final AlarmData alarm;
+  final Function() callBack;
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +109,7 @@ class AlarmCard extends StatelessWidget {
           Row(
             children: [
               OnOff(alarm : alarm),
-              DeleteBotton(id : alarm.alarmsetting.id, show: show),
+              DeleteBotton(id : alarm.alarmsetting.id, show: show, callBack: callBack),
             ],
           ),
         ],
@@ -133,19 +129,21 @@ class _MyWidgetState extends State<OnOff> {
   @override
   Widget build(BuildContext context) {
     return Switch(
-        value: widget.alarm.active,
-        onChanged: (bool value) {
-          setState(() {
-            widget.alarm.stopStartAlarm();
-          });
+      value: widget.alarm.active,
+      onChanged: (bool value) {
+        setState(() {
+          widget.alarm.stopStartAlarm();
         });
+      });
   }
 }
 
 class DeleteBotton extends StatefulWidget {
-  const DeleteBotton({super.key, required this.id, required this.show});
+  const DeleteBotton({super.key, required this.id, required this.show, required this.callBack});
   final int id;
   final bool show;
+  final Function() callBack;
+
   @override
   State<DeleteBotton> createState() => _DeleteBottonState();
 }
@@ -157,7 +155,10 @@ class _DeleteBottonState extends State<DeleteBotton> {
       visible: widget.show,
       child: IconButton(
         onPressed: () {
-          print(widget.id);
+          setState(() {
+            AllAlarms.deleteAlarm(widget.id);
+            widget.callBack();
+          });
         },
         icon: const Icon(Icons.remove_circle_outline, color: Colors.red,)
       ),

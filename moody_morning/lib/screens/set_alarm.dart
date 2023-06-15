@@ -36,7 +36,6 @@ class _SetAlarmState extends State<SetAlarm> {
 
   @override
   Widget build(BuildContext context) {
-    var allAlarms = context.watch<AllAlarms>();
     return Scaffold(
       backgroundColor: const Color(0xFF423E72),
       appBar: LogoAppBar(),
@@ -114,7 +113,7 @@ class _SetAlarmState extends State<SetAlarm> {
               onPressed: () async {
                 int hourDifference = (selectedHour - DateTime.now().hour) % 24;
                 int minuteDifference =
-                    (selectedMinute - DateTime.now().minute) % 60;
+                    (selectedMinute - DateTime.now().minute);
 
                 var sortedAlarms = AllAlarms.alarms
                   ..sort((a, b) => b.alarmsetting.id
@@ -138,7 +137,7 @@ class _SetAlarmState extends State<SetAlarm> {
                 );
                 //await Alarm.stop(alarmSettings.id);
                 //await Alarm.set(alarmSettings: alarmSettings);
-                allAlarms.addAlarm(AlarmData(
+                AllAlarms.addAlarm(AlarmData(
                   alarmSettings,
                   payload: selectedChallenge,
                 ));
