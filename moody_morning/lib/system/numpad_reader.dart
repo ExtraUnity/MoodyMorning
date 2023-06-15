@@ -1,9 +1,10 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'alarm_display.dart';
-import 'equation&answer_display.dart';
-import 'numpad.dart';
+import 'package:moody_morning/system/random_equation_generator.dart';
+import '../widgets/solveEquation/alarm_display.dart';
+import '../widgets/solveEquation/equation&answer_display.dart';
+import '../widgets/solveEquation/numpad.dart';
 
 class EquationScreenLayout extends StatefulWidget {
   const EquationScreenLayout({super.key});
@@ -13,9 +14,16 @@ class EquationScreenLayout extends StatefulWidget {
 }
 
 class _EquationScreenLayoutState extends State<EquationScreenLayout> {
-  String equation = "2 + 6 x 10";
+  String equation = "";
   String inputAnswer = "";
-  int solution = -999;
+  int solution = -99;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialization tasks here:
+    equation = randomEquationGenerator();
+  }
 
   // Method for specific button functions: "Clear" and "Evaluate (Right-Arrow)":
   void numpadPressedButton(int value) {
@@ -24,28 +32,48 @@ class _EquationScreenLayoutState extends State<EquationScreenLayout> {
         // Clear answer when "Clear" is pressed
         inputAnswer = "";
       } else if (value == 10) {
-        // Perform evaluation and checks answer when (Right-Arrow) is pressed
         fetchSolution();
-        if (int.parse(inputAnswer) == solution) {
-          print("correct");
-        } else {
-          print("wrong");
-        }
-
-        print(inputAnswer);
-        print(solution);
+        compareAnswerWithSolution();
       } else {
         displayPressedNumber(value);
       }
     });
   }
 
+  // Perform evaluation and fetches equation solution
   void fetchSolution() {
-    //equation parser... TO DO:
-    equation.split('');
-    
+    List<String> splitEquation =
+        equation.split(' '); //filter the string into chars
+    List<int> numbers = <int>[];
 
-    solution = 96;
+    // Fills numbers (list) with integers from equation
+    for (int n = 0; n < splitEquation.length; n += 2) {
+      numbers.add(int.parse(splitEquation[n]));
+    }
+
+    calculateSolution(splitEquation, numbers);
+  }
+
+  // Compares user input answer with true solution
+  void compareAnswerWithSolution() {
+    if (int.parse(inputAnswer) == solution) {
+      print("correct");
+    } else {
+      print("wrong");
+    }
+  }
+
+  // Makes sure it follows math Precedence under calculation:
+  void calculateSolution(List<String> splitEquation, List<int> numbers) {
+    if (splitEquation[3] == "x") {
+      solution = numbers[0] + (numbers[1] * numbers[2]);
+    } else if (splitEquation[1] == "x") {
+      solution = (numbers[0] * numbers[1] + numbers[2]);
+    } else if (!splitEquation.contains("x")) {
+      solution = numbers[0] + numbers[1] + numbers[2];
+    } else if (!splitEquation.contains("+")) {
+      solution = numbers[0] * numbers[1] * numbers[2];
+    }
   }
 
   // Displays any number pressed from 0-9 in Answer Box (limited to max 5 digits)
