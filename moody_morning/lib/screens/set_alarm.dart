@@ -111,36 +111,9 @@ class _SetAlarmState extends State<SetAlarm> {
             width: 100,
             child: ElevatedButton(
               onPressed: () async {
-                int hourDifference = (selectedHour - DateTime.now().hour) % 24;
-                int minuteDifference =
-                    (selectedMinute - DateTime.now().minute);
-
-                var sortedAlarms = AllAlarms.alarms
-                  ..sort((a, b) => b.alarmsetting.id
-                      .compareTo(a.alarmsetting.id)); //get highest id
-
-                final alarmSettings = AlarmSettings(
-                  //create alarm settings
-                  id: sortedAlarms.isNotEmpty
-                      ? sortedAlarms.elementAt(0).alarmsetting.id + 1
-                      : 0,
-                  dateTime: DateTime.now().add(Duration(
-                      hours: hourDifference,
-                      minutes: minuteDifference,
-                      seconds: -DateTime.now().second)),
-                  assetAudioPath: 'assets/sounds/galaxy_alarm.mp3',
-                  vibrate: true,
-                  // notificationTitle: 'Time to wake up!',
-                  // notificationBody: 'Press here to get your challenge!',
-                  enableNotificationOnKill: true,
-                  stopOnNotificationOpen: false,
-                );
-                //await Alarm.stop(alarmSettings.id);
-                //await Alarm.set(alarmSettings: alarmSettings);
-                AllAlarms.addAlarm(AlarmData(
-                  alarmSettings,
-                  payload: selectedChallenge,
-                ));
+                AlarmData alarm = AlarmData.createAlarmData(selectedHour, selectedMinute, selectedChallenge);
+                AllAlarms.addAlarm(alarm);
+                
                 print("Created alarm with payload $selectedChallenge");
                 try {
                   Alarm.ringStream.stream.listen(

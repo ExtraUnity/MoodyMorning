@@ -3,24 +3,54 @@ import 'package:flutter/material.dart';
 
 class AlarmData implements Comparable{
   bool active = true;
-  AlarmSettings alarmsetting;
-  String payload;
-  AlarmData(this.alarmsetting, {required this.payload});
+  late AlarmSettings alarmsetting;
+  final String payload;
+  final int id = calcID();
+  final int hours;
+  final int minutes;
+  AlarmData(this.alarmsetting, this.hours, this.minutes, {required this.payload});
 
+  AlarmData.createAlarmData(this.hours, this.minutes, this.payload) {
+    alarmsetting = determineAlarmSettings();
+  }
   void stopStartAlarm() {
     if (active) {
       Alarm.stop(alarmsetting.id);
       active = false;
     } else {
-      Alarm.set(alarmSettings: alarmsetting);
+      setAlarm();
       active = true;
     }
   }
-  
+
+  void setAlarm() {
+    alarmsetting = determineAlarmSettings();
+    Alarm.set(alarmSettings: alarmsetting);
+  }
+
+
+  AlarmSettings determineAlarmSettings() {
+    
+    TimeDifference timeDifference = getTimeDifference();
+    return AlarmSettings(
+      id: id, 
+      dateTime: DateTime.now().add(Duration(hours: timeDifference.hours, minutes: timeDifference.minutes)), 
+      assetAudioPath: 'assets/sounds/galaxy_alarm.mp3',
+      vibrate: true,
+      enableNotificationOnKill: true,
+      stopOnNotificationOpen: false,
+    );
+  }
+
+  TimeDifference getTimeDifference() {
+    int hoursDifference = (hours - DateTime.now().hour) % 24; 
+    int minutesDifference = (minutes - DateTime.now().minute);
+    return TimeDifference(hoursDifference, minutesDifference);
+  }  
+
   @override
   int compareTo(other) {
-    
-        if (alarmsetting.dateTime.hour > other.alarmsetting.dateTime.hour) {
+    if (alarmsetting.dateTime.hour > other.alarmsetting.dateTime.hour) {
       return 1;
     } else if (alarmsetting.dateTime.hour ==
         other.alarmsetting.dateTime.hour) {
@@ -28,12 +58,21 @@ class AlarmData implements Comparable{
     }
     return -1;
   }
+  
+  static int calcID() {
+    var sortedAlarms = AllAlarms.alarms
+                  ..sort((a, b) => b.alarmsetting.id
+                      .compareTo(a.alarmsetting.id)); //get highest id
+    return sortedAlarms.isNotEmpty
+                      ? sortedAlarms.elementAt(0).alarmsetting.id + 1
+                      : 0;
+  }
 }
 
 class AllAlarms extends ChangeNotifier {
   static List<AlarmData> alarms = <AlarmData>[];
+
   static void addAlarm(AlarmData alarm) {
-    
     alarms.add(alarm);
     alarms.sort();
     Alarm.set(alarmSettings: alarm.alarmsetting);
@@ -50,15 +89,10 @@ class AllAlarms extends ChangeNotifier {
       num++;
     }
   }
+}
 
-  static bool compare(AlarmData current, AlarmData alarm) {
-    if (current.alarmsetting.dateTime.hour > alarm.alarmsetting.dateTime.hour) {
-      return true;
-    } else if (current.alarmsetting.dateTime.hour ==
-        alarm.alarmsetting.dateTime.hour) {
-      return current.alarmsetting.dateTime.minute >=
-          alarm.alarmsetting.dateTime.minute;
-    }
-    return false;
-  }
+class TimeDifference {
+  int hours;
+  int minutes;
+  TimeDifference(this.hours, this.minutes);
 }
