@@ -3,6 +3,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
 
+
 const bgColor = Color(0xFF423E72);
 
 class SolveQRCode extends StatelessWidget {

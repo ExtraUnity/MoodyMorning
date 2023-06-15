@@ -12,7 +12,6 @@ import 'package:permission_handler/permission_handler.dart';
 
 class SetAlarm extends StatefulWidget {
   const SetAlarm({super.key});
-
   @override
   State<SetAlarm> createState() => _SetAlarmState();
 }
@@ -64,36 +63,43 @@ class _SetAlarmState extends State<SetAlarm> {
               path: '/equationSettings',
               context: context,
               buttonPressed: (path) {
-                selectedChallenge = path;
+                setState(() => selectedChallenge = path);
+
                 print("Selected path $path");
               },
+              borderWidth:
+                  1.0 + (selectedChallenge == "/equationSettings" ? 2 : 0),
             ),
             ChallengeIconButton(
               icon: const Icon(Icons.fitness_center),
               path: '/exerciseSettings',
               context: context,
               buttonPressed: (path) {
-                selectedChallenge = path;
+                setState(() => selectedChallenge = path);
                 print("Selected path $path");
               },
+              borderWidth:
+                  1.0 + (selectedChallenge == "/exerciseSettings" ? 2 : 0),
             ),
             ChallengeIconButton(
               icon: const Icon(Icons.qr_code_2),
               path: '/QRSettings',
               context: context,
               buttonPressed: (path) {
-                selectedChallenge = path;
+                setState(() => selectedChallenge = path);
                 print("Selected path $path");
               },
+              borderWidth: 1.0 + (selectedChallenge == "/QRSettings" ? 2 : 0),
             ),
             ChallengeIconButton(
               icon: const Icon(Icons.videogame_asset),
               path: '/gameSettings',
               context: context,
               buttonPressed: (path) {
-                selectedChallenge = path;
+                setState(() => selectedChallenge = path);
                 print("Selected path $path");
               },
+              borderWidth: 1.0 + (selectedChallenge == "/gameSettings" ? 2 : 0),
             ),
           ],
         ),
