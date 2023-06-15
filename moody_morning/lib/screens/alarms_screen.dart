@@ -5,10 +5,22 @@ import 'package:provider/provider.dart';
 import '../widgets/navigation_bar.dart';
 import 'package:alarm/alarm.dart';
 
-class AlarmScreen extends StatelessWidget {
+class AlarmScreen extends StatefulWidget {
+  @override
+  State<AlarmScreen> createState() => _AlarmScreenState();
+}
+
+class _AlarmScreenState extends State<AlarmScreen> {
+  bool show = false;
+
+  void showDelete() {
+      setState(() {
+        show = !show;
+      });
+    }
+
   @override
   Widget build(BuildContext context) {
-
     var allAlarms = context.watch<AllAlarms>();
 
     return Scaffold(
@@ -17,8 +29,11 @@ class AlarmScreen extends StatelessWidget {
       bottomNavigationBar: Navigation(),
       body: ListView(
         children: [
+          FloatingActionButton(onPressed: () {
+              showDelete();
+            }),
           for (AlarmData alarms in allAlarms.alarms)
-            AlarmCard(alarm: alarms,),
+            AlarmCard(alarm: alarms, show: show),
         ],
       ),
     );
@@ -28,9 +43,9 @@ class AlarmScreen extends StatelessWidget {
 class AlarmCard extends StatelessWidget {
   const AlarmCard({
     super.key,
-    required this.alarm,
+    required this.alarm, required this.show,
   });
-
+  final bool show;
   final AlarmData alarm;
 
   @override
@@ -47,7 +62,12 @@ class AlarmCard extends StatelessWidget {
               textScaleFactor: 2,
             ),
           ),
-          OnOff(alarm : alarm),
+          Row(
+            children: [
+              OnOff(alarm : alarm),
+              DeleteBotton(id : alarm.alarmsetting.id, show: show),
+            ],
+          ),
         ],
       ),
     );
@@ -71,5 +91,28 @@ class _MyWidgetState extends State<OnOff> {
           widget.alarm.stopStartAlarm();
         });
       });
+  }
+}
+
+class DeleteBotton extends StatefulWidget {
+  const DeleteBotton({super.key, required this.id, required this.show});
+  final int id;
+  final bool show;
+  @override
+  State<DeleteBotton> createState() => _DeleteBottonState();
+}
+
+class _DeleteBottonState extends State<DeleteBotton> {
+  @override
+  Widget build(BuildContext context) {
+    return Visibility(
+      visible: widget.show,
+      child: IconButton(
+        onPressed: () {
+          print(widget.id);
+        },
+        icon: const Icon(Icons.remove_circle_outline, color: Colors.red,)
+      ),
+    );
   }
 }
