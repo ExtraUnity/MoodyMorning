@@ -42,8 +42,8 @@ class _EquationScreenLayoutState extends State<EquationScreenLayout> {
 
   void fetchSolution() {
     //equation parser... TO DO:
-    equation.split('');
-    
+    List<String> chars = equation.split('');
+    print(chars);
 
     solution = 96;
   }
