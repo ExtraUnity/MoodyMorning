@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
 
-import '../widgets/solveEquation/screen_layout_updater.dart';
+import '../system/numpad_reader.dart';
 
 class SolveEquation extends StatelessWidget {
   @override
