@@ -10,7 +10,7 @@ String randomEquationGenerator() {
   int c = rn.nextInt(9)+1;  // range: 1-10
 
   o = rn.nextInt(1) > 0.5 ? "+" : "x";
-  o2 = rn.nextInt(1) > 0.5 ? "+" : "x";
+  o2 = rn.nextInt(1) > 0.5 ? "x" : "+";
 
   return "$a $o $b $o2 $c";
 }
