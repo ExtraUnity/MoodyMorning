@@ -5,11 +5,18 @@ import 'package:moody_morning/widgets/logo_app_bar.dart';
 
 const bgColor = Color(0xFF423E72);
 
-class SolveQRCode extends StatelessWidget {
-  final MobileScannerController cameraController = MobileScannerController();
-  bool _screenOpened = false;
+class SolveQRCode extends StatefulWidget {
 
-  SolveQRCode({super.key});
+  const SolveQRCode({super.key});
+
+  @override
+  State<SolveQRCode> createState() => _SolveQRCodeState();
+}
+
+class _SolveQRCodeState extends State<SolveQRCode> {
+  final MobileScannerController cameraController = MobileScannerController();
+
+  bool _screenOpened = false;
 
   // Flashlight
   @override
