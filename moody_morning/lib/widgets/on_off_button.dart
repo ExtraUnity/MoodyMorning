@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moody_morning/system/all_alarms.dart';
+import 'package:moody_morning/system/alarm_data.dart';
 
 class OnOff extends StatefulWidget {
   const OnOff({super.key, required this.alarm});

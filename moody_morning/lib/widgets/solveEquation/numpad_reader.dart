@@ -3,7 +3,7 @@ import 'package:moody_morning/system/random_equation_generator.dart';
 import 'package:moody_morning/widgets/solveEquation/alarm_display.dart';
 import 'package:moody_morning/widgets/solveEquation/equation_and_answer_display.dart';
 import 'package:moody_morning/widgets/solveEquation/numpad.dart';
-import 'all_alarms.dart';
+import '../../system/all_alarms.dart';
 
 class EquationScreenLayout extends StatefulWidget {
   const EquationScreenLayout({super.key});
