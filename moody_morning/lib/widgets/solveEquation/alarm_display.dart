@@ -24,7 +24,7 @@ class AlarmDisplay extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              Text("${currentTime}  ",
+              Text("$currentTime  ",
                   style: const TextStyle(
                     fontSize: 50,
                     fontWeight: FontWeight.bold,

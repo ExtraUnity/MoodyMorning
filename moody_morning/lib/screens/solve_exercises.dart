@@ -58,15 +58,15 @@ class _SolveExercisesState extends State<SolveExercises> {
       onWillPop:() async => false,
       child: Scaffold(
           appBar: LogoAppBar(),
-          backgroundColor: Color(0xFF423E72),
+          backgroundColor: const Color(0xFF423E72),
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                AlarmDisplay(),
-                Text("$instruction", style: TextStyle(fontSize: 40, color: Colors.white)),
+                const AlarmDisplay(),
+                Text(instruction, style: const TextStyle(fontSize: 40, color: Colors.white)),
                 Text(
-                    "Amount of ${CURRENT_EXERCISE}: ${(exercisesDone / 2).floor()}/${(AMOUNT_EXERCISE / 2).floor()} ", style: TextStyle(color: Colors.white)),
+                    "Amount of $CURRENT_EXERCISE: ${(exercisesDone / 2).floor()}/${(AMOUNT_EXERCISE / 2).floor()} ", style: const TextStyle(color: Colors.white)),
                 //Text('X: ${eve?.x.toStringAsFixed(3)} '),
                 //Text('Y: ${eve?.y.toStringAsFixed(3)}'),
                 //Text('Z: ${eve?.z.toStringAsFixed(3)}'),
@@ -75,7 +75,7 @@ class _SolveExercisesState extends State<SolveExercises> {
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF8F8BBF),
-                        textStyle: TextStyle(color: Colors.white),
+                        textStyle: const TextStyle(color: Colors.white),
                       ),
                       onPressed: () => {
                             //stop alarm
@@ -83,7 +83,7 @@ class _SolveExercisesState extends State<SolveExercises> {
                             challengeSolved(context),
                             dispose()}
                           },
-                      child: Text('${isFinished ? Done : notDone}'),),
+                      child: Text(isFinished ? Done : notDone),),
                 )
               ],
             ),

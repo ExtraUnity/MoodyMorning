@@ -31,13 +31,13 @@ Future<void> main() async {
             '/': (context) => const AlarmScreen(),
             '/setAlarm': (context) => const SetAlarm(),
             '/equationSettings': (context) =>
-                const SolveEquation(), //TODO: Change to equation settings
+                const SolveEquation(),
             '/exerciseSettings': (context) =>
-                const SolveExercises(), //TODO: Change to exercise settings
+                const SolveExercises(), 
             '/QRSettings': (context) =>
-                SolveQRCode(), //TODO: Change to QR settings
+                SolveQRCode(), 
             '/gameSettings': (context) =>
-                const SolveRiddle(), //TODO: Change to game settings
+                const SolveRiddle(), 
           }),
     ),
   );

@@ -36,19 +36,19 @@ class _SlidePuzzleBoardState extends State<SolveRiddle> {
     return WillPopScope(
       onWillPop: ()async => false,
       child: Scaffold(
-        backgroundColor: Color(0xFF423E72),
+        backgroundColor: const Color(0xFF423E72),
         appBar: LogoAppBar(),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.all(40.0),
+              padding: const EdgeInsets.all(40.0),
               child: ElevatedButton(
                 onPressed: () {
                   
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF8F8BBF), // Change the button color here
+                  backgroundColor: const Color(0xFF8F8BBF), // Change the button color here
                 ),
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -89,14 +89,14 @@ class _SlidePuzzleBoardState extends State<SolveRiddle> {
                             showDialog(
                               context: context,
                               builder: (_) => AlertDialog(
-                                title: Text('Alarm Off'),
-                                content: Text('Puzzle solved'),
+                                title: const Text('Alarm Off'),
+                                content: const Text('Puzzle solved'),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    child: Text('OK'),
+                                    child: const Text('OK'),
                                   ),
                                 ],
                               ),
@@ -118,14 +118,14 @@ class _SlidePuzzleBoardState extends State<SolveRiddle> {
                             showDialog(
                               context: context,
                               builder: (_) => AlertDialog(
-                                title: Text('Alarm Off'),
-                                content: Text('Puzzle solved'),
+                                title: const Text('Alarm Off'),
+                                content: const Text('Puzzle solved'),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    child: Text('OK'),
+                                    child: const Text('OK'),
                                   ),
                                 ],
                               ),
@@ -147,8 +147,8 @@ class _SlidePuzzleBoardState extends State<SolveRiddle> {
                     child: Container(
                       alignment: Alignment.center,
                       padding: const EdgeInsets.all(49),
-                      margin: EdgeInsets.all(2),
-                      color: tiles[index] != 8 ? Color(0xFF8F8BBF) : Colors.white, // Set tile color
+                      margin: const EdgeInsets.all(2),
+                      color: tiles[index] != 8 ? const Color(0xFF8F8BBF) : Colors.white, // Set tile color
                       child: Center(
                         child: Container(
                           child: Text(

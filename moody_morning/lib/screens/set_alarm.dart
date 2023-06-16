@@ -4,7 +4,6 @@ import 'package:moody_morning/widgets/scroll_wheel.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
 import 'package:moody_morning/system/alarm_callback.dart';
 import 'package:alarm/alarm.dart';
-import 'package:provider/provider.dart';
 
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/widgets/navigation_bar.dart';

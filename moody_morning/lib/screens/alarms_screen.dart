@@ -65,7 +65,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: Color(0xFF423E72),
+      backgroundColor: const Color(0xFF423E72),
       appBar: LogoAppBar(),
       bottomNavigationBar: const Navigation(
         startingIndex: 0,
