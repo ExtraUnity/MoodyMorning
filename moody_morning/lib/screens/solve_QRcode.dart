@@ -132,9 +132,14 @@ class _SolveQRCodeState extends State<SolveQRCode> {
       final String code = barcode.rawValue ?? "---";
       debugPrint('Barcode found! $code');
       _screenOpened = true;
-      cameraController.stop();
       challengeSolved(context);
     }
+  }
+
+  @override
+  void dispose() {
+    cameraController.dispose();
+    super.dispose();
   }
 }
 
