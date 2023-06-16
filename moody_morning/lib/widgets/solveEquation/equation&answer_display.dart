@@ -1,10 +1,5 @@
-import 'package:flutter/material.dart';
+import'package:flutter/material.dart';
 
-TextStyle textStyle = const TextStyle(
-                fontSize: 27,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-  );
 class EquationDisplay extends StatelessWidget {
   final String equation;
   final String answer;
@@ -59,3 +54,9 @@ class EquationDisplay extends StatelessWidget {
     );
   }
 }
+
+TextStyle textStyle = const TextStyle(
+                fontSize: 27,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+  );
