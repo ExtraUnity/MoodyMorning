@@ -53,7 +53,15 @@ class _SetAlarmState extends State<SetAlarm> {
           )),
           minutes,
         ]),
-        const SizedBox(height: 50),
+        const Divider(height: 50),
+        const Center(
+          child: Text(
+            'Select your challenge:',
+            style: TextStyle(
+                fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ),
+        const Divider(height: 25),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -93,33 +101,44 @@ class _SetAlarmState extends State<SetAlarm> {
             ),
           ],
         ),
-        const SizedBox(height: 50),
-        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          SizedBox(
-            width: 100,
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF8F8BBF),
-                ),
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/');
-                },
-                child: const Text("Cancel")),
-          ),
-          const SizedBox(width: 20),
-          SizedBox(
-            width: 100,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.deepPurple.shade300,
-              ),
-              onPressed: () async {
-                createAlarm();
-              },
-              child: const Text("Save"),
+        const Divider(height: 200),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 150,
+              height: 50,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15))),
+                    elevation: 20,
+                    backgroundColor: const Color(0xFF8F8BBF),
+                  ),
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, '/');
+                  },
+                  child: const Text("Cancel")),
             ),
-          ),
-        ]),
+            const SizedBox(width: 40),
+            SizedBox(
+              width: 150,
+              height: 50,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15))),
+                  elevation: 20,
+                  backgroundColor: Colors.deepPurple.shade300,
+                ),
+                onPressed: () async {
+                  createAlarm();
+                },
+                child: const Text("Save"),
+              ),
+            ),
+          ],
+        ),
       ]),
     );
   }
