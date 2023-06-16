@@ -19,6 +19,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Alarm.init();
   notificationService.initNotification();
+  //AllAlarms.loadJson;
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,

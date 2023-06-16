@@ -20,9 +20,9 @@ class AlarmScreen extends StatefulWidget {
 class _AlarmScreenState extends State<AlarmScreen> {
   @override
   void initState() {
-    super.initState();
-    _configureSelectNotificationSubject();
     AllAlarms.loadJson();
+    _configureSelectNotificationSubject();
+    super.initState();
   }
 
   void _configureSelectNotificationSubject() {
