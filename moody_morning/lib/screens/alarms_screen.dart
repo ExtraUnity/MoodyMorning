@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/widgets/alarm_card.dart';
 import 'package:moody_morning/widgets/challenge_icon_button.dart';
@@ -106,23 +105,4 @@ class _AlarmScreenState extends State<AlarmScreen> {
       ),
     );
   }
-}
-
-Future<void> showNotification(String payload) async {
-  const AndroidNotificationDetails androidNotificationDetails =
-      AndroidNotificationDetails('your channel id', 'your channel name',
-          channelDescription: 'your channel description',
-          importance: Importance.max,
-          priority: Priority.high,
-          fullScreenIntent: true,
-          ticker: 'ticker');
-  const NotificationDetails notificationDetails =
-      NotificationDetails(android: androidNotificationDetails);
-  await notificationService.flutterLocalNotificationsPlugin.show(
-    0,
-    'Time to wake up!',
-    'Click here to get your challenge',
-    notificationDetails,
-    payload: payload,
-  );
 }

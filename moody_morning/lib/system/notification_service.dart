@@ -67,6 +67,25 @@ class NotificationService {
       linux: initializationSettingsLinux,
     );
   }
+
+  Future<void> showNotification(String payload) async {
+    const AndroidNotificationDetails androidNotificationDetails =
+        AndroidNotificationDetails('your channel id', 'your channel name',
+            channelDescription: 'your channel description',
+            importance: Importance.max,
+            priority: Priority.high,
+            fullScreenIntent: true,
+            ticker: 'ticker');
+    const NotificationDetails notificationDetails =
+        NotificationDetails(android: androidNotificationDetails);
+    await flutterLocalNotificationsPlugin.show(
+      0,
+      'Time to wake up!',
+      'Click here to get your challenge',
+      notificationDetails,
+      payload: payload,
+    );
+  }
 }
 
 class ReceivedNotification {

@@ -5,10 +5,10 @@ class OnOff extends StatefulWidget {
   const OnOff({super.key, required this.alarm});
   final AlarmData alarm;
   @override
-  State<OnOff> createState() => _MyWidgetState();
+  State<OnOff> createState() => _OnOffState();
 }
 
-class _MyWidgetState extends State<OnOff> {
+class _OnOffState extends State<OnOff> {
   @override
   Widget build(BuildContext context) {
     return Transform.scale(
