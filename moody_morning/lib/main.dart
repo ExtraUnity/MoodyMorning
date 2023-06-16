@@ -19,22 +19,18 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Alarm.init();
   notificationService.initNotification();
-
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => AllAlarms(),
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          navigatorKey: navigatorKey,
-          //home: AlarmScreen(),
-          routes: {
-            '/': (context) => const AlarmScreen(),
-            '/setAlarm': (context) => const SetAlarm(),
-            '/equationSettings': (context) => const SolveEquation(),
-            '/exerciseSettings': (context) => const SolveExercises(),
-            '/QRSettings': (context) => const SolveQRCode(),
-            '/gameSettings': (context) => const SolveRiddle(),
-          }),
-    ),
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      navigatorKey: navigatorKey,
+      //home: AlarmScreen(),
+      routes: {
+        '/': (context) => const AlarmScreen(),
+        '/setAlarm': (context) => const SetAlarm(),
+        '/equationSettings': (context) => const SolveEquation(),
+        '/exerciseSettings': (context) => const SolveExercises(),
+        '/QRSettings': (context) => const SolveQRCode(),
+        '/gameSettings': (context) => const SolveRiddle(),
+      }),
   );
 }

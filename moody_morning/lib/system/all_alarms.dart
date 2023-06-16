@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:alarm/alarm.dart';
 import 'package:flutter/material.dart';
+import 'package:localstorage/localstorage.dart';
 
 class AlarmData implements Comparable {
   bool active = true;
@@ -30,6 +33,7 @@ class AlarmData implements Comparable {
         "Alarm set at: $hours:$minutes, the timedate is ${alarmsetting.dateTime}");
     Alarm.set(alarmSettings: alarmsetting);
   }
+  
 
   AlarmSettings determineAlarmSettings() {
     TimeDifference timeDifference = getTimeDifference();
@@ -76,10 +80,18 @@ class AlarmData implements Comparable {
         ? sortedAlarms.elementAt(0).alarmsetting.id + 1
         : 0;
   }
+
+  Map toJson() => {
+    'hours' : hours,
+    'minutes' : minutes,
+    'payload' : payload,
+    'active' : active,
+  };
 }
 
 class AllAlarms extends ChangeNotifier {
   static List<AlarmData> alarms = <AlarmData>[];
+  static LocalStorage storage = LocalStorage('savedAlarms.json');
 
   static void addAlarm(AlarmData alarm) {
     alarms.add(alarm);
@@ -87,6 +99,7 @@ class AllAlarms extends ChangeNotifier {
     debugPrint(
         "Alarm set at: ${alarm.hours}:${alarm.minutes}, the timedate is ${alarm.alarmsetting.dateTime}");
     alarm.setAlarm();
+    saveJson();
     // Alarm.set(alarmSettings: alarm.alarmsetting);
   }
 
@@ -99,6 +112,32 @@ class AllAlarms extends ChangeNotifier {
         break;
       }
       num++;
+    }
+    saveJson();
+  }
+
+  static void saveJson() {
+    print("saved");
+    storage.setItem("savedAlarms", jsonEncode({'alarms' : AllAlarms.alarms}));
+  }
+
+  static void loadJson() {
+    List<AlarmData> loadedAlarms = <AlarmData>[];
+    if(storage.getItem('savedAlarms') != null) {
+    var tagObjsJson = jsonDecode(storage.getItem('savedAlarms'));
+    
+    var oldAlarms = tagObjsJson['alarms'] as List;
+    for(int i = 0; i < oldAlarms.length; i++) {
+      loadedAlarms.add(AlarmData.createAlarmData(
+      oldAlarms[i]['hours'],
+      oldAlarms[i]['minutes'],
+      oldAlarms[i]['payload']));
+      loadedAlarms[i].active = oldAlarms[i]['active'];
+      if(loadedAlarms[i].active) {
+        Alarm.set(alarmSettings: loadedAlarms[i].alarmsetting);
+      }
+    }
+    alarms = loadedAlarms;
     }
   }
 }
