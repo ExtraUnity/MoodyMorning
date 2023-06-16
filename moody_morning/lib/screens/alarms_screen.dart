@@ -128,7 +128,7 @@ class AlarmCard extends StatelessWidget {
           Row(
             children: [
               OnOff(alarm : alarm),
-              DeleteBotton(id : alarm.alarmsetting.id, show: show, callBack: callBack),
+              DeleteButton(id : alarm.alarmsetting.id, show: show, callBack: callBack),
             ],
           ),
         ],
@@ -157,17 +157,17 @@ class _MyWidgetState extends State<OnOff> {
   }
 }
 
-class DeleteBotton extends StatefulWidget {
-  const DeleteBotton({super.key, required this.id, required this.show, required this.callBack});
+class DeleteButton extends StatefulWidget {
+  const DeleteButton({super.key, required this.id, required this.show, required this.callBack});
   final int id;
   final bool show;
   final Function() callBack;
 
   @override
-  State<DeleteBotton> createState() => _DeleteBottonState();
+  State<DeleteButton> createState() => _DeleteButtonState();
 }
 
-class _DeleteBottonState extends State<DeleteBotton> {
+class _DeleteButtonState extends State<DeleteButton> {
   @override
   Widget build(BuildContext context) {
     return Visibility(
