@@ -17,12 +17,12 @@ class ChallengeIconButton extends ElevatedButton {
           onPressed: () {
             buttonPressed(path);
           },
-          style: ButtonStyle(
-            shape: MaterialStateProperty.all(CircleBorder(
+          style: ElevatedButton.styleFrom(
+            elevation: 20,
+            shape: (CircleBorder(
                 side: BorderSide(color: Colors.white, width: borderWidth))),
-            backgroundColor:
-                MaterialStateProperty.all(Colors.deepPurple.shade300),
-            padding: MaterialStateProperty.all(EdgeInsets.all(size)),
+            backgroundColor: (Colors.deepPurple.shade300),
+            padding: (EdgeInsets.all(size)),
           ),
           child: icon,
         );
