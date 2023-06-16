@@ -1,9 +1,6 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
-
-import '../system/numpad_reader.dart';
+import 'package:moody_morning/system/numpad_reader.dart';
 
 class SolveEquation extends StatelessWidget {
   const SolveEquation({super.key});

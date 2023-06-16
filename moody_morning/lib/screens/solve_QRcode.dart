@@ -6,7 +6,6 @@ import 'package:moody_morning/widgets/logo_app_bar.dart';
 const bgColor = Color(0xFF423E72);
 
 class SolveQRCode extends StatefulWidget {
-
   const SolveQRCode({super.key});
 
   @override
@@ -32,18 +31,24 @@ class _SolveQRCodeState extends State<SolveQRCode> {
             child: Column(children: [
               const Expanded(
                   child: SizedBox(
-                    width: 380,
-                    height: 75,
-                    child: Card(
-                       color: Color(0xFF8F8BBF),
-                      child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
+                width: 380,
+                height: 75,
+                child: Card(
+                  color: Color(0xFF8F8BBF),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.qr_code_2, color: Colors.white70, size: 40,),
-                          SizedBox(width: 10,),
+                          Icon(
+                            Icons.qr_code_2,
+                            color: Colors.white70,
+                            size: 40,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
                           Text(
                             'Find a QR code and scan it',
                             style: TextStyle(
@@ -65,10 +70,10 @@ class _SolveQRCodeState extends State<SolveQRCode> {
                           color: Colors.white60,
                         ),
                       ),
-                                    ],
-                                  ),
-                    ),
-                  )),
+                    ],
+                  ),
+                ),
+              )),
               Expanded(
                 flex: 4,
                 child: Center(
@@ -77,7 +82,8 @@ class _SolveQRCodeState extends State<SolveQRCode> {
                   width: 320,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    border: Border.all(color: const Color(0xFF8F8BBF), width: 10),
+                    border:
+                        Border.all(color: const Color(0xFF8F8BBF), width: 10),
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
@@ -129,10 +135,6 @@ class _SolveQRCodeState extends State<SolveQRCode> {
       cameraController.stop();
       challengeSolved(context);
     }
-  }
-
-  void _screenWasClosed() {
-    _screenOpened = false;
   }
 }
 

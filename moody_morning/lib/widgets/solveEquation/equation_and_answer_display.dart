@@ -1,4 +1,4 @@
-import'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 class EquationDisplay extends StatelessWidget {
   final String equation;
@@ -12,6 +12,11 @@ class EquationDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle textStyle = const TextStyle(
+      fontSize: 27,
+      fontWeight: FontWeight.bold,
+      color: Colors.white,
+    );
     return SizedBox(
       height: 100,
       width: 360,
@@ -42,8 +47,11 @@ class EquationDisplay extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(answer, style: textStyle,
-              textAlign: TextAlign.center,),
+                    Text(
+                      answer,
+                      style: textStyle,
+                      textAlign: TextAlign.center,
+                    ),
                   ],
                 ),
               ),
@@ -54,9 +62,3 @@ class EquationDisplay extends StatelessWidget {
     );
   }
 }
-
-TextStyle textStyle = const TextStyle(
-                fontSize: 27,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-  );

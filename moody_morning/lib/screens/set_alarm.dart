@@ -11,7 +11,6 @@ import 'package:permission_handler/permission_handler.dart';
 
 class SetAlarm extends StatefulWidget {
   const SetAlarm({super.key});
-
   @override
   State<SetAlarm> createState() => _SetAlarmState();
 }
@@ -19,7 +18,7 @@ class SetAlarm extends StatefulWidget {
 class _SetAlarmState extends State<SetAlarm> {
   int selectedHour = 0;
   int selectedMinute = 0;
-  String selectedChallenge = "/QRSettings";
+  String selectedChallenge = "/equationSettings";
   late ScrollWheel hours;
   late ScrollWheel minutes;
 
@@ -62,37 +61,35 @@ class _SetAlarmState extends State<SetAlarm> {
               icon: const Icon(Icons.calculate),
               path: '/equationSettings',
               context: context,
-              buttonPressed: (path) {
-                selectedChallenge = path;
-                print("Selected path $path");
-              },
+              buttonPressed: (path) => setState(() => selectedChallenge = path),
+              borderWidth:
+                  1.0 + (selectedChallenge == "/equationSettings" ? 2 : 0),
+              size: 20.0 + (selectedChallenge == '/equationSettings' ? 5.0 : 0),
             ),
             ChallengeIconButton(
               icon: const Icon(Icons.fitness_center),
               path: '/exerciseSettings',
               context: context,
-              buttonPressed: (path) {
-                selectedChallenge = path;
-                print("Selected path $path");
-              },
+              buttonPressed: (path) => setState(() => selectedChallenge = path),
+              borderWidth:
+                  1.0 + (selectedChallenge == "/exerciseSettings" ? 2 : 0),
+              size: 20.0 + (selectedChallenge == '/exerciseSettings' ? 5.0 : 0),
             ),
             ChallengeIconButton(
               icon: const Icon(Icons.qr_code_2),
               path: '/QRSettings',
               context: context,
-              buttonPressed: (path) {
-                selectedChallenge = path;
-                print("Selected path $path");
-              },
+              buttonPressed: (path) => setState(() => selectedChallenge = path),
+              borderWidth: 1.0 + (selectedChallenge == "/QRSettings" ? 2 : 0),
+              size: 20.0 + (selectedChallenge == '/QRSettings' ? 5.0 : 0),
             ),
             ChallengeIconButton(
               icon: const Icon(Icons.videogame_asset),
               path: '/gameSettings',
               context: context,
-              buttonPressed: (path) {
-                selectedChallenge = path;
-                print("Selected path $path");
-              },
+              buttonPressed: (path) => setState(() => selectedChallenge = path),
+              borderWidth: 1.0 + (selectedChallenge == "/gameSettings" ? 2 : 0),
+              size: 20.0 + (selectedChallenge == '/gameSettings' ? 5.0 : 0),
             ),
           ],
         ),
@@ -101,6 +98,9 @@ class _SetAlarmState extends State<SetAlarm> {
           SizedBox(
             width: 100,
             child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF8F8BBF),
+                ),
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, '/');
                 },
@@ -110,32 +110,11 @@ class _SetAlarmState extends State<SetAlarm> {
           SizedBox(
             width: 100,
             child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepPurple.shade300,
+              ),
               onPressed: () async {
-                AlarmData alarm = AlarmData.createAlarmData(selectedHour, selectedMinute, selectedChallenge);
-                if (await Permission.scheduleExactAlarm.isDenied) {
-                  print("Permission to schedule alarm is denied");
-                }
-                PermissionStatus status =
-                    await Permission.scheduleExactAlarm.request();
-                while (status.isDenied) {
-                  status = await Permission.scheduleExactAlarm.request();
-                }
-
-                if (status.isPermanentlyDenied) {
-                  //Open app settings to allow user to grant permission
-                  await openAppSettings();
-                }
-                if (await Permission.scheduleExactAlarm.isGranted) {
-                  AllAlarms.addAlarm(alarm);
-                }
-                try {
-                  Alarm.ringStream.stream.listen(
-                      (activeAlarm) => handleAlarm(context, activeAlarm));
-                } catch (_) {
-                  print("Already listening");
-                }
-                // ignore: use_build_context_synchronously
-                Navigator.pushReplacementNamed(context, '/');
+                createAlarm();
               },
               child: const Text("Save"),
             ),
@@ -143,5 +122,36 @@ class _SetAlarmState extends State<SetAlarm> {
         ]),
       ]),
     );
+  }
+
+  void createAlarm() async {
+    AlarmData alarm = AlarmData.createAlarmData(
+        selectedHour, selectedMinute, selectedChallenge);
+    await checkPermission();
+    if (await Permission.scheduleExactAlarm.isGranted) {
+      AllAlarms.addAlarm(alarm);
+    }
+    try {
+      Alarm.ringStream.stream.listen((activeAlarm) => handleAlarm(activeAlarm));
+    } catch (_) {
+      debugPrint("Already listening");
+    }
+
+    if (context.mounted) Navigator.pushReplacementNamed(context, '/');
+  }
+
+  Future<void> checkPermission() async {
+    if (await Permission.scheduleExactAlarm.isDenied) {
+      debugPrint("Permission to schedule alarm is denied");
+    }
+    PermissionStatus status = await Permission.scheduleExactAlarm.request();
+    while (status.isDenied) {
+      status = await Permission.scheduleExactAlarm.request();
+    }
+
+    if (status.isPermanentlyDenied) {
+      //Open app settings to allow user to grant permission
+      await openAppSettings();
+    }
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_getters_setters
+
 import 'dart:math';
 
 class Accelerometer {
@@ -26,7 +28,7 @@ class Accelerometer {
   num get y => _y;
   num get z => _z;
   double toMagnitude(num x, num y, num z) {
-    magnitude = sqrt(x *  x + y * y + z * z);
+    magnitude = sqrt(x * x + y * y + z * z);
     return magnitude;
   }
 }

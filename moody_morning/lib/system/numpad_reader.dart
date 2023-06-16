@@ -1,20 +1,18 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
 import 'package:moody_morning/system/random_equation_generator.dart';
-import '../widgets/solveEquation/alarm_display.dart';
-import '../widgets/solveEquation/equation&answer_display.dart';
-import '../widgets/solveEquation/numpad.dart';
+import 'package:moody_morning/widgets/solveEquation/alarm_display.dart';
+import 'package:moody_morning/widgets/solveEquation/equation_and_answer_display.dart';
+import 'package:moody_morning/widgets/solveEquation/numpad.dart';
 import 'all_alarms.dart';
 
 class EquationScreenLayout extends StatefulWidget {
   const EquationScreenLayout({super.key});
 
   @override
-  _EquationScreenLayoutState createState() => _EquationScreenLayoutState();
+  EquationScreenLayoutState createState() => EquationScreenLayoutState();
 }
 
-class _EquationScreenLayoutState extends State<EquationScreenLayout> {
+class EquationScreenLayoutState extends State<EquationScreenLayout> {
   String equation = "";
   String inputAnswer = "";
   int solution = -99;
@@ -57,8 +55,8 @@ class _EquationScreenLayoutState extends State<EquationScreenLayout> {
 
   // Compares user input answer with true solution
   void compareAnswerWithSolution() {
-    print(inputAnswer);
-    print(solution);
+    debugPrint(inputAnswer);
+    debugPrint('$solution');
 
     if (int.parse(inputAnswer) == solution) {
       challengeSolved(context);
