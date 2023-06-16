@@ -76,8 +76,8 @@ class _SolveExercisesState extends State<SolveExercises> {
               //Text('magnitude: ${accel.toMagnitude(accel.x,accel.y,accel.z)}')
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF8F8BBF),
-                  textStyle: const TextStyle(color: Colors.white),
+                  backgroundColor: isFinished ?  Color(0xFF8F8BBF) : Colors.grey[400],
+                  textStyle: TextStyle(color: isFinished ? Colors.white : Colors.grey[700]),
                 ),
                 onPressed: () => {
                   //stop alarm
