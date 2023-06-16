@@ -12,7 +12,7 @@ class AlarmDisplay extends StatelessWidget {
       height: 85,
       width: 360,
       child: Card(
-          color: Colors.blue,
+          color: const Color(0xFF8F8BBF),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
