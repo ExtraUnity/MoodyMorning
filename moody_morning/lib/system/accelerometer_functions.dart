@@ -1,6 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
 
-import 'dart:math';
 
 class Accelerometer {
   num _x = 0.0;
