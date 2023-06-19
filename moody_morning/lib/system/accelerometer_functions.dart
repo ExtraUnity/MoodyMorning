@@ -1,7 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
 
-import 'dart:math';
-
 class Accelerometer {
   num _x = 0.0;
   num _y = 0.0;
@@ -13,5 +11,4 @@ class Accelerometer {
   num get x => _x;
   num get y => _y;
   num get z => _z;
-
 }

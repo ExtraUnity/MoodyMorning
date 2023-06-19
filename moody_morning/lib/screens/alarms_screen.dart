@@ -18,6 +18,10 @@ class _AlarmScreenState extends State<AlarmScreen> {
   @override
   void initState() {
     super.initState();
+    () async {
+      await AllAlarms.loadJson();
+      setState(() {});
+    }();
     _configureSelectNotificationSubject();
   }
 
@@ -77,7 +81,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
         child: ListView(
           children: [
             Container(
-              alignment: Alignment.topLeft,
+              alignment: Alignment.topRight,
               margin: const EdgeInsets.symmetric(vertical: 10.0),
               child: ChallengeIconButton(
                 icon: const Icon(Icons.edit),
