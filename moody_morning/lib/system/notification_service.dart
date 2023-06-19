@@ -103,6 +103,7 @@ class NotificationService {
 
   ///Displays a notification on the screen, with intent of displaying fullscreen
   ///Automatically sets volume to max.
+  ///Sets up listener to ensure always max volume
   Future<void> showNotification(String payload) async {
     //Setup notification details
     const AndroidNotificationDetails androidNotificationDetails =

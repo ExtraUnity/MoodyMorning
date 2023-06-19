@@ -17,12 +17,12 @@ class AlarmData implements Comparable {
   AlarmData.createAlarmData(this.hours, this.minutes, this.payload, this.id) {
     alarmsetting = determineAlarmSettings();
   }
-  Future<void> stopStartAlarm() async {
+  void stopStartAlarm() {
     if (active) {
-      await Alarm.stop(alarmsetting.id);
+      Alarm.stop(alarmsetting.id);
       active = false;
     } else {
-      await setAlarm();
+      setAlarm();
       active = true;
     }
   }
@@ -108,7 +108,6 @@ class AllAlarms extends ChangeNotifier {
   }
 
   static Future<void> saveJson() async {
-    print("saved");
     await storage.setItem(
         "savedAlarms", jsonEncode({'alarms': AllAlarms.alarms}));
   }
