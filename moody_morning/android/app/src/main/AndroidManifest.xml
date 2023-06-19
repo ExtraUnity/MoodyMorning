@@ -7,7 +7,7 @@
         <package android:name="com.example.moody_morning" />
     </queries>
     <application
-        android:label="moody_morning"
+        android:label="MoodyMorning"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <service
