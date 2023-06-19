@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+///Round button with icon. Used primarily for choosing a challenge
 class ChallengeIconButton extends ElevatedButton {
   final Icon icon;
   final String? path;

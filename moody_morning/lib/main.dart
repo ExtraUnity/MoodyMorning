@@ -13,7 +13,7 @@ import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/system/notification_service.dart';
 
 //Handle listening to notifications
-NotificationService notificationService = NotificationService();
+final NotificationService notificationService = NotificationService();
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

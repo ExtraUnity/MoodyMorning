@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+///The standard app bar to be used in all screens
 class LogoAppBar extends AppBar {
   LogoAppBar({super.key})
       : super(

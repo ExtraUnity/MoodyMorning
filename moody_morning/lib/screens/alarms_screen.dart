@@ -22,34 +22,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
       await AllAlarms.loadJson();
       setState(() {});
     }();
-    _configureSelectNotificationSubject();
-  }
-
-  void _configureSelectNotificationSubject() {
-    notificationService.selectNotificationStream.stream
-        .listen((String? input) async {
-      //Ensure that there is no current screen
-      while (navigatorKey.currentState!.canPop()) {
-        navigatorKey.currentState!.pop();
-      }
-      List<String> inputs = input!.split(' ');
-      String payload = inputs[0];
-      int alarmID = int.parse(inputs[1]);
-      //Push to relevant challenge screen using navigatorKey
-      await navigatorKey.currentState
-          ?.pushNamed(
-        payload,
-        arguments: alarmID,
-      )
-          .then((value) {
-        if (value != null) {
-          debugPrint("I DONT KNOW WHAT THIS IS ${value.toString()}");
-          navigatorKey.currentState?.pushReplacement(
-            value as Route<Object>,
-          );
-        }
-      });
-    });
+    notificationService.configureSelectNotificationSubject();
   }
 
   @override
@@ -113,6 +86,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
 }
 
 Future<void> showNotification(String payload) async {
+  //Setup notification details
   const AndroidNotificationDetails androidNotificationDetails =
       AndroidNotificationDetails('your channel id', 'your channel name',
           channelDescription: 'your channel description',
@@ -122,6 +96,8 @@ Future<void> showNotification(String payload) async {
           ticker: 'ticker');
   const NotificationDetails notificationDetails =
       NotificationDetails(android: androidNotificationDetails);
+
+  //Display notification
   await notificationService.flutterLocalNotificationsPlugin.show(
     0,
     'Time to wake up!',

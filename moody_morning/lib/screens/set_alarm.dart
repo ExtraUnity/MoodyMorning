@@ -43,6 +43,7 @@ class _SetAlarmState extends State<SetAlarm> {
       ),
       body: Column(children: [
         const SizedBox(height: 50),
+        //----Scroll wheel----//
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           hours,
           const Center(
@@ -54,6 +55,7 @@ class _SetAlarmState extends State<SetAlarm> {
           minutes,
         ]),
         const Divider(height: 50),
+        //----Challenge selection----//
         const Center(
           child: Text(
             'Select your challenge:',
@@ -102,6 +104,7 @@ class _SetAlarmState extends State<SetAlarm> {
           ],
         ),
         const Divider(height: 200),
+        //----Exit buttons----//
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -143,6 +146,7 @@ class _SetAlarmState extends State<SetAlarm> {
     );
   }
 
+  ///Add alarm to AllAlarms list, set the alarm and subscribe to ringStream
   Future<void> createAlarm() async {
     AlarmData alarm = AlarmData.createAlarmData(
         selectedHour, selectedMinute, selectedChallenge, AlarmData.calcID());
@@ -159,6 +163,7 @@ class _SetAlarmState extends State<SetAlarm> {
     if (context.mounted) Navigator.pushReplacementNamed(context, '/');
   }
 
+  ///Check if the relevant permissions are allowed to set alarm and request if denied
   Future<void> checkPermission() async {
     if (await Permission.scheduleExactAlarm.isDenied) {
       debugPrint("Permission to schedule alarm is denied");
