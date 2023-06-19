@@ -131,12 +131,12 @@ class AllAlarms extends ChangeNotifier {
         loadedAlarms[i].active = oldAlarms[i]['active'];
         if (loadedAlarms[i].active) {
           Alarm.set(alarmSettings: loadedAlarms[i].alarmsetting);
-        }
-        try {
-          Alarm.ringStream.stream
-              .listen((activeAlarm) => handleAlarm(activeAlarm));
-        } catch (_) {
-          debugPrint("Already listening");
+          try {
+            Alarm.ringStream.stream
+                .listen((activeAlarm) => handleAlarm(activeAlarm));
+          } catch (_) {
+            debugPrint("Already listening");
+          }
         }
       }
       alarms = loadedAlarms;
