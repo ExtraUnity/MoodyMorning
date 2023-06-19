@@ -16,16 +16,15 @@ class SolveExercises extends StatefulWidget {
 }
 
 class _SolveExercisesState extends State<SolveExercises> {
-  UserAccelerometerEvent? eve;
-  Accelerometer accel = Accelerometer();
+  final Accelerometer _accel = Accelerometer();
   final _streamSubscriptions = <StreamSubscription<dynamic>>[];
-  int exercisesDone = 0;
-  bool isUp = false;
-  bool isDown = false;
-  String instruction = 'Not supposed to be seen!';
-  bool isFinished = false;
-  String notDone = 'Not Done!';
-  String done = 'Stop Alarm!';
+  int _exercisesDone = 0;
+  bool _isUp = false;
+  bool _isDown = false;
+  String _instruction = 'Not supposed to be seen!';
+  bool _isFinished = false;
+  final String _notDone = 'Not Done!';
+  final String _done = 'Stop Alarm!';
   @override
   void dispose() {
     super.dispose();
@@ -36,18 +35,17 @@ class _SolveExercisesState extends State<SolveExercises> {
 
   @override
   void initState() {
-    exercisesDone = 0;
-    isUp = false;
-    isDown = false;
-    isFinished = false;
+    _exercisesDone = 0;
+    _isUp = false;
+    _isDown = false;
+    _isFinished = false;
     _streamSubscriptions
         .add(userAccelerometerEvents.listen((UserAccelerometerEvent event) {
       setState(() {
-        eve = event;
-        accel.x = event.x;
-        accel.y = event.y;
-        accel.z = event.z;
-        exerciseHandler();
+        _accel.x = event.x;
+        _accel.y = event.y;
+        _accel.z = event.z;
+        _exerciseHandler();
       });
     }));
     super.initState();
@@ -65,10 +63,10 @@ class _SolveExercisesState extends State<SolveExercises> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const AlarmDisplay(),
-              Text(instruction,
+              Text(_instruction,
                   style: const TextStyle(fontSize: 40, color: Colors.white)),
               Text(
-                  "Amount of $currentExercise: ${(exercisesDone / 2).floor()}/${(amountExercise / 2).floor()} ",
+                  "Amount of $currentExercise: ${(_exercisesDone / 2).floor()}/${(amountExercise / 2).floor()} ",
                   style: const TextStyle(color: Colors.white)),
               //Text('X: ${eve?.x.toStringAsFixed(3)} '),
               //Text('Y: ${eve?.y.toStringAsFixed(3)}'),
@@ -76,14 +74,16 @@ class _SolveExercisesState extends State<SolveExercises> {
               //Text('magnitude: ${accel.toMagnitude(accel.x,accel.y,accel.z)}')
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: isFinished ?  Color(0xFF8F8BBF) : Colors.grey[400],
-                  textStyle: TextStyle(color: isFinished ? Colors.white : Colors.grey[700]),
+                  backgroundColor:
+                      _isFinished ? const Color(0xFF8F8BBF) : Colors.grey[400],
+                  textStyle: TextStyle(
+                      color: _isFinished ? Colors.white : Colors.grey[700]),
                 ),
                 onPressed: () => {
                   //stop alarm
-                  if (isFinished) {challengeSolved(context), dispose()}
+                  if (_isFinished) {challengeSolved(context), dispose()}
                 },
-                child: Text(isFinished ? done : notDone),
+                child: Text(_isFinished ? _done : _notDone),
               )
             ],
           ),
@@ -92,40 +92,40 @@ class _SolveExercisesState extends State<SolveExercises> {
     );
   }
 
-  void exerciseHandler() {
-    if (exercisesDone >= amountExercise) {
-      instruction = 'Finished!';
-      isFinished = true;
-    } else if (exercisesDone % 2 == 0) {
-      instruction = 'Down!';
+  void _exerciseHandler() {
+    if (_exercisesDone >= amountExercise) {
+      _instruction = 'Finished!';
+      _isFinished = true;
+    } else if (_exercisesDone % 2 == 0) {
+      _instruction = 'Down!';
     } else {
-      instruction = 'Up!';
+      _instruction = 'Up!';
     }
-    if (exercisesDone % 2 == 0) {
+    if (_exercisesDone % 2 == 0) {
       //for Down!
-      if (!isDown && accel.y < accelerationSizeNeg) {
+      if (!_isDown && _accel.y < accelerationSizeNeg) {
         //down movement = -y acceleration
-        isDown = true;
-      } else if (isDown && !isUp && (accel.y > accelerationSize)) {
+        _isDown = true;
+      } else if (_isDown && !_isUp && (_accel.y > accelerationSize)) {
         //up movement = +y acceleration
-        isUp = true;
-      } else if (isDown && isUp && (accel.y.abs() < accelerationSize)) {
-        isDown = false;
-        isUp = false;
-        exercisesDone++;
+        _isUp = true;
+      } else if (_isDown && _isUp && (_accel.y.abs() < accelerationSize)) {
+        _isDown = false;
+        _isUp = false;
+        _exercisesDone++;
       } //vi har set at bruger er accelereret ned,så decelereret, og nu stop telefon
     } else {
       //for Up!
-      if (!isUp && accel.y > accelerationSize) {
+      if (!_isUp && _accel.y > accelerationSize) {
         //up movement = +y acceleration
-        isUp = true;
-      } else if (isUp && !isDown && (accel.y < accelerationSizeNeg)) {
+        _isUp = true;
+      } else if (_isUp && !_isDown && (_accel.y < accelerationSizeNeg)) {
         //down movement = -y acceleration
-        isDown = true;
-      } else if (isDown && isUp && (accel.y.abs() < accelerationSize)) {
-        isDown = false;
-        isUp = false;
-        exercisesDone++;
+        _isDown = true;
+      } else if (_isDown && _isUp && (_accel.y.abs() < accelerationSize)) {
+        _isDown = false;
+        _isUp = false;
+        _exercisesDone++;
       } //vi har set at bruger er accelereret ned,så decelereret, og nu stop telefon
     }
   }

@@ -1,6 +1,6 @@
 import 'package:alarm/alarm.dart';
-import 'package:moody_morning/main.dart';
 import 'package:moody_morning/system/all_alarms.dart';
+import 'package:moody_morning/system/notification_service.dart';
 
 ///find active AlarmData and show notification
 void handleAlarm(AlarmSettings activeAlarm) async {
@@ -8,6 +8,6 @@ void handleAlarm(AlarmSettings activeAlarm) async {
   AlarmData alarmData = AllAlarms.alarms
       .firstWhere((alarm) => alarm.alarmsetting.id == activeAlarm.id);
 
-  await notificationService
-      .showNotification('${alarmData.payload} ${activeAlarm.id}');
+  await NotificationService.showNotification(
+      '${alarmData.payload} ${activeAlarm.id}');
 }

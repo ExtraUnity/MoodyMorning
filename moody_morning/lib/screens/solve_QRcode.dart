@@ -3,8 +3,6 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
 
-const bgColor = Color(0xFF423E72);
-
 class SolveQRCode extends StatefulWidget {
   const SolveQRCode({super.key});
 
@@ -13,7 +11,7 @@ class SolveQRCode extends StatefulWidget {
 }
 
 class _SolveQRCodeState extends State<SolveQRCode> {
-  final MobileScannerController cameraController = MobileScannerController();
+  final MobileScannerController _cameraController = MobileScannerController();
 
   bool _screenOpened = false;
 
@@ -23,7 +21,7 @@ class _SolveQRCodeState extends State<SolveQRCode> {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-          backgroundColor: bgColor,
+          backgroundColor: const Color(0xFF423E72),
           appBar: LogoAppBar(),
           body: Container(
             width: double.infinity,
@@ -138,7 +136,7 @@ class _SolveQRCodeState extends State<SolveQRCode> {
 
   @override
   void dispose() {
-    cameraController.dispose();
+    _cameraController.dispose();
     super.dispose();
   }
 }

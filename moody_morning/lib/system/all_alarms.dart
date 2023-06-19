@@ -6,39 +6,47 @@ import 'package:moody_morning/system/alarm_callback.dart';
 import 'package:volume_controller/volume_controller.dart';
 
 class AlarmData implements Comparable {
-  bool active = true;
-  late AlarmSettings alarmsetting;
-  final String payload;
-  final int id;
-  final int hours;
-  final int minutes;
-  AlarmData(this.alarmsetting, this.hours, this.minutes, this.id,
-      {required this.payload});
+  bool _active = true;
+  late AlarmSettings _alarmsetting;
+  final String _payload;
+  final int _id;
+  final int _hours;
+  final int _minutes;
 
-  AlarmData.createAlarmData(this.hours, this.minutes, this.payload, this.id) {
-    alarmsetting = determineAlarmSettings();
+  AlarmData.createAlarmData(
+    this._hours,
+    this._minutes,
+    this._payload,
+    this._id,
+  ) {
+    _alarmsetting = _determineAlarmSettings();
   }
+
+  bool get isActive => _active;
+
+  AlarmSettings get alarmsetting => _alarmsetting;
+
+  String get payload => _payload;
+
   void stopStartAlarm() {
-    if (active) {
+    if (_active) {
       Alarm.stop(alarmsetting.id);
-      active = false;
+      _active = false;
     } else {
       setAlarm();
-      active = true;
+      _active = true;
     }
   }
 
   Future<void> setAlarm() async {
-    alarmsetting = determineAlarmSettings();
-    debugPrint(
-        "Alarm set at: $hours:$minutes, the timedate is ${alarmsetting.dateTime} with challenge $payload");
+    _alarmsetting = _determineAlarmSettings();
     await Alarm.set(alarmSettings: alarmsetting);
   }
 
-  AlarmSettings determineAlarmSettings() {
-    TimeDifference timeDifference = getTimeDifference();
+  AlarmSettings _determineAlarmSettings() {
+    TimeDifference timeDifference = _getTimeDifference();
     return AlarmSettings(
-      id: id,
+      id: _id,
       dateTime: DateTime.now().add(Duration(
         days: timeDifference.hours < 0 ||
                 (timeDifference.hours == 0 && timeDifference.minutes <= 0)
@@ -55,9 +63,9 @@ class AlarmData implements Comparable {
     );
   }
 
-  TimeDifference getTimeDifference() {
-    int hoursDifference = (hours - DateTime.now().hour);
-    int minutesDifference = (minutes - DateTime.now().minute);
+  TimeDifference _getTimeDifference() {
+    int hoursDifference = (_hours - DateTime.now().hour);
+    int minutesDifference = (_minutes - DateTime.now().minute);
     return TimeDifference(hoursDifference, minutesDifference);
   }
 
@@ -77,11 +85,11 @@ class AlarmData implements Comparable {
   }
 
   Map toJson() => {
-        'hours': hours,
-        'minutes': minutes,
-        'payload': payload,
-        'active': active,
-        'id': id,
+        'hours': _hours,
+        'minutes': _minutes,
+        '_payload': _payload,
+        'active': _active,
+        'id': _id,
       };
 }
 
@@ -120,16 +128,15 @@ class AllAlarms extends ChangeNotifier {
 
       var oldAlarms = tagObjsJson['alarms'] as List;
       for (int i = 0; i < oldAlarms.length; i++) {
-        debugPrint(
-            'Loading alarm with id ${oldAlarms[i]['id']} with time ${oldAlarms[i]['hours']}:${oldAlarms[i]['minutes']} and challenge ${oldAlarms[i]['payload']}');
+
         loadedAlarms.add(AlarmData.createAlarmData(
           oldAlarms[i]['hours'],
           oldAlarms[i]['minutes'],
-          oldAlarms[i]['payload'],
+          oldAlarms[i]['_payload'],
           oldAlarms[i]['id'],
         ));
-        loadedAlarms[i].active = oldAlarms[i]['active'];
-        if (loadedAlarms[i].active) {
+        loadedAlarms[i]._active = oldAlarms[i]['active'];
+        if (loadedAlarms[i]._active) {
           Alarm.set(alarmSettings: loadedAlarms[i].alarmsetting);
           try {
             Alarm.ringStream.stream
@@ -147,10 +154,10 @@ class AllAlarms extends ChangeNotifier {
     if (alarms.isEmpty) {
       return 0;
     }
-    int max = alarms.elementAt(0).id;
+    int max = alarms.elementAt(0)._id;
     for (AlarmData alarm in alarms) {
-      if (alarm.id > max) {
-        max = alarm.id;
+      if (alarm._id > max) {
+        max = alarm._id;
       }
     }
     return max;

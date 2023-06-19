@@ -7,30 +7,30 @@ import 'package:volume_controller/volume_controller.dart';
 
 ///This class handles everything to do with displaying and interacting with notifications
 class NotificationService {
-  static int id = 0;
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+  static int _id = 0;
+  static final FlutterLocalNotificationsPlugin
+      _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
 //This should handle notifications on iOS
-  final StreamController<ReceivedNotification>
-      didReceiveLocalNotificationStream =
+  static final StreamController<ReceivedNotification>
+      _didReceiveLocalNotificationStream =
       StreamController<ReceivedNotification>.broadcast();
 
 //create listener to subscribe to user interaction with notification
-  final StreamController<String?> notificationStream =
+  static final StreamController<String?> _notificationStream =
       StreamController<String?>.broadcast();
 
-  final InitializationSettings initializationSettings =
+  static final InitializationSettings _initializationSettings =
       _getNotificationInitSettings();
 
-  Future<void> initNotification() async {
-    await flutterLocalNotificationsPlugin.initialize(
-      initializationSettings,
+  static Future<void> initNotification() async {
+    await _flutterLocalNotificationsPlugin.initialize(
+      _initializationSettings,
       onDidReceiveNotificationResponse:
           (NotificationResponse notificationResponse) {
         if (notificationResponse.notificationResponseType ==
             NotificationResponseType.selectedNotification) {
-          notificationStream.add(notificationResponse.payload);
+          _notificationStream.add(notificationResponse.payload);
         }
       },
     );
@@ -48,7 +48,7 @@ class NotificationService {
       requestSoundPermission: true,
       onDidReceiveLocalNotification:
           (int id, String? title, String? body, String? payload) async {
-        notificationService.didReceiveLocalNotificationStream.add(
+        _didReceiveLocalNotificationStream.add(
           ReceivedNotification(
             id: id,
             title: title,
@@ -76,8 +76,8 @@ class NotificationService {
   ///subscribes to the notification stream and listens for activity
   ///redirects the user to challenge, that is associated with alarm (input string)
   ///'input' is a space separated string containing the payload and alarm id.
-  void configureSelectNotificationSubject() {
-    notificationService.notificationStream.stream.listen((String? input) async {
+  static void configureSelectNotificationSubject() {
+    _notificationStream.stream.listen((String? input) async {
       //Ensure that there is no current screen
       while (navigatorKey.currentState!.canPop()) {
         navigatorKey.currentState!.pop();
@@ -104,7 +104,7 @@ class NotificationService {
   ///Displays a notification on the screen, with intent of displaying fullscreen
   ///Automatically sets volume to max.
   ///Sets up listener to ensure always max volume
-  Future<void> showNotification(String payload) async {
+  static Future<void> showNotification(String payload) async {
     //Setup notification details
     const AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails('your channel id', 'your channel name',
@@ -121,8 +121,8 @@ class NotificationService {
       VolumeController().maxVolume();
     });
     //Display notification
-    await notificationService.flutterLocalNotificationsPlugin.show(
-      id++,
+    await _flutterLocalNotificationsPlugin.show(
+      _id++,
       'Time to wake up!',
       'Click here to get your challenge',
       notificationDetails,

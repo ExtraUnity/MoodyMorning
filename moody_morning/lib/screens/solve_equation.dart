@@ -30,36 +30,36 @@ class EquationScreenLayout extends StatefulWidget {
 }
 
 class EquationScreenLayoutState extends State<EquationScreenLayout> {
-  String equation = "";
-  String inputAnswer = "";
-  int solution = -99;
+  String _equation = "";
+  String _inputAnswer = "";
+  int _solution = -99;
 
   @override
   void initState() {
     super.initState();
     // Initialization tasks here:
-    equation = randomEquationGenerator();
+    _equation = randomEquationGenerator();
   }
 
   // Method for specific button functions: "Clear" and "Evaluate (Right-Arrow)":
-  void numpadPressedButton(int value) {
+  void _numpadPressedButton(int value) {
     setState(() {
       if (value == -1) {
         // Clear answer when "Clear" is pressed
-        inputAnswer = "";
+        _inputAnswer = "";
       } else if (value == 10) {
-        fetchSolution();
-        compareAnswerWithSolution();
+        _fetchSolution();
+        _compareAnswerWithSolution();
       } else {
-        displayPressedNumber(value);
+        _displayPressedNumber(value);
       }
     });
   }
 
   // Perform evaluation and fetches equation solution
-  void fetchSolution() {
+  void _fetchSolution() {
     List<String> splitEquation =
-        equation.split(' '); //filter the string into chars
+        _equation.split(' '); //filter the string into chars
     List<int> numbers = <int>[];
 
     // Fills numbers (list) with integers from equation
@@ -67,15 +67,12 @@ class EquationScreenLayoutState extends State<EquationScreenLayout> {
       numbers.add(int.parse(splitEquation[n]));
     }
 
-    calculateSolution(splitEquation, numbers);
+    _calculateSolution(splitEquation, numbers);
   }
 
   // Compares user input answer with true solution
-  void compareAnswerWithSolution() {
-    debugPrint(inputAnswer);
-    debugPrint('$solution');
-
-    if (int.parse(inputAnswer) == solution) {
+  void _compareAnswerWithSolution() {
+    if (int.parse(_inputAnswer) == _solution) {
       challengeSolved(context);
     } else {
       throw Exception("User's answer to equation was not correct");
@@ -83,22 +80,22 @@ class EquationScreenLayoutState extends State<EquationScreenLayout> {
   }
 
   // Makes sure it follows math Precedence under calculation:
-  void calculateSolution(List<String> splitEquation, List<int> numbers) {
+  void _calculateSolution(List<String> splitEquation, List<int> numbers) {
     if (splitEquation[3] == "x" && splitEquation[1] == "+") {
-      solution = numbers[0] + (numbers[1] * numbers[2]);
+      _solution = numbers[0] + (numbers[1] * numbers[2]);
     } else if (splitEquation[1] == "x" && splitEquation[3] == "+") {
-      solution = (numbers[0] * numbers[1] + numbers[2]);
+      _solution = (numbers[0] * numbers[1] + numbers[2]);
     } else if (!splitEquation.contains("x")) {
-      solution = numbers[0] + numbers[1] + numbers[2];
+      _solution = numbers[0] + numbers[1] + numbers[2];
     } else if (!splitEquation.contains("+")) {
-      solution = numbers[0] * numbers[1] * numbers[2];
+      _solution = numbers[0] * numbers[1] * numbers[2];
     }
   }
 
   // Displays any number pressed from 0-9 in Answer Box (limited to max 5 digits)
-  void displayPressedNumber(int value) {
-    if (inputAnswer.length < 5) {
-      inputAnswer += value.toString();
+  void _displayPressedNumber(int value) {
+    if (_inputAnswer.length < 5) {
+      _inputAnswer += value.toString();
     } else {
       throw Exception("Max digits is 5. Please press the clear button");
     }
@@ -113,11 +110,11 @@ class EquationScreenLayoutState extends State<EquationScreenLayout> {
         const AlarmDisplay(),
         const SizedBox(height: 15),
         EquationDisplay(
-            equation: equation,
-            answer: inputAnswer), // Pass the equation and answer
+            equation: _equation,
+            answer: _inputAnswer), // Pass the equation and answer
         NumPad(
             numpadPressedButton:
-                numpadPressedButton) // Pass the evaluateAnswer method
+                _numpadPressedButton) // Pass the evaluateAnswer method
       ],
     );
   }

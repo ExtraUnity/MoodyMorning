@@ -17,7 +17,7 @@ class _MyWidgetState extends State<OnOff> {
           activeColor: const Color(0xFF8F8BBF),
           activeTrackColor: Colors.white60,
           inactiveThumbColor: const Color(0xFF8F8BBF),
-          value: widget.alarm.active,
+          value: widget.alarm.isActive,
           onChanged: (bool value) {
             setState(() {
               widget.alarm.stopStartAlarm();

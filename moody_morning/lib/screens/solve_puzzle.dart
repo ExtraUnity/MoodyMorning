@@ -11,27 +11,27 @@ class SolveRiddle extends StatefulWidget {
 }
 
 class SlidePuzzleBoardState extends State<SolveRiddle> {
-  List<int> tiles =
+  final List<int> _tiles =
       List.generate(9, (index) => index); // Create a list of tile numbers
 
   @override
   void initState() {
     super.initState();
-    shuffleBoard();
+    _shuffleBoard();
   }
 
-  void shuffleBoard() {
+  void _shuffleBoard() {
     //make sure that
-    while (!isSolvable() || alarmOff()) {
-      tiles.shuffle();
+    while (!_isSolvable() || _alarmOff()) {
+      _tiles.shuffle();
     }
-    debugPrint(tiles.toString());
+    debugPrint(_tiles.toString());
   }
 
   //board is solvable only if there are an even amount of inversions
-  bool isSolvable() {
+  bool _isSolvable() {
     int switches = 0;
-    var filledTiles = tiles.where((tileValue) => tileValue != 8);
+    var filledTiles = _tiles.where((tileValue) => tileValue != 8);
     for (int i = 0; i < filledTiles.length - 1; i++) {
       for (int j = i + 1; j < filledTiles.length; j++) {
         if (filledTiles.elementAt(i) > filledTiles.elementAt(j)) switches++;
@@ -40,9 +40,9 @@ class SlidePuzzleBoardState extends State<SolveRiddle> {
     return switches % 2 == 0;
   }
 
-  bool alarmOff() {
-    for (int i = 0; i < tiles.length; i++) {
-      if (tiles[i] != i) {
+  bool _alarmOff() {
+    for (int i = 0; i < _tiles.length; i++) {
+      if (_tiles[i] != i) {
         return false;
       }
     }
@@ -64,48 +64,48 @@ class SlidePuzzleBoardState extends State<SolveRiddle> {
             const SizedBox(height: 20),
             Expanded(
               child: GridView.builder(
-                itemCount: tiles.length,
+                itemCount: _tiles.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                 ),
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      if (tiles[index] == 8) {
+                      if (_tiles[index] == 8) {
                         // if Empty tile was clicked, do nothing
                         return;
                       }
-                      if (index % 3 != 2 && tiles[index + 1] == 8) {
+                      if (index % 3 != 2 && _tiles[index + 1] == 8) {
                         // Clicked tile can slide right
                         setState(() {
-                          tiles[index + 1] = tiles[index];
-                          tiles[index] = 8;
-                          if (alarmOff()) {
+                          _tiles[index + 1] = _tiles[index];
+                          _tiles[index] = 8;
+                          if (_alarmOff()) {
                             // If the board is in the right order, show a dialog indicating the win
                             challengeSolved(context);
                           }
                         });
-                      } else if (index % 3 != 0 && tiles[index - 1] == 8) {
+                      } else if (index % 3 != 0 && _tiles[index - 1] == 8) {
                         // Clicked tile can slide left
                         setState(() {
-                          checkSlide(index, context);
+                          _checkSlide(index, context);
                         });
-                      } else if (index < 6 && tiles[index + 3] == 8) {
+                      } else if (index < 6 && _tiles[index + 3] == 8) {
                         // Clicked tile can slide down
                         setState(() {
-                          tiles[index + 3] = tiles[index];
-                          tiles[index] = 8;
-                          if (alarmOff()) {
+                          _tiles[index + 3] = _tiles[index];
+                          _tiles[index] = 8;
+                          if (_alarmOff()) {
                             // If the board is in the right order, show a dialog indicating the win
                             challengeSolved(context);
                           }
                         });
-                      } else if (index >= 3 && tiles[index - 3] == 8) {
+                      } else if (index >= 3 && _tiles[index - 3] == 8) {
                         // Clicked tile can slide up
                         setState(() {
-                          tiles[index - 3] = tiles[index];
-                          tiles[index] = 8;
-                          if (alarmOff()) {
+                          _tiles[index - 3] = _tiles[index];
+                          _tiles[index] = 8;
+                          if (_alarmOff()) {
                             // If the board is in the right order, show a dialog indicating the win
                             challengeSolved(context);
                           }
@@ -116,13 +116,13 @@ class SlidePuzzleBoardState extends State<SolveRiddle> {
                       alignment: Alignment.center,
                       padding: const EdgeInsets.all(49),
                       margin: const EdgeInsets.all(2),
-                      color: tiles[index] != 8
+                      color: _tiles[index] != 8
                           ? const Color(0xFF8F8BBF)
                           : Colors.white, // Set tile color
                       child: Center(
                         child: Text(
-                          tiles[index] != 8
-                              ? tiles[index].toString()
+                          _tiles[index] != 8
+                              ? _tiles[index].toString()
                               : '', // Display tile number
                           style: const TextStyle(
                             fontSize: 24,
@@ -147,7 +147,7 @@ class SlidePuzzleBoardState extends State<SolveRiddle> {
             onPressed: () {
               // Perform reset action
               setState(() {
-                shuffleBoard();
+                _shuffleBoard();
               });
             },
             child: const Text(
@@ -160,10 +160,10 @@ class SlidePuzzleBoardState extends State<SolveRiddle> {
     );
   }
 
-  void checkSlide(int index, BuildContext context) {
-    tiles[index - 1] = tiles[index];
-    tiles[index] = 8;
-    if (alarmOff()) {
+  void _checkSlide(int index, BuildContext context) {
+    _tiles[index - 1] = _tiles[index];
+    _tiles[index] = 8;
+    if (_alarmOff()) {
       challengeSolved(context);
     }
   }

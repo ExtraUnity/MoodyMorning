@@ -12,14 +12,12 @@ import 'package:moody_morning/screens/solve_puzzle.dart';
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/system/notification_service.dart';
 
-//Handle listening to notifications
-final NotificationService notificationService = NotificationService();
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   AllAlarms.storage = LocalStorage('savedAlarms.json');
   await Alarm.init();
-  notificationService.initNotification();
+  NotificationService.initNotification();
   runApp(
     MaterialApp(
         debugShowCheckedModeBanner: false,
