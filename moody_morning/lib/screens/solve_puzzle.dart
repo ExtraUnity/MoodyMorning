@@ -22,14 +22,15 @@ class SlidePuzzleBoardState extends State<SolveRiddle> {
 
   void shuffleBoard() {
     //make sure that
-    while (!isSolvable() && !alarmOff()) {
+   // while (!isSolvable()) {
       tiles.shuffle();
-    }
-    debugPrint(tiles.toString());
+
+   // }
+   // debugPrint(tiles.toString());
   }
 
   //board is solvable only if there are an even amount of 'switches' that need to be done
-  bool isSolvable() {
+ /* bool isSolvable() {
     int switches = 0;
     var filledTiles = tiles.where((tileValue) => tileValue != 8);
     for (int i = 0; i < filledTiles.length - 1; i++) {
@@ -37,7 +38,7 @@ class SlidePuzzleBoardState extends State<SolveRiddle> {
     }
     return switches % 2 == 0;
   }
-
+*/
 
   bool alarmOff() {
     for (int i = 0; i < tiles.length; i++) {
