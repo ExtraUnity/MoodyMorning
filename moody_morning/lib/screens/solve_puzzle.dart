@@ -22,7 +22,7 @@ class SlidePuzzleBoardState extends State<SolveRiddle> {
 
   void shuffleBoard() {
     //make sure that
-    while (!isSolvable()) {
+    while (!isSolvable() && !alarmOff()) {
       tiles.shuffle();
     }
     debugPrint(tiles.toString());
@@ -37,6 +37,7 @@ class SlidePuzzleBoardState extends State<SolveRiddle> {
     }
     return switches % 2 == 0;
   }
+
 
   bool alarmOff() {
     for (int i = 0; i < tiles.length; i++) {
