@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:alarm/alarm.dart';
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
+import 'package:moody_morning/system/alarm_callback.dart';
 import 'package:volume_controller/volume_controller.dart';
 
 class AlarmData implements Comparable {
@@ -130,6 +131,12 @@ class AllAlarms extends ChangeNotifier {
         loadedAlarms[i].active = oldAlarms[i]['active'];
         if (loadedAlarms[i].active) {
           Alarm.set(alarmSettings: loadedAlarms[i].alarmsetting);
+        }
+        try {
+          Alarm.ringStream.stream
+              .listen((activeAlarm) => handleAlarm(activeAlarm));
+        } catch (_) {
+          debugPrint("Already listening");
         }
       }
       alarms = loadedAlarms;
