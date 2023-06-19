@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
+import 'package:moody_morning/widgets/solveEquation/alarm_display.dart';
 
 class SolveRiddle extends StatefulWidget {
   const SolveRiddle({super.key});
@@ -58,33 +59,9 @@ class SlidePuzzleBoardState extends State<SolveRiddle> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(40.0),
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      const Color(0xFF8F8BBF), // Change the button color here
-                ),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.access_alarm,
-                      size: 48,
-                    ), // Add the desired icon here
-                    SizedBox(
-                        width:
-                            15.0), // Add some spacing between the icon and the text
-                    Text(
-                      '7:30',
-                      style:
-                          TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            const SizedBox(height: 20),
+            const AlarmDisplay(),
+            const SizedBox(height: 20),
             Expanded(
               child: GridView.builder(
                 itemCount: tiles.length,
@@ -105,21 +82,7 @@ class SlidePuzzleBoardState extends State<SolveRiddle> {
                           tiles[index] = 8;
                           if (alarmOff()) {
                             // If the board is in the right order, show a dialog indicating the win
-                            showDialog(
-                              context: context,
-                              builder: (_) => AlertDialog(
-                                title: const Text('Alarm Off'),
-                                content: const Text('Puzzle solved'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text('OK'),
-                                  ),
-                                ],
-                              ),
-                            );
+                            challengeSolved(context);
                           }
                         });
                       } else if (index % 3 != 0 && tiles[index - 1] == 8) {
@@ -134,21 +97,7 @@ class SlidePuzzleBoardState extends State<SolveRiddle> {
                           tiles[index] = 8;
                           if (alarmOff()) {
                             // If the board is in the right order, show a dialog indicating the win
-                            showDialog(
-                              context: context,
-                              builder: (_) => AlertDialog(
-                                title: const Text('Alarm Off'),
-                                content: const Text('Puzzle solved'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text('OK'),
-                                  ),
-                                ],
-                              ),
-                            );
+                            challengeSolved(context);
                           }
                         });
                       } else if (index >= 3 && tiles[index - 3] == 8) {

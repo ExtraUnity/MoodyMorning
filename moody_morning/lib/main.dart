@@ -8,7 +8,7 @@ import 'package:moody_morning/screens/set_alarm.dart';
 import 'package:moody_morning/screens/solve_qrcode.dart';
 import 'package:moody_morning/screens/solve_equation.dart';
 import 'package:moody_morning/screens/solve_exercises.dart';
-import 'package:moody_morning/screens/solve_riddle.dart';
+import 'package:moody_morning/screens/solve_puzzle.dart';
 import 'package:moody_morning/system/all_alarms.dart';
 import 'package:moody_morning/system/notification_service.dart';
 

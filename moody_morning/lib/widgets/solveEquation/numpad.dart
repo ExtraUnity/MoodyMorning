@@ -26,6 +26,9 @@ class NumPad extends StatelessWidget {
     List<NumButton> buttonList = [];
     for (int i = 1; i < 10; i++) {
       NumButton button = NumButton(
+          style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF8F8BBF), // Background color
+  ),
         onPressed: () {
           numpadPressedButton(i);
         },
@@ -36,6 +39,9 @@ class NumPad extends StatelessWidget {
     }
 
     NumButton button0 = NumButton(
+       style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF8F8BBF), // Background color
+  ),
       onPressed: () {
         numpadPressedButton(0);
       },
@@ -44,6 +50,9 @@ class NumPad extends StatelessWidget {
     );
 
     NumButton buttonBack = NumButton(
+       style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF8F8BBF), // Background color
+  ),
       onPressed: () {
         numpadPressedButton(-1);
       },
@@ -52,6 +61,9 @@ class NumPad extends StatelessWidget {
     );
 
     NumButton buttonEnter = NumButton(
+       style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF8F8BBF), // Background color
+  ),
       onPressed: () {
         numpadPressedButton(10);
       },
@@ -89,3 +101,5 @@ class NumButton extends ElevatedButton {
           style: style,
         );
 }
+
+
