@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:alarm/alarm.dart';
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
@@ -8,32 +7,31 @@ class AlarmData implements Comparable {
   bool active = true;
   late AlarmSettings alarmsetting;
   final String payload;
-  final int id = calcID();
+  final int id;
   final int hours;
   final int minutes;
-  AlarmData(this.alarmsetting, this.hours, this.minutes,
+  AlarmData(this.alarmsetting, this.hours, this.minutes, this.id,
       {required this.payload});
 
-  AlarmData.createAlarmData(this.hours, this.minutes, this.payload) {
+  AlarmData.createAlarmData(this.hours, this.minutes, this.payload, this.id) {
     alarmsetting = determineAlarmSettings();
   }
-  void stopStartAlarm() {
+  Future<void> stopStartAlarm() async {
     if (active) {
-      Alarm.stop(alarmsetting.id);
+      await Alarm.stop(alarmsetting.id);
       active = false;
     } else {
-      setAlarm();
+      await setAlarm();
       active = true;
     }
   }
 
-  void setAlarm() {
+  Future<void> setAlarm() async {
     alarmsetting = determineAlarmSettings();
     debugPrint(
-        "Alarm set at: $hours:$minutes, the timedate is ${alarmsetting.dateTime}");
-    Alarm.set(alarmSettings: alarmsetting);
+        "Alarm set at: $hours:$minutes, the timedate is ${alarmsetting.dateTime} with challenge $payload");
+    await Alarm.set(alarmSettings: alarmsetting);
   }
-  
 
   AlarmSettings determineAlarmSettings() {
     TimeDifference timeDifference = getTimeDifference();
@@ -73,72 +71,82 @@ class AlarmData implements Comparable {
   }
 
   static int calcID() {
-    var sortedAlarms = AllAlarms.alarms
-      ..sort((a, b) =>
-          b.alarmsetting.id.compareTo(a.alarmsetting.id)); //get highest id
-    return sortedAlarms.isNotEmpty
-        ? sortedAlarms.elementAt(0).alarmsetting.id + 1
-        : 0;
+    return AllAlarms.alarms.isNotEmpty ? AllAlarms.findMaxID() + 1 : 0;
   }
 
   Map toJson() => {
-    'hours' : hours,
-    'minutes' : minutes,
-    'payload' : payload,
-    'active' : active,
-  };
+        'hours': hours,
+        'minutes': minutes,
+        'payload': payload,
+        'active': active,
+        'id': id,
+      };
 }
 
 class AllAlarms extends ChangeNotifier {
   static List<AlarmData> alarms = <AlarmData>[];
-  static LocalStorage storage = LocalStorage('savedAlarms.json');
+  static late LocalStorage storage;
 
-  static void addAlarm(AlarmData alarm) {
+  static Future<void> addAlarm(AlarmData alarm) async {
     alarms.add(alarm);
     alarms.sort();
-    debugPrint(
-        "Alarm set at: ${alarm.hours}:${alarm.minutes}, the timedate is ${alarm.alarmsetting.dateTime}");
-    alarm.setAlarm();
-    saveJson();
+    await alarm.setAlarm();
+    await saveJson();
     // Alarm.set(alarmSettings: alarm.alarmsetting);
   }
 
-  static void deleteAlarm(int id) {
-    int num = 0;
-    for (var current in alarms) {
-      if (current.alarmsetting.id == id) {
-        alarms.removeAt(num);
+  static Future<void> deleteAlarm(int id) async {
+    for (int i = 0; i < alarms.length; i++) {
+      if (alarms.elementAt(i).alarmsetting.id == id) {
+        alarms.removeAt(i);
         Alarm.stop(id);
         break;
       }
-      num++;
     }
-    saveJson();
+    await saveJson();
   }
 
-  static void saveJson() {
+  static Future<void> saveJson() async {
     print("saved");
-    storage.setItem("savedAlarms", jsonEncode({'alarms' : AllAlarms.alarms}));
+    await storage.setItem(
+        "savedAlarms", jsonEncode({'alarms': AllAlarms.alarms}));
   }
 
-  static void loadJson() {
+  static Future<void> loadJson() async {
     List<AlarmData> loadedAlarms = <AlarmData>[];
-    if(storage.getItem('savedAlarms') != null) {
-    var tagObjsJson = jsonDecode(storage.getItem('savedAlarms'));
-    
-    var oldAlarms = tagObjsJson['alarms'] as List;
-    for(int i = 0; i < oldAlarms.length; i++) {
-      loadedAlarms.add(AlarmData.createAlarmData(
-      oldAlarms[i]['hours'],
-      oldAlarms[i]['minutes'],
-      oldAlarms[i]['payload']));
-      loadedAlarms[i].active = oldAlarms[i]['active'];
-      if(loadedAlarms[i].active) {
-        Alarm.set(alarmSettings: loadedAlarms[i].alarmsetting);
+    if (await storage.getItem('savedAlarms') != null) {
+      var tagObjsJson = jsonDecode(storage.getItem('savedAlarms'));
+
+      var oldAlarms = tagObjsJson['alarms'] as List;
+      for (int i = 0; i < oldAlarms.length; i++) {
+        debugPrint(
+            'Loading alarm with id ${oldAlarms[i]['id']} with time ${oldAlarms[i]['hours']}:${oldAlarms[i]['minutes']} and challenge ${oldAlarms[i]['payload']}');
+        loadedAlarms.add(AlarmData.createAlarmData(
+          oldAlarms[i]['hours'],
+          oldAlarms[i]['minutes'],
+          oldAlarms[i]['payload'],
+          oldAlarms[i]['id'],
+        ));
+        loadedAlarms[i].active = oldAlarms[i]['active'];
+        if (loadedAlarms[i].active) {
+          Alarm.set(alarmSettings: loadedAlarms[i].alarmsetting);
+        }
+      }
+      alarms = loadedAlarms;
+    }
+  }
+
+  static int findMaxID() {
+    if (alarms.isEmpty) {
+      return 0;
+    }
+    int max = alarms.elementAt(0).id;
+    for (AlarmData alarm in alarms) {
+      if (alarm.id > max) {
+        max = alarm.id;
       }
     }
-    alarms = loadedAlarms;
-    }
+    return max;
   }
 }
 

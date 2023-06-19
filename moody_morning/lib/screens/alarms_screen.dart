@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:moody_morning/system/all_alarms.dart';
@@ -8,7 +6,6 @@ import 'package:moody_morning/widgets/challenge_icon_button.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
 import 'package:moody_morning/widgets/navigation_bar.dart';
 import 'package:moody_morning/main.dart';
-import 'package:localstorage/localstorage.dart';
 
 class AlarmScreen extends StatefulWidget {
   const AlarmScreen({super.key});
@@ -20,9 +17,12 @@ class AlarmScreen extends StatefulWidget {
 class _AlarmScreenState extends State<AlarmScreen> {
   @override
   void initState() {
-    AllAlarms.loadJson();
-    _configureSelectNotificationSubject();
     super.initState();
+    () async {
+      await AllAlarms.loadJson();
+      setState(() {});
+    }();
+    _configureSelectNotificationSubject();
   }
 
   void _configureSelectNotificationSubject() {
@@ -65,8 +65,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
   }
 
   void updateScreen() {
-    setState(() {
-    });
+    setState(() {});
   }
 
   @override
