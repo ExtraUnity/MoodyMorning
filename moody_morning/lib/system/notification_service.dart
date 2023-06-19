@@ -3,10 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:moody_morning/main.dart';
+import 'package:volume_controller/volume_controller.dart';
 
-///This class handles everything to do with displaying notifications
-///
+///This class handles everything to do with displaying and interacting with notifications
 class NotificationService {
+  static int id = 0;
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
@@ -98,6 +99,30 @@ class NotificationService {
         }
       });
     });
+  }
+
+  ///Displays a notification on the screen, with intent of displaying fullscreen
+  ///Automatically sets volume to max.
+  Future<void> showNotification(String payload) async {
+    //Setup notification details
+    const AndroidNotificationDetails androidNotificationDetails =
+        AndroidNotificationDetails('your channel id', 'your channel name',
+            channelDescription: 'your channel description',
+            importance: Importance.max,
+            priority: Priority.high,
+            fullScreenIntent: true,
+            ticker: 'ticker');
+    const NotificationDetails notificationDetails =
+        NotificationDetails(android: androidNotificationDetails);
+    VolumeController().maxVolume();
+    //Display notification
+    await notificationService.flutterLocalNotificationsPlugin.show(
+      id++,
+      'Time to wake up!',
+      'Click here to get your challenge',
+      notificationDetails,
+      payload: payload,
+    );
   }
 }
 

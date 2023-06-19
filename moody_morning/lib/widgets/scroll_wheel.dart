@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moody_morning/system/scroll_wheel_functions.dart';
 
+///A single scroll wheel with 'numberOfElements' amount of 
 class ScrollWheel extends StatefulWidget {
   final int numberOfElements;
   final Function(int) onNumberSelected;
