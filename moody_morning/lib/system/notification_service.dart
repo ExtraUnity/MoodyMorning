@@ -114,7 +114,11 @@ class NotificationService {
             ticker: 'ticker');
     const NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);
+    VolumeController().showSystemUI = false;
     VolumeController().maxVolume();
+    VolumeController().listener((volume) {
+      VolumeController().maxVolume();
+    });
     //Display notification
     await notificationService.flutterLocalNotificationsPlugin.show(
       id++,
