@@ -132,7 +132,7 @@ class _SetAlarmState extends State<SetAlarm> {
                   backgroundColor: Colors.deepPurple.shade300,
                 ),
                 onPressed: () async {
-                  createAlarm();
+                  await createAlarm();
                 },
                 child: const Text("Save"),
               ),
@@ -143,12 +143,12 @@ class _SetAlarmState extends State<SetAlarm> {
     );
   }
 
-  void createAlarm() async {
+  Future<void> createAlarm() async {
     AlarmData alarm = AlarmData.createAlarmData(
-        selectedHour, selectedMinute, selectedChallenge);
+        selectedHour, selectedMinute, selectedChallenge, AlarmData.calcID());
     await checkPermission();
     if (await Permission.scheduleExactAlarm.isGranted) {
-      AllAlarms.addAlarm(alarm);
+      await AllAlarms.addAlarm(alarm);
     }
     try {
       Alarm.ringStream.stream.listen((activeAlarm) => handleAlarm(activeAlarm));

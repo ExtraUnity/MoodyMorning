@@ -22,22 +22,23 @@ class SlidePuzzleBoardState extends State<SolveRiddle> {
 
   void shuffleBoard() {
     //make sure that
-    while (!isSolvable() && !alarmOff()) {
+    while (!isSolvable() || alarmOff()) {
       tiles.shuffle();
     }
     debugPrint(tiles.toString());
   }
 
-//board is solvable only if there are an even amount of 'switches' that need to be done
- bool isSolvable() {
+  //board is solvable only if there are an even amount of inversions
+  bool isSolvable() {
     int switches = 0;
     var filledTiles = tiles.where((tileValue) => tileValue != 8);
     for (int i = 0; i < filledTiles.length - 1; i++) {
-      if (filledTiles.elementAt(i) > filledTiles.elementAt(i + 1)) switches++;
+      for (int j = i + 1; j < filledTiles.length; j++) {
+        if (filledTiles.elementAt(i) > filledTiles.elementAt(j)) switches++;
+      }
     }
     return switches % 2 == 0;
   }
-
 
   bool alarmOff() {
     for (int i = 0; i < tiles.length; i++) {
@@ -81,7 +82,7 @@ class SlidePuzzleBoardState extends State<SolveRiddle> {
                           tiles[index] = 8;
                           if (alarmOff()) {
                             // If the board is in the right order, show a dialog indicating the win
-                              challengeSolved(context);
+                            challengeSolved(context);
                           }
                         });
                       } else if (index % 3 != 0 && tiles[index - 1] == 8) {
@@ -96,7 +97,7 @@ class SlidePuzzleBoardState extends State<SolveRiddle> {
                           tiles[index] = 8;
                           if (alarmOff()) {
                             // If the board is in the right order, show a dialog indicating the win
-                              challengeSolved(context);
+                            challengeSolved(context);
                           }
                         });
                       } else if (index >= 3 && tiles[index - 3] == 8) {
