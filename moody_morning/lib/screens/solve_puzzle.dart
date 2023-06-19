@@ -82,21 +82,7 @@ class SlidePuzzleBoardState extends State<SolveRiddle> {
                           tiles[index] = 8;
                           if (alarmOff()) {
                             // If the board is in the right order, show a dialog indicating the win
-                            showDialog(
-                              context: context,
-                              builder: (_) => AlertDialog(
-                                title: const Text('Alarm Off'),
-                                content: const Text('Puzzle solved'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text('OK'),
-                                  ),
-                                ],
-                              ),
-                            );
+                              challengeSolved(context);
                           }
                         });
                       } else if (index % 3 != 0 && tiles[index - 1] == 8) {
@@ -111,21 +97,7 @@ class SlidePuzzleBoardState extends State<SolveRiddle> {
                           tiles[index] = 8;
                           if (alarmOff()) {
                             // If the board is in the right order, show a dialog indicating the win
-                            showDialog(
-                              context: context,
-                              builder: (_) => AlertDialog(
-                                title: const Text('Alarm Off'),
-                                content: const Text('Puzzle solved'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text('OK'),
-                                  ),
-                                ],
-                              ),
-                            );
+                              challengeSolved(context);
                           }
                         });
                       } else if (index >= 3 && tiles[index - 3] == 8) {
