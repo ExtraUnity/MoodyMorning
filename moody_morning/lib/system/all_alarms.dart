@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:alarm/alarm.dart';
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
+import 'package:volume_controller/volume_controller.dart';
 
 class AlarmData implements Comparable {
   bool active = true;
@@ -159,6 +160,7 @@ class TimeDifference {
 void challengeSolved(BuildContext context) {
   AlarmData alarm = getRingingAlarm(context);
   alarm.stopStartAlarm();
+  VolumeController().removeListener();
   if (context.mounted) Navigator.pushReplacementNamed(context, '/');
 }
 

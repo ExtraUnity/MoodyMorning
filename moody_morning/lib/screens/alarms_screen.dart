@@ -6,6 +6,7 @@ import 'package:moody_morning/widgets/challenge_icon_button.dart';
 import 'package:moody_morning/widgets/logo_app_bar.dart';
 import 'package:moody_morning/widgets/navigation_bar.dart';
 import 'package:moody_morning/main.dart';
+import 'package:volume_controller/volume_controller.dart';
 
 class AlarmScreen extends StatefulWidget {
   const AlarmScreen({super.key});
@@ -122,6 +123,8 @@ Future<void> showNotification(String payload) async {
           ticker: 'ticker');
   const NotificationDetails notificationDetails =
       NotificationDetails(android: androidNotificationDetails);
+  VolumeController().maxVolume();
+  VolumeController().listener((volume) => VolumeController().maxVolume());
   await notificationService.flutterLocalNotificationsPlugin.show(
     0,
     'Time to wake up!',

@@ -35,7 +35,7 @@ class NotificationService {
 
   static InitializationSettings _getNotificationInitSettings() {
     const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('flutter_logo');
+        AndroidInitializationSettings('app_icon');
 
     final DarwinInitializationSettings initializationSettingsDarwin =
         DarwinInitializationSettings(
@@ -58,7 +58,7 @@ class NotificationService {
     final LinuxInitializationSettings initializationSettingsLinux =
         LinuxInitializationSettings(
       defaultActionName: 'Open notification',
-      defaultIcon: AssetsLinuxIcon('icons/flutter_logo.png'),
+      defaultIcon: AssetsLinuxIcon('icons/app_icon.png'),
     );
     return InitializationSettings(
       android: initializationSettingsAndroid,
