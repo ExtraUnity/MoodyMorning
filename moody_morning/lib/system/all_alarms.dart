@@ -128,7 +128,6 @@ class AllAlarms extends ChangeNotifier {
 
       var oldAlarms = tagObjsJson['alarms'] as List;
       for (int i = 0; i < oldAlarms.length; i++) {
-
         loadedAlarms.add(AlarmData.createAlarmData(
           oldAlarms[i]['hours'],
           oldAlarms[i]['minutes'],

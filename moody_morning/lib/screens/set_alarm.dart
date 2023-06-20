@@ -16,20 +16,20 @@ class SetAlarm extends StatefulWidget {
 }
 
 class _SetAlarmState extends State<SetAlarm> {
-  int selectedHour = 0;
-  int selectedMinute = 0;
-  String selectedChallenge = "/equationSettings";
-  late ScrollWheel hours;
-  late ScrollWheel minutes;
+  int _selectedHour = 0;
+  int _selectedMinute = 0;
+  String _selectedChallenge = "/equationSettings";
+  late ScrollWheel _hours;
+  late ScrollWheel _minutes;
 
   _SetAlarmState() {
-    hours = ScrollWheel(
+    _hours = ScrollWheel(
       numberOfElements: 24,
-      onNumberSelected: (hour) => selectedHour = hour,
+      onNumberSelected: (hour) => _selectedHour = hour,
     );
-    minutes = ScrollWheel(
+    _minutes = ScrollWheel(
       numberOfElements: 60,
-      onNumberSelected: (minute) => selectedMinute = minute,
+      onNumberSelected: (minute) => _selectedMinute = minute,
     );
   }
 
@@ -45,14 +45,14 @@ class _SetAlarmState extends State<SetAlarm> {
         const SizedBox(height: 50),
         //----Scroll wheel----//
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          hours,
+          _hours,
           const Center(
               child: Text(
             ':',
             style: TextStyle(
                 fontSize: 40, color: Colors.white, fontWeight: FontWeight.bold),
           )),
-          minutes,
+          _minutes,
         ]),
         const Divider(height: 50),
         //----Challenge selection----//
@@ -71,35 +71,38 @@ class _SetAlarmState extends State<SetAlarm> {
               icon: const Icon(Icons.calculate),
               path: '/equationSettings',
               buttonPressed: (path) =>
-                  setState(() => selectedChallenge = path!),
+                  setState(() => _selectedChallenge = path!),
               borderWidth:
-                  1.0 + (selectedChallenge == "/equationSettings" ? 2 : 0),
-              size: 20.0 + (selectedChallenge == '/equationSettings' ? 5.0 : 0),
+                  1.0 + (_selectedChallenge == "/equationSettings" ? 2 : 0),
+              size:
+                  20.0 + (_selectedChallenge == '/equationSettings' ? 5.0 : 0),
             ),
             ChallengeIconButton(
               icon: const Icon(Icons.fitness_center),
               path: '/exerciseSettings',
               buttonPressed: (path) =>
-                  setState(() => selectedChallenge = path!),
+                  setState(() => _selectedChallenge = path!),
               borderWidth:
-                  1.0 + (selectedChallenge == "/exerciseSettings" ? 2 : 0),
-              size: 20.0 + (selectedChallenge == '/exerciseSettings' ? 5.0 : 0),
+                  1.0 + (_selectedChallenge == "/exerciseSettings" ? 2 : 0),
+              size:
+                  20.0 + (_selectedChallenge == '/exerciseSettings' ? 5.0 : 0),
             ),
             ChallengeIconButton(
               icon: const Icon(Icons.qr_code_2),
               path: '/QRSettings',
               buttonPressed: (path) =>
-                  setState(() => selectedChallenge = path!),
-              borderWidth: 1.0 + (selectedChallenge == "/QRSettings" ? 2 : 0),
-              size: 20.0 + (selectedChallenge == '/QRSettings' ? 5.0 : 0),
+                  setState(() => _selectedChallenge = path!),
+              borderWidth: 1.0 + (_selectedChallenge == "/QRSettings" ? 2 : 0),
+              size: 20.0 + (_selectedChallenge == '/QRSettings' ? 5.0 : 0),
             ),
             ChallengeIconButton(
               icon: const Icon(Icons.videogame_asset),
               path: '/gameSettings',
               buttonPressed: (path) =>
-                  setState(() => selectedChallenge = path!),
-              borderWidth: 1.0 + (selectedChallenge == "/gameSettings" ? 2 : 0),
-              size: 20.0 + (selectedChallenge == '/gameSettings' ? 5.0 : 0),
+                  setState(() => _selectedChallenge = path!),
+              borderWidth:
+                  1.0 + (_selectedChallenge == "/gameSettings" ? 2 : 0),
+              size: 20.0 + (_selectedChallenge == '/gameSettings' ? 5.0 : 0),
             ),
           ],
         ),
@@ -149,7 +152,7 @@ class _SetAlarmState extends State<SetAlarm> {
   ///Add alarm to AllAlarms list, set the alarm and subscribe to ringStream
   Future<void> createAlarm() async {
     AlarmData alarm = AlarmData.createAlarmData(
-        selectedHour, selectedMinute, selectedChallenge, AlarmData.calcID());
+        _selectedHour, _selectedMinute, _selectedChallenge, AlarmData.calcID());
     await checkPermission();
     if (await Permission.scheduleExactAlarm.isGranted) {
       await AllAlarms.addAlarm(alarm);

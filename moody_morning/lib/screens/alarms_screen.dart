@@ -14,6 +14,7 @@ class AlarmScreen extends StatefulWidget {
 }
 
 class _AlarmScreenState extends State<AlarmScreen> {
+  bool _show = false;
   @override
   void initState() {
     super.initState();
@@ -29,14 +30,13 @@ class _AlarmScreenState extends State<AlarmScreen> {
     super.dispose();
   }
 
-  bool show = false;
-  void showDelete() {
+  void _showDelete() {
     setState(() {
-      show = !show;
+      _show = !_show;
     });
   }
 
-  void updateScreen() {
+  void _updateScreen() {
     setState(() {});
   }
 
@@ -57,7 +57,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
               margin: const EdgeInsets.symmetric(vertical: 10.0),
               child: ChallengeIconButton(
                 icon: const Icon(Icons.edit),
-                buttonPressed: (_) => showDelete(),
+                buttonPressed: (_) => _showDelete(),
                 borderWidth: 1.0,
                 size: 15,
               ),
@@ -69,8 +69,8 @@ class _AlarmScreenState extends State<AlarmScreen> {
                       height: 100,
                       child: AlarmCard(
                         alarm: alarms,
-                        show: show,
-                        callBack: updateScreen,
+                        show: _show,
+                        callBack: _updateScreen,
                       )),
                   const Divider(
                     height: 10,
