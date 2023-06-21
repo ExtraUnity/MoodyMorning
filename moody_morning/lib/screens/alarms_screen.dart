@@ -115,12 +115,13 @@ class _AlarmScreenState extends State<AlarmScreen> {
 
 Future<void> showNotification(String payload) async {
   const AndroidNotificationDetails androidNotificationDetails =
-      AndroidNotificationDetails('your channel id', 'your channel name',
-          channelDescription: 'your channel description',
-          importance: Importance.max,
-          priority: Priority.high,
-          fullScreenIntent: true,
-          ticker: 'ticker');
+      AndroidNotificationDetails(
+    'channelID',
+    'channelName',
+    importance: Importance.max,
+    priority: Priority.high,
+    fullScreenIntent: true,
+  );
   const NotificationDetails notificationDetails =
       NotificationDetails(android: androidNotificationDetails);
   VolumeController().maxVolume();
